@@ -116,12 +116,7 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.interactivemesh</groupId>
-            <artifactId>javafxstlimporter</artifactId>
-            <version>1.0</version>
-        </dependency>
+        </dependency>        
         <dependency>
             <groupId>com.interactivemesh</groupId>
             <artifactId>javafx3dsimporter</artifactId>
