@@ -6,14 +6,24 @@
 package hu.unideb.snapszer.view;
 
 import hu.unideb.snapszer.model.HungarianCard;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.event.EventHandler;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Scale;
+import javafx.scene.transform.Translate;
+import javafx.util.Duration;
 
 /**
  *
@@ -21,12 +31,48 @@ import javafx.scene.shape.TriangleMesh;
  */
 public class HungarianCardView extends MeshView {
 
+    private static final Image backImage
+            = new Image(HungarianCardView.class.getResourceAsStream("/images/hatlap.jpg"));
     private static final int WIDTH = 112;
     private static final int HEIGHT = 186;
     private static final int DEPTH = 1;
     private TriangleMesh cardMesh;
-    private static final Image backImage =
-                new Image(HungarianCardView.class.getResourceAsStream("/images/hatlap.jpg"));
+    private HungarianCard card;
+    
+    public HungarianCardView(HungarianCard card, Scene scene) {
+        this.card = card;
+        initCardMesh();
+        setMesh(cardMesh);
+        initMaterial();
+        
+        Rotate rx = new Rotate(0, Rotate.X_AXIS);
+        Rotate ry = new Rotate(0, Rotate.Y_AXIS);
+        Rotate rz = new Rotate(0, Rotate.Z_AXIS);
+        Translate t = new Translate(0, -100, -150);
+        getTransforms().addAll(
+                t,
+                rx,
+                ry,
+                rz,
+                new Scale(0.3, 0.3, 0.3)
+        );
+        setOnMouseEntered((MouseEvent event) -> {
+            scene.setCursor(Cursor.HAND);
+        });
+        setOnMouseExited((MouseEvent event) -> {
+            scene.setCursor(Cursor.DEFAULT);
+        });
+        setOnMousePressed((MouseEvent event) -> {
+            Timeline tl = new Timeline();
+            KeyValue kv = new KeyValue(rx.angleProperty(), -90);
+            KeyValue kv2 = new KeyValue(t.yProperty(), -3);
+            KeyValue kv3 = new KeyValue(t.zProperty(), 0);
+            KeyFrame kf = new KeyFrame(Duration.seconds(2), kv, kv2, kv3);
+            tl.getKeyFrames().add(kf);
+            tl.play();
+        });
+        
+    }
 
     private void initCardMesh() {
         cardMesh = new TriangleMesh();
@@ -71,27 +117,24 @@ public class HungarianCardView extends MeshView {
         cardMesh.getPoints().setAll(points);
         cardMesh.getTexCoords().setAll(texCoords);
         cardMesh.getFaces().setAll(faces);
-    }
+    }    
 
-    public HungarianCardView(HungarianCard card) {
-        initCardMesh();
-        setMesh(cardMesh);
+    private void initMaterial() {
         Image frontImage
                 = new Image(
                         this.getClass().getResourceAsStream("/images/" + card + ".jpg"));
         WritableImage cardImage = new WritableImage(
                 (int) (frontImage.getWidth() + backImage.getWidth()),
                 (int) frontImage.getHeight());
-        PixelWriter pixelWriter = cardImage.getPixelWriter();     
-        
-        PixelReader pixelReader = frontImage.getPixelReader();
+        PixelWriter pixelWriter = cardImage.getPixelWriter();
+
+        PixelReader pixelReader = backImage.getPixelReader();
         pixelWriter.setPixels(0, 0, WIDTH, HEIGHT, pixelReader, 0, 0);
-        pixelReader = backImage.getPixelReader();
+        pixelReader = frontImage.getPixelReader();
         pixelWriter.setPixels(WIDTH, 0, WIDTH, HEIGHT, pixelReader, 0, 0);
-        
+
         PhongMaterial cardMaterial = new PhongMaterial();
         cardMaterial.setDiffuseMap(cardImage);
         setMaterial(cardMaterial);
-
     }
 }

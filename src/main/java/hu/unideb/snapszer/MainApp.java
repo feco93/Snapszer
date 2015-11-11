@@ -7,9 +7,7 @@ import hu.unideb.snapszer.model.HungarianCardSuit;
 import hu.unideb.snapszer.view.HungarianCardView;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.event.EventHandler;
 import javafx.scene.AmbientLight;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
@@ -20,7 +18,6 @@ import javafx.scene.PointLight;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
@@ -48,7 +45,7 @@ public class MainApp extends Application {
                 new Scale(MODEL_SCALE_FACTOR, MODEL_SCALE_FACTOR, MODEL_SCALE_FACTOR),
                 new Translate(-x, -y, -z)
         );
-        
+
         y = table.getBoundsInParent().getMaxY();
         table.setTranslateY(y);
         root.getChildren().addAll(table);
@@ -75,61 +72,9 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        root = new Group();
+        root = new Group();       
 
-        HungarianCardView cardView
-                = new HungarianCardView(new HungarianCard(HungarianCardRank.ALSO, HungarianCardSuit.TOK));
-        cardView.getTransforms().addAll(
-                new Rotate(-90, Rotate.X_AXIS),
-                new Rotate(180, Rotate.Y_AXIS),
-                new Rotate(0, Rotate.Z_AXIS),
-                new Scale(0.3, 0.3, 0.3)
-        );
-        cardView.setTranslateY(-3);
-        cardView.setOnMouseEntered((MouseEvent event) -> {
-            scene.setCursor(Cursor.HAND);
-        });
-        cardView.setOnMouseExited((MouseEvent event) -> {
-            scene.setCursor(Cursor.DEFAULT);
-        });
-        cardView.setRotationAxis(Rotate.Y_AXIS);
-        cardView.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                anchorX = event.getSceneX();
-                anchorY = event.getSceneY();
-                anchorAngle = cardView.getRotate();
-            }
-        });
-
-        cardView.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                double x = cardView.getTranslateX();
-                double y = cardView.getTranslateY();
-                double z = cardView.getTranslateZ();
-                cardView.getTransforms().addAll(
-                        new Translate(
-                                0 - x,
-                                0 - y,
-                                0 - z)
-                );
-                cardView.setRotate(anchorAngle + anchorX - event.getSceneX());
-                cardView.getTransforms().addAll(
-                        new Translate(
-                                x,
-                                y,
-                                z)
-                );
-            }
-        });
-
-        AmbientLight light = new AmbientLight(Color.WHITE);
-        light.getScope().add(cardView);
-        root.getChildren().add(light);
-
-        buildScene();
-        root.getChildren().add(cardView);
+        buildScene();        
         scene = new Scene(root, 0, 0, true, SceneAntialiasing.BALANCED);
         scene.setFill(Color.rgb(10, 10, 40));
         scene.setOnKeyPressed((event) -> {
@@ -137,6 +82,15 @@ public class MainApp extends Application {
                 System.exit(0);
             }
         });
+        
+        HungarianCardView cardView
+                = new HungarianCardView(new HungarianCard(HungarianCardRank.ALSO, HungarianCardSuit.TOK), scene);
+
+        AmbientLight light = new AmbientLight(Color.WHITE);
+        light.getScope().add(cardView);
+        root.getChildren().add(light);
+        root.getChildren().add(cardView);
+        
         primaryStage.setFullScreenExitHint("");
         primaryStage.fullScreenExitKeyProperty().set(KeyCombination.NO_MATCH);
         primaryStage.setResizable(false);
