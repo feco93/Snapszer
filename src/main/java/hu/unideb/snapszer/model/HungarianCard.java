@@ -5,6 +5,8 @@
  */
 package hu.unideb.snapszer.model;
 
+import java.util.Objects;
+
 /**
  *
  * @author Fecó
@@ -19,7 +21,7 @@ public class HungarianCard implements ICard {
         this.rank = rank;
         this.suit = suit;
     }
-    
+
     public int getPoints() {
         return rank.getValue();
     }
@@ -70,6 +72,19 @@ public class HungarianCard implements ICard {
     @Override
     public String toString() {
         return suit.toString().toLowerCase() + "_" + rank.toString().toLowerCase();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj.hashCode() == hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.rank);
+        hash = 97 * hash + Objects.hashCode(this.suit);
+        return hash;
     }
 
 }

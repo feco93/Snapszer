@@ -19,20 +19,22 @@ package hu.unideb.snapszer.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Model class for a deck.
  *
  * @author Feco
  */
-public class Deck implements IDeck {
+public class Deck implements IDeck, Iterable<ICard> {
 
     /**
      * Cards in this deck.
      */
-    private final Stack<ICard> cards;
+    public final ObservableList<ICard> cards;
     /**
      * How many draw occurred on this deck.
      */
@@ -44,8 +46,7 @@ public class Deck implements IDeck {
      * @param cards
      */
     public Deck(Collection<? extends ICard> cards) {
-        this.cards = new Stack<>();
-        this.cards.addAll(cards);
+        this.cards = FXCollections.observableArrayList(cards);
         drawcounter = 0;
     }
 
@@ -74,14 +75,14 @@ public class Deck implements IDeck {
         }
 
         for (int cardIndex = 0; cardIndex < count; ++cardIndex) {
-            toDraw.add(cards.pop());
+            toDraw.add(cards.remove(cards.size() - 1));
         }
         return toDraw;
     }
 
     @Override
     public Boolean isEmpty() {
-        return cards.empty();
+        return cards.isEmpty();
     }
 
     @Override
@@ -91,11 +92,29 @@ public class Deck implements IDeck {
 
     @Override
     public void insertCard(ICard card, int index) {
-        cards.insertElementAt(card, index);
+        cards.add(index, card);
     }
 
     @Override
     public ICard drawCard() {
         return drawCards(1).get(0);
+    }
+
+    @Override
+    public Iterator<ICard> iterator() {
+        return new Iterator<ICard>() {
+
+            private int currentIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < size();
+            }
+
+            @Override
+            public ICard next() {
+                return cards.get(currentIndex++);
+            }
+        };
     }
 }

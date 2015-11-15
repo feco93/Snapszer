@@ -16,8 +16,9 @@
  */
 package hu.unideb.snapszer.model;
 
-import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Model abstract class for a player.
@@ -29,7 +30,7 @@ public abstract class Player {
     /**
      * Cards in this player hand.
      */
-    public List<ICard> cards;
+    public ObservableList<ICard> cards;
     /**
      * Score of this player.
      */
@@ -47,7 +48,7 @@ public abstract class Player {
      * Constructs a new Player object.
      */
     public Player() {
-        cards = new ArrayList<>();
+        cards = FXCollections.observableArrayList();
         score = 0;
         said20 = false;
         said40 = false;

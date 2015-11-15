@@ -5,7 +5,6 @@
  */
 package hu.unideb.snapszer.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +20,13 @@ public class Game {
     private HungarianCard trumpCard;
     private List<HungarianCard> cardsOnTable;
     private boolean cover;
+    
+    public Game(Player playerOne, Player playerTwo, IDeck deck) {
+        currentPlayer = playerOne;
+        nextPlayer = playerTwo;
+        this.deck = deck;
+        initGame();
+    }
 
     public boolean canCover() {
         return deck.size() >= 4;
@@ -32,44 +38,12 @@ public class Game {
 
     public void setCover(boolean cover) {
         this.cover = cover;
-    }
+    }   
 
-    private Game(int playerNumbers) {
-        currentPlayer = new Human();
-        if (playerNumbers == 2) {
-            nextPlayer = new Human();
-        } else {
-            nextPlayer = new Computer();
-        }
-        initDeck();
-        initPlayers();
-    }
-
-    public static Game startNewGame(int playerNumbers) {
-        game = new Game(playerNumbers);
-        return game;
-    }
-
-    private void initDeck() {
-        List<ICard> cards = new ArrayList<>();
-        for (HungarianCardSuit suit : HungarianCardSuit.values()) {
-            for (HungarianCardRank rank : HungarianCardRank.values()) {
-                if (rank == HungarianCardRank.KILENC || rank == HungarianCardRank.TIZ
-                        || rank == HungarianCardRank.NYOLC) {
-                    continue;
-                }
-                HungarianCard card = new HungarianCard(rank, suit);
-                cards.add(card);
-            }
-        }
-        deck = new Deck(cards);
-        deck.shuffle();
-    }
-
-    private void initPlayers() {
+    private void initGame() {
         currentPlayer.drawCards(deck.drawCards(3));
         nextPlayer.drawCards(deck.drawCards(3));
-        trumpCard = (HungarianCard)deck.drawCard();
+        trumpCard = (HungarianCard) deck.drawCard();
         deck.insertCard(trumpCard, 0);
         trumpCard.getSuit().setTrump(true);
         currentPlayer.drawCards(deck.drawCards(2));
@@ -77,7 +51,7 @@ public class Game {
     }
 
     private void putCard() {
-        cardsOnTable.add((HungarianCard)currentPlayer.getChosenCard());
+        cardsOnTable.add((HungarianCard) currentPlayer.getChosenCard());
         swapPlayers();
     }
 
@@ -90,7 +64,7 @@ public class Game {
             if (currentPlayer.cards.get(i).getSuit() == trumpCard.getSuit()
                     && currentPlayer.cards.get(i).getRank() == HungarianCardRank.ALSO) {
                 ICard temp = trumpCard;
-                trumpCard = (HungarianCard)currentPlayer.cards.remove(i);
+                trumpCard = (HungarianCard) currentPlayer.cards.remove(i);
                 currentPlayer.drawCard(temp);
             }
         }
