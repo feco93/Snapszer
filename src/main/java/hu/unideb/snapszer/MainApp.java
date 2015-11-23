@@ -4,7 +4,6 @@ import hu.unideb.snapszer.model.Computer;
 import hu.unideb.snapszer.model.Deck;
 import hu.unideb.snapszer.model.Game;
 import hu.unideb.snapszer.model.Human;
-import hu.unideb.snapszer.model.IDeck;
 import hu.unideb.snapszer.model.Player;
 import hu.unideb.snapszer.model.SnapszerDeck;
 import hu.unideb.snapszer.view.SnapszerGame;
