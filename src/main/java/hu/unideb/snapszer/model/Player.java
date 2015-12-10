@@ -17,6 +17,12 @@
 package hu.unideb.snapszer.model;
 
 import java.util.List;
+
+import hu.unideb.snapszer.model.operators.CallOperator;
+import hu.unideb.snapszer.model.operators.Operator;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableObjectValue;
+import javafx.beans.value.WritableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -35,14 +41,17 @@ public abstract class Player {
      * Score of this player.
      */
     private int score;
-    /**
-     * Chosen card for call.
-     */
-    protected ICard chosenCard;
 
     private boolean said20;
     private boolean said40;
-    private HungarianCardSuit trump;
+
+    public void setSaid20(boolean said20) {
+        this.said20 = said20;
+    }
+
+    public void setSaid40(boolean said40) {
+        this.said40 = said40;
+    }
 
     /**
      * Constructs a new Player object.
@@ -53,6 +62,8 @@ public abstract class Player {
         said20 = false;
         said40 = false;
     }
+
+    public abstract Operator chooseOperator(Game game);
 
     /**
      * Add the specified score to the score of this player.
@@ -86,26 +97,6 @@ public abstract class Player {
     }
 
     /**
-     * Gets the chosen card.
-     *
-     * @return chosen card
-     */
-    public ICard getChosenCard() {
-        return chosenCard;
-    }
-
-    /**
-     * Abstract method for set chosen card.
-     *
-     * @param card card to be chosen
-     */
-    public void setChosenCard(ICard card) {
-        chosenCard = card;
-        said20 = false;
-        said40 = false;
-    }
-
-    /**
      * Gets the value of score.
      *
      * @return the score of this player
@@ -114,31 +105,14 @@ public abstract class Player {
         return score;
     }
 
-    public HungarianCardSuit getTrump() {
-        return trump;
-    }
-
-    public void setTrump(HungarianCardSuit trump) {
-        this.trump = trump;
-    }
-
-    /**
-     * Removes and returns the chosen card from the deck.
-     *
-     * @return chosen card
-     */
-    public ICard putCard() {
-        int i = 0;
-        for (ICard card : cards) {
-            if (card.equals(getChosenCard())) {
-                return cards.remove(i);
-            }
-            ++i;
-        }
-        return null;
+    public void removeCard(ICard card) {
+        cards.remove(card);
     }
 
     public boolean canSay20() {
+        if (said20) {
+            return false;
+        }
         for (ICard card : cards) {
             if (card.getRank() == HungarianCardRank.KIRALY) {
                 if (cards.stream().anyMatch((ICard item) -> {
@@ -159,6 +133,9 @@ public abstract class Player {
     }
 
     public boolean canSay40(HungarianCardSuit suit) {
+        if (said40) {
+            return false;
+        }
         return cards.stream().anyMatch((ICard card) -> {
             return card.getSuit() == suit && card.getRank() == HungarianCardRank.FELSO;
         }) && cards.stream().anyMatch((ICard card) -> {
@@ -180,27 +157,12 @@ public abstract class Player {
         said40 = true;
     }
 
-    public boolean isValidChosenCard(ICard card) {
-        if (!said20 && !said40) {
-            return true;
-        }
-        if (said20
-                && (card.getRank() == HungarianCardRank.FELSO
-                || card.getRank() == HungarianCardRank.KIRALY)) {
-            return true;
-        }
-        if (said40 && card.getSuit() == getTrump()
-                && (card.getRank() == HungarianCardRank.FELSO
-                || card.getRank() == HungarianCardRank.KIRALY)) {
-            return true;
-        }
-        return false;
+
+    public boolean isSaid20() {
+        return said20;
     }
 
-    public boolean isValidChosenCard(ICard calledCard, ICard chosenCard) {
-        return cards.stream().filter(card -> {
-            return card.getSuit() == calledCard.getSuit();
-        }).max((a, b) -> a.compareTo(b)).equals(chosenCard);
+    public boolean isSaid40() {
+        return said40;
     }
-
 }

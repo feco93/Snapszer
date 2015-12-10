@@ -5,10 +5,28 @@
  */
 package hu.unideb.snapszer.model;
 
+import hu.unideb.snapszer.model.operators.Operator;
+
 /**
- *
  * @author Fecó
  */
 public class Human extends Player {
-    
+
+    private Operator chosenOperator;
+
+    public synchronized void setChosenOperator(Operator operator) {
+        chosenOperator = operator;
+        notify();
+    }
+
+    @Override
+    public synchronized Operator chooseOperator(Game game) {
+        try {
+            wait();
+            return chosenOperator;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

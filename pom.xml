@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>hu.unideb.snapszer.MainApp</mainClass>
+        <runfx.args>-jar ${project.build.directory}/${project.build.finalName}.jar</runfx.args>
     </properties>
 
     <organization>
@@ -53,7 +54,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${java.home}/../bin/javafxpackager</executable>
+                            <executable>${java.home}/../bin/javapackager</executable>
                             <arguments>
                                 <argument>-createjar</argument>
                                 <argument>-nocss2bin</argument>
@@ -70,12 +71,24 @@
                     </execution>
                     <execution>
                         <id>default-cli</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>exec</goal>                            
+                            <goal>exec</goal>
                         </goals>
                         <configuration>
                             <executable>${java.home}/bin/java</executable>
-                            <commandlineArgs>${runfx.args}</commandlineArgs>
+                            <commandlineArgs>-classpath %classpath -Xdebug
+                                -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044 hu.unideb.snapszer.MainApp
+                            </commandlineArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>hu.unideb.snapszer.MainApp</mainClass>
                         </configuration>
                     </execution>
                 </executions>  

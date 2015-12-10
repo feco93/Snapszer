@@ -16,11 +16,8 @@
  */
 package hu.unideb.snapszer.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -35,10 +32,6 @@ public class Deck implements IDeck, Iterable<ICard> {
      * Cards in this deck.
      */
     public final ObservableList<ICard> cards;
-    /**
-     * How many draw occurred on this deck.
-     */
-    private int drawcounter;
 
     /**
      * Constructs a new Deck object.
@@ -47,7 +40,6 @@ public class Deck implements IDeck, Iterable<ICard> {
      */
     public Deck(Collection<? extends ICard> cards) {
         this.cards = FXCollections.observableArrayList(cards);
-        drawcounter = 0;
     }
 
     /**
@@ -63,20 +55,17 @@ public class Deck implements IDeck, Iterable<ICard> {
     @Override
     public List<ICard> drawCards(int count) {
         List<ICard> toDraw = new ArrayList<>();
-        drawcounter++;
-        if (drawcounter % 2 == 1) {
-            if (count * 2 >= size()) {
-                count = size() / 2;
+
+        ListIterator li = cards.listIterator(cards.size());
+        // Iterate in reverse.
+        while (count > 0) {
+            if (li.hasPrevious()) {
+                toDraw.add((ICard) li.previous());
+                li.remove();
             }
-        } else {
-            if (count > size()) {
-                count = size();
-            }
+            --count;
         }
 
-        for (int cardIndex = 0; cardIndex < count; ++cardIndex) {
-            toDraw.add(cards.remove(cards.size() - 1));
-        }
         return toDraw;
     }
 

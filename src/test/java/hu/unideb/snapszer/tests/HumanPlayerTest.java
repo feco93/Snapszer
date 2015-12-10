@@ -135,7 +135,7 @@ public class HumanPlayerTest {
         assertTrue(human.canSay40(HungarianCardSuit.PIROS));
     }
 
-    @Test
+   /* @Test
     public void testIsValidChoose_40() {
         human.setTrump(HungarianCardSuit.PIROS);
         human.say40();
@@ -154,5 +154,5 @@ public class HumanPlayerTest {
         assertFalse(human.isValidChosenCard(new HungarianCard(HungarianCardRank.ALSO, HungarianCardSuit.ZOLD)));
         assertTrue(human.isValidChosenCard(new HungarianCard(HungarianCardRank.KIRALY, HungarianCardSuit.TOK)));
         assertFalse(human.isValidChosenCard(new HungarianCard(HungarianCardRank.ASZ, HungarianCardSuit.PIROS)));
-    }
+    }*/
 }

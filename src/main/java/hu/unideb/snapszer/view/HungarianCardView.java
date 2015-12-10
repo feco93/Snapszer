@@ -39,6 +39,11 @@ public class HungarianCardView extends MeshView {
     private final Rotate rotateY;
     private final Rotate rotateZ;
     private final Translate translate;
+
+    public HungarianCard getCard() {
+        return card;
+    }
+
     private final HungarianCard card;
 
     public HungarianCardView(HungarianCard card, Point3D startPosition) {
@@ -58,15 +63,6 @@ public class HungarianCardView extends MeshView {
                 rotateZ,
                 new Scale(0.3, 0.3, 0.3)
         );
-//        setOnMouseEntered((MouseEvent event) -> {
-//            scene.setCursor(Cursor.HAND);
-//        });
-//        setOnMouseExited((MouseEvent event) -> {
-//            scene.setCursor(Cursor.DEFAULT);
-//        });
-//        setOnMousePressed((MouseEvent event) -> {
-//            drawCard();
-//        });
     }
 
     public Timeline setTrump(double x, double y) {
@@ -81,26 +77,41 @@ public class HungarianCardView extends MeshView {
         return tl;
     }
 
+    public Timeline beatCard(double y) {
+        Timeline tl = new Timeline();
+        KeyValue rz = new KeyValue(rotateZ.angleProperty(), 0);
+        KeyValue ry = new KeyValue(rotateY.angleProperty(), 0);
+        KeyValue rx = new KeyValue(rotateX.angleProperty(), 90);
+        KeyValue tx = new KeyValue(translate.xProperty(), -80);
+        KeyValue ty = new KeyValue(translate.yProperty(), y);
+        KeyFrame kf = new KeyFrame(Duration.millis(600), tx, ty);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(1000), rx, ry, rz);
+        tl.getKeyFrames().addAll(kf, kf2);
+        return tl;
+    }
+
     public Timeline drawCard(double x, double y, double z, double rX) {
         Timeline tl = new Timeline();
         KeyValue rx = new KeyValue(rotateX.angleProperty(), rX);
         KeyValue tx = new KeyValue(translate.xProperty(), x);
         KeyValue ty = new KeyValue(translate.yProperty(), y);
         KeyValue tz = new KeyValue(translate.zProperty(), z);
-        KeyFrame kf = new KeyFrame(Duration.millis(600), ty, tz, tx);
-        KeyFrame kf2 = new KeyFrame(Duration.millis(1000), rx);
+        KeyFrame kf = new KeyFrame(Duration.millis(60), ty, tz, tx);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(100), rx);
         tl.getKeyFrames().addAll(kf, kf2);
         return tl;
     }
 
-    public void callCard() {
+    public Timeline callCard(int angleX, int angleZ) {
         Timeline tl = new Timeline();
-        KeyValue kv = new KeyValue(rotateX.angleProperty(), -90);
-        KeyValue kv2 = new KeyValue(translate.yProperty(), -3);
-        KeyValue kv3 = new KeyValue(translate.zProperty(), 0);
-        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv, kv2, kv3);
+        KeyValue kv = new KeyValue(rotateX.angleProperty(), angleX);
+        KeyValue kv2 = new KeyValue(rotateZ.angleProperty(), angleZ);
+        KeyValue kv3 = new KeyValue(translate.xProperty(), 0);
+        KeyValue kv4 = new KeyValue(translate.yProperty(), -4);
+        KeyValue kv5 = new KeyValue(translate.zProperty(), 0);
+        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv, kv2, kv3, kv4, kv5);
         tl.getKeyFrames().add(kf);
-        tl.play();
+        return tl;
     }
 
     private void initCardMesh() {
@@ -176,4 +187,5 @@ public class HungarianCardView extends MeshView {
     public int hashCode() {
         return Objects.hashCode(this.card);
     }
+
 }
