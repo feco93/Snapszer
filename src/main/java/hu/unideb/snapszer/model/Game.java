@@ -8,11 +8,10 @@ package hu.unideb.snapszer.model;
 import hu.unideb.snapszer.model.operators.CallOperator;
 import hu.unideb.snapszer.model.operators.Operator;
 import hu.unideb.snapszer.model.operators.SayEndOperator;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Fecó
@@ -33,7 +32,7 @@ public class Game implements Runnable {
 
     private ObservableList<HungarianCard> cardsOnTable;
     private ObservableList<HungarianCard> playedCards;
-    private HungarianCard trumpCard;
+    private ObjectProperty<HungarianCard> trumpCard;
     private boolean cover;
 
     public Game(Player playerOne, Player playerTwo, Deck deck) {
@@ -47,9 +46,10 @@ public class Game implements Runnable {
     private void initGame() {
         currentPlayer.drawCards(deck.drawCards(3));
         nextPlayer.drawCards(deck.drawCards(3));
-        trumpCard = (HungarianCard) deck.drawCard();
-        deck.insertCard(trumpCard, 0);
-        trumpCard.getSuit().setTrump(true);
+        trumpCard = new SimpleObjectProperty<>();
+        trumpCard.set((HungarianCard) deck.drawCard());
+        deck.insertCard(trumpCard.get(), 0);
+        trumpCard.get().getSuit().setTrump(true);
         currentPlayer.drawCards(deck.drawCards(2));
         nextPlayer.drawCards(deck.drawCards(2));
     }
@@ -90,22 +90,7 @@ public class Game implements Runnable {
     }
 
     public HungarianCard getTrumpCard() {
-        return trumpCard;
-    }
-
-    public boolean canSwapTrumpCard() {
-        return deck.size() >= 4 && !cover;
-    }
-
-    public void swapTrumpCard() {
-        for (int i = 0; i < currentPlayer.cards.size(); ++i) {
-            if (currentPlayer.cards.get(i).getSuit() == trumpCard.getSuit()
-                    && currentPlayer.cards.get(i).getRank() == HungarianCardRank.ALSO) {
-                ICard temp = trumpCard;
-                trumpCard = (HungarianCard) currentPlayer.cards.remove(i);
-                currentPlayer.drawCard(temp);
-            }
-        }
+        return trumpCard.get();
     }
 
     public ObservableList<HungarianCard> getCardsOnTable() {
