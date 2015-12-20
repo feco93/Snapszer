@@ -17,12 +17,15 @@ public class HandView {
 
     private final ObservableList<HungarianCardView> cardsInHand;
     private final MySequentialTransition sequentialTransition;
+    private final Player player;
 
     public Player getPlayer() {
         return player;
     }
 
-    private final Player player;
+    public ObservableList<HungarianCardView> getCardsInHand() {
+        return cardsInHand;
+    }
 
     public HandView(Player player, DeckView deckView, CalledCardsView calledCardsView) {
         sequentialTransition = new MySequentialTransition();
@@ -48,11 +51,13 @@ public class HandView {
             while (c.next()) {
                 if (c.wasAdded()) {
                     for (HungarianCardView cardView : c.getAddedSubList()) {
+                        sortCards();
                         Timeline tl;
+                        int index = c.getTo();
                         if (player instanceof Computer) {
-                            tl = cardView.drawCard(-90 + 30 * c.getTo(), -30, 120, 150);
+                            tl = cardView.drawCard(-90 + 30 * index, -30, 120, 150);
                         } else {
-                            tl = cardView.drawCard(-90 + 30 * c.getTo(), -30, -150, -30);
+                            tl = cardView.drawCard(-90 + 30 * index, -30, -150, -30);
                         }
                         sequentialTransition.addAnimation(tl);
                         sequentialTransition.playAnimationSynchronous();
@@ -72,12 +77,22 @@ public class HandView {
                         sequentialTransition.playAnimationSynchronous();
                         calledCardsView.add(card);
                     }
+                    sortCards();
                 }
             }
         });
     }
 
-    public ObservableList<HungarianCardView> getCardsInHand() {
-        return cardsInHand;
+    private void sortCards() {
+        for (int i = 0; i < cardsInHand.size(); ++i) {
+            Timeline tl;
+            if (player instanceof Computer) {
+                tl = cardsInHand.get(i).moveCard(-60 + 30 * i);
+            } else {
+                tl = cardsInHand.get(i).moveCard(-60 + 30 * i);
+            }
+            sequentialTransition.addAnimation(tl);
+            sequentialTransition.playAnimationSynchronous();
+        }
     }
 }

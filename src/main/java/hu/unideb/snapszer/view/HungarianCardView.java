@@ -90,14 +90,23 @@ public class HungarianCardView extends MeshView {
         return tl;
     }
 
+    public Timeline moveCard(double x) {
+        Timeline tl = new Timeline();
+        KeyValue tx = new KeyValue(translate.xProperty(), x);
+        KeyFrame kf = new KeyFrame(Duration.millis(60), tx);
+        tl.getKeyFrames().add(kf);
+        return tl;
+    }
+
     public Timeline drawCard(double x, double y, double z, double rX) {
         Timeline tl = new Timeline();
+        KeyValue rz = new KeyValue(rotateZ.angleProperty(), 0);
         KeyValue rx = new KeyValue(rotateX.angleProperty(), rX);
         KeyValue tx = new KeyValue(translate.xProperty(), x);
         KeyValue ty = new KeyValue(translate.yProperty(), y);
         KeyValue tz = new KeyValue(translate.zProperty(), z);
         KeyFrame kf = new KeyFrame(Duration.millis(60), ty, tz, tx);
-        KeyFrame kf2 = new KeyFrame(Duration.millis(100), rx);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(100), rz, rx);
         tl.getKeyFrames().addAll(kf, kf2);
         return tl;
     }

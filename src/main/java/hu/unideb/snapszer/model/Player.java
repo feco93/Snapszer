@@ -20,7 +20,10 @@ import java.util.List;
 
 import hu.unideb.snapszer.model.operators.CallOperator;
 import hu.unideb.snapszer.model.operators.Operator;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableObjectValue;
 import javafx.beans.value.WritableObjectValue;
 import javafx.collections.FXCollections;
@@ -40,7 +43,7 @@ public abstract class Player {
     /**
      * Score of this player.
      */
-    private int score;
+    private IntegerProperty score;
 
     private boolean said20;
     private boolean said40;
@@ -53,12 +56,16 @@ public abstract class Player {
         this.said40 = said40;
     }
 
+    public IntegerProperty scoreProperty() {
+        return score;
+    }
+
     /**
      * Constructs a new Player object.
      */
     public Player() {
         cards = FXCollections.observableArrayList();
-        score = 0;
+        score = new SimpleIntegerProperty(0);
         said20 = false;
         said40 = false;
     }
@@ -71,7 +78,7 @@ public abstract class Player {
      * @param score how many score to be added to the score of this player
      */
     public void addScore(int score) {
-        this.score += score;
+        this.score.set(this.score.get() + score);
     }
 
     public int cardsInHand() {
@@ -102,7 +109,7 @@ public abstract class Player {
      * @return the score of this player
      */
     public int getScore() {
-        return score;
+        return score.get();
     }
 
     public void removeCard(ICard card) {
@@ -144,16 +151,16 @@ public abstract class Player {
     }
 
     public boolean canSayEnd() {
-        return score >= 66;
+        return getScore() >= 66;
     }
 
     public void say20() {
-        score += 20;
+        score.add(20);
         said20 = true;
     }
 
     public void say40() {
-        score += 40;
+        score.add(40);
         said40 = true;
     }
 
