@@ -7,9 +7,11 @@
 package hu.unideb.snapszer.controller;
 
 import hu.unideb.snapszer.model.Human;
+import hu.unideb.snapszer.model.Player;
 import hu.unideb.snapszer.model.operators.CallOperator;
 import hu.unideb.snapszer.view.HandView;
 import hu.unideb.snapszer.view.HungarianCardView;
+import hu.unideb.snapszer.view.PlayerView;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -23,8 +25,8 @@ public class GameController {
 
     private final HandView handView;
 
-    public GameController(HandView humanHandView, Group root) {
-        this.handView = humanHandView;
+    public GameController(PlayerView player, Group root) {
+        this.handView = player.getCardsInHand();
         handView.getCardsInHand().addListener((ListChangeListener.Change<? extends HungarianCardView> c) -> {
             while (c.next()) {
                 if (c.wasAdded()) {
@@ -48,7 +50,6 @@ public class GameController {
                     }
                 }
             }
-
         });
     }
 }

@@ -125,6 +125,8 @@ public class Game implements Runnable {
     }
 
     private void swapPlayers() {
+        currentPlayer.setSaid20(false);
+        currentPlayer.setSaid40(false);
         Player temp = currentPlayer;
         currentPlayer = nextPlayer;
         nextPlayer = temp;

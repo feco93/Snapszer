@@ -40,4 +40,9 @@ public class Computer extends Player {
         }
         return new CallOperator(this, (HungarianCard) cards.get(0));
     }
+
+    @Override
+    public void setChosenOperator(Operator operator) {
+
+    }
 }

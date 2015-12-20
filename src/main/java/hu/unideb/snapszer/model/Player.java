@@ -122,16 +122,14 @@ public abstract class Player {
         }
         for (ICard card : cards) {
             if (card.getRank() == HungarianCardRank.KIRALY) {
-                if (cards.stream().anyMatch((ICard item) -> {
-                    return card.getSuit() == item.getSuit() && item.getRank() == HungarianCardRank.FELSO;
-                })) {
+                if (cards.stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
+                        && item.getRank() == HungarianCardRank.FELSO)) {
                     return true;
                 }
             }
             if (card.getRank() == HungarianCardRank.FELSO) {
-                if (cards.stream().anyMatch((ICard item) -> {
-                    return card.getSuit() == item.getSuit() && item.getRank() == HungarianCardRank.KIRALY;
-                })) {
+                if (cards.stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
+                        && item.getRank() == HungarianCardRank.KIRALY)) {
                     return true;
                 }
             }
@@ -155,14 +153,16 @@ public abstract class Player {
     }
 
     public void say20() {
-        score.add(20);
+        this.score.set(this.score.get() + 20);
         said20 = true;
     }
 
     public void say40() {
-        score.add(40);
+        this.score.set(this.score.get() + 40);
         said40 = true;
     }
+
+    public abstract void setChosenOperator(Operator operator);
 
 
     public boolean isSaid20() {

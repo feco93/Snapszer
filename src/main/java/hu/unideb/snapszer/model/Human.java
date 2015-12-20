@@ -14,6 +14,7 @@ public class Human extends Player {
 
     private Operator chosenOperator;
 
+    @Override
     public synchronized void setChosenOperator(Operator operator) {
         chosenOperator = operator;
         notify();

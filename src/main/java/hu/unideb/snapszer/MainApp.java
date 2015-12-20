@@ -30,19 +30,22 @@ import javafx.scene.transform.Rotate;
 public class MainApp extends Application {
 
     private Scene scene;
-    private Group game;
+    private Group gameView;
     private AnchorPane gameInfo;
-    private SubScene asd;
+    private SubScene game3d;
     private StackPane root;
     private TableView tableView;
     private DeckView deckView;
-    private HandView playerOneHandView;
-    private HandView playerTwoHandView;
     private GameController controller;
     private PlayedCardsView playedCardsView;
     private CalledCardsView calledCardsView;
     private Text playerOneScore;
     private Text playerTwoScore;
+    private Game game;
+    private HumanView playerOneView;
+    private PlayerView playerTwoView;
+    private Human playerOne;
+    private Computer playerTwo;
 
     private PerspectiveCamera addCamera(SubScene scene) {
         PerspectiveCamera perspectiveCamera = new PerspectiveCamera(true);
@@ -58,27 +61,7 @@ public class MainApp extends Application {
         return perspectiveCamera;
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        game = new Group();
-        gameInfo = new AnchorPane();
-        asd = new SubScene(this.game, 0, 0, true, SceneAntialiasing.BALANCED);
-        root = new StackPane();
-        root.getChildren().addAll(gameInfo, asd);
-
-        Deck deck = SnapszerDeck.getNewDeck();
-        Player playerOne = new Human();
-        Player playerTwo = new Computer();
-
-        playerOne.scoreProperty().addListener((observable, oldValue, newValue) -> {
-            playerOneScore.setText(String.format("Player: %d\n", newValue.intValue()));
-        });
-
-        playerTwo.scoreProperty().addListener((observable, oldValue, newValue) -> {
-            playerTwoScore.setText(String.format("Computer: %d\n", newValue.intValue()));
-        });
-
-
+    private void initGameInfo() {
         TextFlow scoreContainer = new TextFlow();
         scoreContainer.setTextAlignment(TextAlignment.LEFT);
         playerOneScore = new Text("Player: 0\n");
@@ -88,30 +71,55 @@ public class MainApp extends Application {
         playerTwoScore.setFill(Color.RED);
         playerTwoScore.setFont(new Font("Arial", 32));
         scoreContainer.getChildren().addAll(playerOneScore, playerTwoScore);
-        Button btn = new Button("ASD");
         AnchorPane.setTopAnchor(scoreContainer, 10.0);
         AnchorPane.setLeftAnchor(scoreContainer, 10.0);
-        AnchorPane.setBottomAnchor(btn, 100.0);
-        AnchorPane.setRightAnchor(btn, 100.0);
-        gameInfo.getChildren().addAll(scoreContainer, btn);
+        Button say20 = playerOneView.getSay20Btn();
+        AnchorPane.setBottomAnchor(say20, 100.0);
+        AnchorPane.setRightAnchor(say20, 100.0);
+        Button say40 = playerOneView.getSay40Btn();
+        AnchorPane.setBottomAnchor(say40, 140.0);
+        AnchorPane.setRightAnchor(say40, 100.0);
+        Button sayEnd = playerOneView.getSayFinishBtn();
+        AnchorPane.setBottomAnchor(sayEnd, 180.0);
+        AnchorPane.setRightAnchor(sayEnd, 100.0);
+        gameInfo.getChildren().addAll(scoreContainer, say20, say40, sayEnd);
+    }
 
+    private void initGame() {
+        Deck deck = SnapszerDeck.getNewDeck();
+        playerOne = new Human();
+        playerTwo = new Computer();
+        playerOne.scoreProperty().addListener((observable, oldValue, newValue) -> {
+            playerOneScore.setText(String.format("Player: %d\n", newValue.intValue()));
+        });
 
-        Game game = new Game(playerOne, playerTwo, deck);
+        playerTwo.scoreProperty().addListener((observable, oldValue, newValue) -> {
+            playerTwoScore.setText(String.format("Computer: %d\n", newValue.intValue()));
+        });
+        game = new Game(playerOne, playerTwo, deck);
 
         tableView = new TableView();
         deckView = new DeckView(game.getDeck());
         calledCardsView = new CalledCardsView();
         playedCardsView = new PlayedCardsView(game.getPlayedCards(), calledCardsView.cards);
-        playerOneHandView = new HandView(game.getCurrentPlayer(), deckView, calledCardsView);
-        playerTwoHandView = new HandView(game.getNextPlayer(), deckView, calledCardsView);
+        playerOneView = new HumanView(playerOne, deckView, calledCardsView);
+        playerTwoView = new PlayerView(playerTwo, deckView, calledCardsView);
+        this.gameView.getChildren().addAll(tableView, deckView);
+        controller = new GameController(playerOneView, this.gameView);
+    }
 
+    @Override
+    public void start(Stage primaryStage) {
+        gameView = new Group();
+        gameInfo = new AnchorPane();
+        game3d = new SubScene(this.gameView, 0, 0, true, SceneAntialiasing.BALANCED);
+        root = new StackPane();
+        root.getChildren().addAll(gameInfo, game3d);
 
-        this.game.getChildren().add(tableView);
-        this.game.getChildren().add(deckView);
-        controller = new GameController(playerOneHandView, this.game);
+        initGame();
+        initGameInfo();
 
         scene = new Scene(root, 0, 0, true, SceneAntialiasing.BALANCED);
-
         scene.setFill(Color.rgb(10, 10, 40));
         scene.setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode() == KeyCode.ESCAPE) {
@@ -125,12 +133,23 @@ public class MainApp extends Application {
         primaryStage.setTitle("Snapszer");
         primaryStage.setScene(scene);
         primaryStage.show();
-        asd.setWidth(primaryStage.getWidth());
-        asd.setHeight(primaryStage.getHeight());
-        addCamera(asd);
+        game3d.setWidth(primaryStage.getWidth());
+        game3d.setHeight(primaryStage.getHeight());
+        addCamera(game3d);
 
         Thread th = new Thread(game, "Game");
         th.start();
+       /* try {
+            th.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (playerOne.getScore() > playerTwo.getScore()) {
+            System.out.println("A játékos győzött!");
+        }
+        else {
+            System.out.println("A számítógép győzött!");
+        }*/
     }
 
     public static void main(String[] args) {
