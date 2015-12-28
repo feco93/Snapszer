@@ -57,21 +57,32 @@ public class Game implements Runnable {
     public void run() {
         initGame();
         while (true) {
-            for (int i = 0; i < 2; ++i) {
-                while (true) {
-                    Operator op = currentPlayer.chooseOperator(this);
-                    if (op.isApplicable(this)) {
-                        op.apply(this);
-                        if (op instanceof CallOperator) {
-                            break;
-                        }
-                        if (op instanceof SayEndOperator) {
-                            return;
-                        }
+            while (true) {
+                Operator op = currentPlayer.chooseOperator(this);
+                if (op.isApplicable(this)) {
+                    op.apply(this);
+                    if (op instanceof CallOperator) {
+                        break;
+                    }
+                    if (op instanceof SayEndOperator) {
+                        return;
                     }
                 }
-                swapPlayers();
             }
+            while (true) {
+                Operator op = nextPlayer.chooseOperator(this);
+                if (op.isApplicable(this)) {
+                    op.apply(this);
+                    if (op instanceof CallOperator) {
+                        break;
+                    }
+                    if (op instanceof SayEndOperator) {
+                        return;
+                    }
+                }
+            }
+            currentPlayer.setSaid20(false);
+            currentPlayer.setSaid40(false);
             beatPhase();
             drawPhase();
         }
@@ -125,8 +136,6 @@ public class Game implements Runnable {
     }
 
     private void swapPlayers() {
-        currentPlayer.setSaid20(false);
-        currentPlayer.setSaid40(false);
         Player temp = currentPlayer;
         currentPlayer = nextPlayer;
         nextPlayer = temp;

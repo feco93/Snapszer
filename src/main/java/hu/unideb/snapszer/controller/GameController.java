@@ -47,6 +47,8 @@ public class GameController {
                 if (c.wasRemoved()) {
                     for (HungarianCardView cardView : c.getRemoved()) {
                         cardView.setOnMouseClicked(null);
+                        cardView.setOnMouseEntered(null);
+                        cardView.setOnMouseExited(null);
                     }
                 }
             }

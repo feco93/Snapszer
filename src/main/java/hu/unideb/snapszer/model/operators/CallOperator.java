@@ -17,8 +17,6 @@ public class CallOperator implements Operator {
 
     @Override
     public boolean isApplicable(Game game) {
-        if (player != game.getCurrentPlayer())
-            return false;
         if (game.isCover() && !game.getCardsOnTable().isEmpty()) {
             return canCall(game.getCardsOnTable().get(0));
         }
@@ -27,9 +25,9 @@ public class CallOperator implements Operator {
 
     @Override
     public void apply(Game game) {
-        game.getCurrentPlayer().setSaid20(false);
-        game.getCurrentPlayer().setSaid40(false);
-        game.getCurrentPlayer().removeCard(card);
+        player.setSaid20(false);
+        player.setSaid40(false);
+        player.removeCard(card);
         game.getCardsOnTable().add(card);
     }
 

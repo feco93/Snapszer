@@ -14,14 +14,16 @@ import hu.unideb.snapszer.model.operators.*;
 public class Computer extends Player {
     @Override
     public Operator chooseOperator(Game game) {
-        if (canSay20()) {
-            return new Say20Operator();
-        }
-        if (canSay40(game.getTrumpCard().getSuit())) {
-            return new Say40Operator();
-        }
-        if (canSayEnd()) {
-            return new SayEndOperator();
+        if (game.getCurrentPlayer() == this) {
+            if (canSay20()) {
+                return new Say20Operator();
+            }
+            if (canSay40(game.getTrumpCard().getSuit())) {
+                return new Say40Operator();
+            }
+            if (canSayEnd()) {
+                return new SayEndOperator();
+            }
         }
         if (isSaid20()) {
             for (ICard card :
