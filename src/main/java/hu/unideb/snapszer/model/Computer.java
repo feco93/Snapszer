@@ -8,7 +8,6 @@ package hu.unideb.snapszer.model;
 import hu.unideb.snapszer.model.operators.*;
 
 /**
- *
  * @author Fecó
  */
 public class Computer extends Player {
@@ -25,22 +24,17 @@ public class Computer extends Player {
                 return new SayEndOperator();
             }
         }
-        if (isSaid20()) {
-            for (ICard card :
-                    cards) {
-                if (card.getRank() == HungarianCardRank.FELSO || card.getRank() == HungarianCardRank.KIRALY)
-                    return new CallOperator(this, (HungarianCard) card);
-            }
+        return getFirstApplicableOperator(game);
+    }
+
+    private CallOperator getFirstApplicableOperator(Game game) {
+        for (ICard card :
+                cards) {
+            CallOperator op = new CallOperator(this, (HungarianCard) card);
+            if (op.isApplicable(game))
+                return op;
         }
-        if (isSaid40()) {
-            for (ICard card :
-                    cards) {
-                if (card.getSuit() == game.getTrumpCard().getSuit() &&
-                        (card.getRank() == HungarianCardRank.FELSO || card.getRank() == HungarianCardRank.KIRALY))
-                    return new CallOperator(this, (HungarianCard) card);
-            }
-        }
-        return new CallOperator(this, (HungarianCard) cards.get(0));
+        return null;
     }
 
     @Override

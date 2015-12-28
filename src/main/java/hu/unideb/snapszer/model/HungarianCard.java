@@ -54,13 +54,13 @@ public class HungarianCard implements ICard {
     @Override
     public int compareTo(ICard o) {
         HungarianCard other = (HungarianCard) o;
-        if (suit.isTrump() && !other.suit.isTrump()) {
-            return 1;
+        if (!suit.isTrump() && other.suit.isTrump()) {
+            return -1;
         }
         if (suit == other.suit) {
             return rank.compareTo(other.rank);
         }
-        return -1;
+        return 1;
     }
 
     /**

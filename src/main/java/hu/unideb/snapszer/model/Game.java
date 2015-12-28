@@ -13,6 +13,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Fecó
  */
@@ -24,11 +28,7 @@ public class Game implements Runnable {
 
     private Deck deck;
     private Player currentPlayer;
-    private Player nextPlayer;
-
-    public Player getNextPlayer() {
-        return nextPlayer;
-    }
+    private List<Player> players;
 
     private ObservableList<HungarianCard> cardsOnTable;
     private ObservableList<HungarianCard> playedCards;
@@ -37,52 +37,46 @@ public class Game implements Runnable {
 
     public Game(Player playerOne, Player playerTwo, Deck deck) {
         currentPlayer = playerOne;
-        nextPlayer = playerTwo;
+        Player nextPlayer = playerTwo;
+        players = Arrays.asList(currentPlayer, nextPlayer);
         this.deck = deck;
         this.cardsOnTable = FXCollections.observableArrayList();
         this.playedCards = FXCollections.observableArrayList();
     }
 
     private void initGame() {
-        currentPlayer.drawCards(deck.drawCards(3));
-        nextPlayer.drawCards(deck.drawCards(3));
+        for (Player player :
+                players) {
+            player.drawCards(deck.drawCards(3));
+        }
         trumpCard = new SimpleObjectProperty<>();
         trumpCard.set((HungarianCard) deck.drawCard());
         deck.insertCard(trumpCard.get(), 0);
         trumpCard.get().getSuit().setTrump(true);
-        currentPlayer.drawCards(deck.drawCards(2));
-        nextPlayer.drawCards(deck.drawCards(2));
+        for (Player player :
+                players) {
+            player.drawCards(deck.drawCards(2));
+        }
     }
 
     public void run() {
         initGame();
         while (true) {
-            while (true) {
-                Operator op = currentPlayer.chooseOperator(this);
-                if (op.isApplicable(this)) {
-                    op.apply(this);
-                    if (op instanceof CallOperator) {
-                        break;
-                    }
-                    if (op instanceof SayEndOperator) {
-                        return;
-                    }
-                }
-            }
-            while (true) {
-                Operator op = nextPlayer.chooseOperator(this);
-                if (op.isApplicable(this)) {
-                    op.apply(this);
-                    if (op instanceof CallOperator) {
-                        break;
-                    }
-                    if (op instanceof SayEndOperator) {
-                        return;
+            for (Player player :
+                    players) {
+                while (true) {
+                    Operator op = player.chooseOperator(this);
+                    if (op.isApplicable(this)) {
+                        op.apply(this);
+                        if (op instanceof CallOperator) {
+                            break;
+                        }
+                        if (op instanceof SayEndOperator) {
+                            return;
+                        }
                     }
                 }
             }
-            currentPlayer.setSaid20(false);
-            currentPlayer.setSaid40(false);
             beatPhase();
             drawPhase();
         }
@@ -116,9 +110,28 @@ public class Game implements Runnable {
         return currentPlayer;
     }
 
+    private HungarianCard getHighestCard() {
+        for (HungarianCard card :
+                cardsOnTable) {
+            boolean isHighest = true;
+            for (HungarianCard card2 :
+                    cardsOnTable) {
+                if (card2.equals(card))
+                    continue;
+                if (card.compareTo(card2) < 0)
+                    isHighest = false;
+            }
+            if (isHighest) {
+                return card;
+            }
+        }
+        return null;
+    }
+
     private void beatPhase() {
-        if (cardsOnTable.get(1).compareTo(cardsOnTable.get(0)) > 0) {
-            swapPlayers();
+        int index = cardsOnTable.indexOf(getHighestCard());
+        if (index > 0) {
+            swapPlayers(index);
         }
         for (HungarianCard card :
                 cardsOnTable) {
@@ -130,15 +143,19 @@ public class Game implements Runnable {
 
     private void drawPhase() {
         if (!isCover() && !deck.isEmpty()) {
-            currentPlayer.drawCard(deck.drawCard());
-            nextPlayer.drawCard(deck.drawCard());
+            for (Player player :
+                    players) {
+                player.drawCard(deck.drawCard());
+            }
         }
     }
 
-    private void swapPlayers() {
-        Player temp = currentPlayer;
-        currentPlayer = nextPlayer;
-        nextPlayer = temp;
+    private void swapPlayers(int index) {
+        currentPlayer = players.get(index);
+        List<Player> temp = new ArrayList<>();
+        temp.addAll(players.subList(index, players.size()));
+        temp.addAll(players.subList(0, index));
+        players = temp;
     }
 
 }
