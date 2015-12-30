@@ -5,13 +5,12 @@ import hu.unideb.snapszer.model.Computer;
 import hu.unideb.snapszer.model.Deck;
 import hu.unideb.snapszer.model.Game;
 import hu.unideb.snapszer.model.Human;
-import hu.unideb.snapszer.model.Player;
 import hu.unideb.snapszer.model.SnapszerDeck;
 import hu.unideb.snapszer.view.*;
 import javafx.application.Application;
 
-import static javafx.application.Application.launch;
-
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -41,6 +40,9 @@ public class MainApp extends Application {
     private CalledCardsView calledCardsView;
     private Text playerOneScore;
     private Text playerTwoScore;
+    private Text playerOnePoints;
+    private Text playerTwoPoints;
+    private Text pointsInfo;
     private Game game;
     private HumanView playerOneView;
     private PlayerView playerTwoView;
@@ -73,6 +75,20 @@ public class MainApp extends Application {
         scoreContainer.getChildren().addAll(playerOneScore, playerTwoScore);
         AnchorPane.setTopAnchor(scoreContainer, 10.0);
         AnchorPane.setLeftAnchor(scoreContainer, 10.0);
+        TextFlow pointsContainer = new TextFlow();
+        pointsContainer.setTextAlignment(TextAlignment.LEFT);
+        pointsInfo = new Text("Points:\n");
+        pointsInfo.setFill(Color.RED);
+        pointsInfo.setFont(new Font("Arial", 32));
+        playerOnePoints = new Text("Player: 0\n");
+        playerOnePoints.setFill(Color.RED);
+        playerOnePoints.setFont(new Font("Arial", 32));
+        playerTwoPoints = new Text("Computer: 0");
+        playerTwoPoints.setFill(Color.RED);
+        playerTwoPoints.setFont(new Font("Arial", 32));
+        pointsContainer.getChildren().addAll(pointsInfo, playerOnePoints, playerTwoPoints);
+        AnchorPane.setLeftAnchor(pointsContainer, 10.0);
+        AnchorPane.setBottomAnchor(pointsContainer, 10.0);
         Button say20 = playerOneView.getSay20Btn();
         AnchorPane.setBottomAnchor(say20, 100.0);
         AnchorPane.setRightAnchor(say20, 100.0);
@@ -82,7 +98,7 @@ public class MainApp extends Application {
         Button sayEnd = playerOneView.getSayFinishBtn();
         AnchorPane.setBottomAnchor(sayEnd, 180.0);
         AnchorPane.setRightAnchor(sayEnd, 100.0);
-        gameInfo.getChildren().addAll(scoreContainer, say20, say40, sayEnd);
+        gameInfo.getChildren().addAll(scoreContainer, pointsContainer, say20, say40, sayEnd);
     }
 
     private void initGame() {
@@ -92,20 +108,32 @@ public class MainApp extends Application {
         playerOne.scoreProperty().addListener((observable, oldValue, newValue) -> {
             playerOneScore.setText(String.format("Player: %d\n", newValue.intValue()));
         });
+        playerOne.pointsProperty().addListener((observable, oldValue, newValue) -> {
+            playerOnePoints.setText(String.format("Player: %d\n", newValue.intValue()));
+        });
 
         playerTwo.scoreProperty().addListener((observable, oldValue, newValue) -> {
             playerTwoScore.setText(String.format("Computer: %d\n", newValue.intValue()));
         });
+        playerTwo.pointsProperty().addListener((observable, oldValue, newValue) -> {
+            playerTwoPoints.setText(String.format("Computer: %d\n", newValue.intValue()));
+        });
         game = new Game(playerOne, playerTwo, deck);
 
         tableView = new TableView();
-        deckView = new DeckView(game.getDeck());
+        deckView = new DeckView(game.getDeck(), game.trumpCardProperty());
         calledCardsView = new CalledCardsView();
         playedCardsView = new PlayedCardsView(game.getPlayedCards(), calledCardsView.cards);
         playerOneView = new HumanView(playerOne, deckView, calledCardsView);
         playerTwoView = new PlayerView(playerTwo, deckView, calledCardsView);
         this.gameView.getChildren().addAll(tableView, deckView);
-        controller = new GameController(playerOneView, this.gameView);
+        controller = new GameController(playerOneView, deckView.trumpCardViewProperty(), this.gameView);
+    }
+
+    private void playGame() {
+        game.setOnSucceeded(t -> System.out.println("asd"));
+        Thread gameThread = new Thread(game);
+        gameThread.start();
     }
 
     @Override
@@ -137,19 +165,7 @@ public class MainApp extends Application {
         game3d.setHeight(primaryStage.getHeight());
         addCamera(game3d);
 
-        Thread th = new Thread(game, "Game");
-        th.start();
-       /* try {
-            th.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if (playerOne.getScore() > playerTwo.getScore()) {
-            System.out.println("A játékos győzött!");
-        }
-        else {
-            System.out.println("A számítógép győzött!");
-        }*/
+        playGame();
     }
 
     public static void main(String[] args) {

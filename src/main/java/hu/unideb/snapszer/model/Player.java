@@ -45,6 +45,8 @@ public abstract class Player {
      */
     private IntegerProperty score;
 
+    private IntegerProperty points;
+
     private boolean said20;
     private boolean said40;
 
@@ -60,12 +62,17 @@ public abstract class Player {
         return score;
     }
 
+    public IntegerProperty pointsProperty() {
+        return points;
+    }
+
     /**
      * Constructs a new Player object.
      */
     public Player() {
         cards = FXCollections.observableArrayList();
         score = new SimpleIntegerProperty(0);
+        points = new SimpleIntegerProperty(0);
         said20 = false;
         said40 = false;
     }
@@ -78,7 +85,12 @@ public abstract class Player {
      * @param score how many score to be added to the score of this player
      */
     public void addScore(int score) {
+
         this.score.set(this.score.get() + score);
+    }
+
+    public void addPoints(int points) {
+        this.points.set(this.points.get() + points);
     }
 
     public int cardsInHand() {

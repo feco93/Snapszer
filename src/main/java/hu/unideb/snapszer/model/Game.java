@@ -12,6 +12,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * @author Fecó
  */
-public class Game implements Runnable {
+public class Game extends Task<Void> {
 
     public Deck getDeck() {
         return deck;
@@ -42,6 +43,7 @@ public class Game implements Runnable {
         this.deck = deck;
         this.cardsOnTable = FXCollections.observableArrayList();
         this.playedCards = FXCollections.observableArrayList();
+        trumpCard = new SimpleObjectProperty<>();
     }
 
     private void initGame() {
@@ -49,36 +51,12 @@ public class Game implements Runnable {
                 players) {
             player.drawCards(deck.drawCards(3));
         }
-        trumpCard = new SimpleObjectProperty<>();
         trumpCard.set((HungarianCard) deck.drawCard());
         deck.insertCard(trumpCard.get(), 0);
         trumpCard.get().getSuit().setTrump(true);
         for (Player player :
                 players) {
             player.drawCards(deck.drawCards(2));
-        }
-    }
-
-    public void run() {
-        initGame();
-        while (true) {
-            for (Player player :
-                    players) {
-                while (true) {
-                    Operator op = player.chooseOperator(this);
-                    if (op.isApplicable(this)) {
-                        op.apply(this);
-                        if (op instanceof CallOperator) {
-                            break;
-                        }
-                        if (op instanceof SayEndOperator) {
-                            return;
-                        }
-                    }
-                }
-            }
-            beatPhase();
-            drawPhase();
         }
     }
 
@@ -92,6 +70,10 @@ public class Game implements Runnable {
 
     public void setCover(boolean cover) {
         this.cover = cover;
+    }
+
+    public ObjectProperty<HungarianCard> trumpCardProperty() {
+        return trumpCard;
     }
 
     public HungarianCard getTrumpCard() {
@@ -158,4 +140,27 @@ public class Game implements Runnable {
         players = temp;
     }
 
+    @Override
+    protected Void call() throws Exception {
+        initGame();
+        while (true) {
+            for (Player player :
+                    players) {
+                while (true) {
+                    Operator op = player.chooseOperator(this);
+                    if (op.isApplicable(this)) {
+                        op.apply(this);
+                        if (op instanceof CallOperator) {
+                            break;
+                        }
+                        if (op instanceof SayEndOperator) {
+                            return null;
+                        }
+                    }
+                }
+            }
+            beatPhase();
+            drawPhase();
+        }
+    }
 }

@@ -3,6 +3,10 @@ package hu.unideb.snapszer.view;
 import hu.unideb.snapszer.model.Deck;
 import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.ICard;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -18,10 +22,20 @@ public class DeckView extends Group {
 
     private final double distanceBetweenCards = 0.5;
     public final ObservableList<HungarianCardView> cardsInDeck;
+    private ObjectProperty<HungarianCardView> trumpCardView;
     private final MySequentialTransition sequentialTransition;
 
-    public DeckView(Deck deck) {
+    public HungarianCardView getTrumpCardView() {
+        return trumpCardView.get();
+    }
+
+    public ObjectProperty<HungarianCardView> trumpCardViewProperty() {
+        return trumpCardView;
+    }
+
+    public DeckView(Deck deck, ObjectProperty<HungarianCard> trumpCard) {
         sequentialTransition = new MySequentialTransition();
+        trumpCardView = new SimpleObjectProperty<>();
         cardsInDeck = FXCollections.observableArrayList();
         double index = -1;
         for (ICard card : deck) {
@@ -36,14 +50,12 @@ public class DeckView extends Group {
             index -= distanceBetweenCards;
             cardsInDeck.add(cardView);
         }
-        deck.cards.addListener((ListChangeListener.Change<? extends ICard> c) -> {
-            while (c.next()) {
-                if (c.wasAdded()) {
-                    HungarianCard card = (HungarianCard) c.getAddedSubList().get(0);
-                    sequentialTransition.addAnimation(cardsInDeck.get(cardsInDeck.indexOf(card)).setTrump(60, -0.5));
-                    sequentialTransition.playAnimationSynchronous();
-                }
-            }
+        trumpCard.addListener(observable -> {
+            trumpCardView.setValue(cardsInDeck.get(
+                    cardsInDeck.indexOf(trumpCard.getValue())));
+            sequentialTransition.addAnimation(
+                    trumpCardView.getValue().setTrump(60, -0.5));
+            sequentialTransition.playAnimationSynchronous();
         });
     }
 }
