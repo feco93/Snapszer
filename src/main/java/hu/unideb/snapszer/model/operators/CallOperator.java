@@ -14,6 +14,10 @@ public class CallOperator extends Operator {
         this.card = card;
     }
 
+    public HungarianCard getCard() {
+        return card;
+    }
+
     @Override
     public boolean isApplicable(Game game) {
         if ((game.isCover() && !game.getCardsOnTable().isEmpty()) ||
@@ -31,7 +35,7 @@ public class CallOperator extends Operator {
         game.getCardsOnTable().add(card);
     }
 
-    public boolean canCall(ICard calledCard) {
+    private boolean canCall(ICard calledCard) {
         ICard toCall = player.cards.stream().filter(card ->
                 card.getSuit() == calledCard.getSuit()).max((a, b) ->
                 a.compareTo(b)).orElse(null);
@@ -47,7 +51,7 @@ public class CallOperator extends Operator {
         return true;
     }
 
-    public boolean canCall(HungarianCardSuit suit) {
+    private boolean canCall(HungarianCardSuit suit) {
         if (!player.isSaid20() && !player.isSaid40()) {
             return true;
         }
