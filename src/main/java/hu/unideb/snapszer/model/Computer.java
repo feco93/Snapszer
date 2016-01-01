@@ -15,13 +15,13 @@ public class Computer extends Player {
     public Operator chooseOperator(Game game) {
         if (game.getCurrentPlayer() == this) {
             if (canSay20()) {
-                return new Say20Operator();
+                return new Say20Operator(this);
             }
             if (canSay40(game.getTrumpCard().getSuit())) {
-                return new Say40Operator();
+                return new Say40Operator(this);
             }
             if (canSayEnd()) {
-                return new SayEndOperator();
+                return new SayEndOperator(this);
             }
         }
         return getFirstApplicableOperator(game);

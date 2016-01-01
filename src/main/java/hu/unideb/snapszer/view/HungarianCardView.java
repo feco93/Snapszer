@@ -84,8 +84,8 @@ public class HungarianCardView extends MeshView {
         KeyValue rx = new KeyValue(rotateX.angleProperty(), 90);
         KeyValue tx = new KeyValue(translate.xProperty(), -80);
         KeyValue ty = new KeyValue(translate.yProperty(), y);
-        KeyFrame kf = new KeyFrame(Duration.millis(600), tx, ty);
-        KeyFrame kf2 = new KeyFrame(Duration.millis(1000), rx, ry, rz);
+        KeyFrame kf = new KeyFrame(Duration.millis(1000), tx, ty);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(700), rx, ry, rz);
         tl.getKeyFrames().addAll(kf, kf2);
         return tl;
     }

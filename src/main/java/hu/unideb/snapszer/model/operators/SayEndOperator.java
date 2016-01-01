@@ -1,17 +1,27 @@
 package hu.unideb.snapszer.model.operators;
 
 import hu.unideb.snapszer.model.Game;
+import hu.unideb.snapszer.model.Player;
 
 /**
  * Created by Fecó on 2015.12.06..
  */
-public class SayEndOperator implements Operator {
-    @Override
-    public boolean isApplicable(Game game) {
-        return game.getCurrentPlayer().canSayEnd();
+public class SayEndOperator extends Operator {
+
+    public SayEndOperator(Player player) {
+        super(player);
     }
 
     @Override
-    public void apply(Game game) {
+    public boolean isApplicable(Game game) {
+        if (!player.equals(game.getCurrentPlayer()))
+            return false;
+        return player.canSayEnd();
     }
+
+    @Override
+    public void onApply(Game game) {
+
+    }
+
 }

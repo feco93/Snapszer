@@ -1,13 +1,40 @@
 package hu.unideb.snapszer.model.operators;
 
 import hu.unideb.snapszer.model.Game;
+import hu.unideb.snapszer.model.Player;
+
+import java.util.ArrayList;
 
 /**
  * Created by Fecó on 2015.12.05..
  */
-public interface Operator {
+public abstract class Operator {
 
-    boolean isApplicable(Game game);
+    private static ArrayList<OperatorListener> listeners;
 
-    void apply(Game game);
+    static {
+        listeners = new ArrayList<>();
+    }
+
+    protected final Player player;
+
+    protected Operator(Player player) {
+        this.player = player;
+    }
+
+    abstract public boolean isApplicable(Game game);
+
+    abstract public void onApply(Game game);
+
+    public void apply(Game game) {
+        onApply(game);
+        for (OperatorListener listener :
+                listeners) {
+            listener.onOperatorApplied(this, player);
+        }
+    }
+
+    public static void addListener(OperatorListener listener) {
+        listeners.add(listener);
+    }
 }

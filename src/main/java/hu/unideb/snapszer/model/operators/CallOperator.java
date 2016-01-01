@@ -5,13 +5,12 @@ import hu.unideb.snapszer.model.*;
 /**
  * Created by Fecó on 2015.12.05..
  */
-public class CallOperator implements Operator {
+public class CallOperator extends Operator {
 
-    private Player player;
     private HungarianCard card;
 
     public CallOperator(Player player, HungarianCard card) {
-        this.player = player;
+        super(player);
         this.card = card;
     }
 
@@ -25,13 +24,12 @@ public class CallOperator implements Operator {
     }
 
     @Override
-    public void apply(Game game) {
+    public void onApply(Game game) {
         player.setSaid20(false);
         player.setSaid40(false);
         player.removeCard(card);
         game.getCardsOnTable().add(card);
     }
-
 
     public boolean canCall(ICard calledCard) {
         ICard toCall = player.cards.stream().filter(card ->

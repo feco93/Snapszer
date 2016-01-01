@@ -37,7 +37,7 @@ public class DeckView extends Group {
         sequentialTransition = new MySequentialTransition();
         trumpCardView = new SimpleObjectProperty<>();
         cardsInDeck = FXCollections.observableArrayList();
-        double index = -1;
+        double index = -2;
         for (ICard card : deck) {
             HungarianCardView cardView
                     = new HungarianCardView(
@@ -54,7 +54,7 @@ public class DeckView extends Group {
             trumpCardView.setValue(cardsInDeck.get(
                     cardsInDeck.indexOf(trumpCard.getValue())));
             sequentialTransition.addAnimation(
-                    trumpCardView.getValue().setTrump(60, -0.5));
+                    trumpCardView.getValue().setTrump(60, -1));
             sequentialTransition.playAnimationSynchronous();
         });
     }

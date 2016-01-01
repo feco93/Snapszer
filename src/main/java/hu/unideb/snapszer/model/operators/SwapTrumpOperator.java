@@ -5,18 +5,16 @@ import hu.unideb.snapszer.model.*;
 /**
  * Created by Fecó on 2015.12.06..
  */
-public class SwapTrumpOperator implements Operator {
+public class SwapTrumpOperator extends Operator {
 
-    private Player player;
 
     public SwapTrumpOperator(Player player) {
-
-        this.player = player;
+        super(player);
     }
 
     @Override
     public boolean isApplicable(Game game) {
-        if (player != game.getCurrentPlayer())
+        if (!player.equals(game.getCurrentPlayer()))
             return false;
         if (game.getDeck().size() < 4 && game.isCover())
             return false;
@@ -29,9 +27,12 @@ public class SwapTrumpOperator implements Operator {
     }
 
     @Override
-    public void apply(Game game) {
-        player.cards.remove(player.cards.stream().filter(iCard ->
+    public void onApply(Game game) {
+        HungarianCard oldTrumpCard = game.getTrumpCard();
+        HungarianCard newTrumpCard = (HungarianCard) player.cards.stream().filter(iCard ->
                 iCard.getSuit() == game.getTrumpCard().getSuit() &&
-                        iCard.getRank() == HungarianCardRank.ALSO).findFirst().get());
+                        iCard.getRank() == HungarianCardRank.ALSO).findFirst().get();
+        game.trumpCardProperty().setValue(newTrumpCard);
+        player.cards.set(player.cards.indexOf(newTrumpCard), oldTrumpCard);
     }
 }

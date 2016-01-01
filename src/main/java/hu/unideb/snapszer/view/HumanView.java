@@ -19,15 +19,15 @@ public class HumanView extends PlayerView {
         super(player, deckView, calledCardsView);
         say20Btn = new Button("20");
         say20Btn.setOnMouseClicked(event -> {
-            player.setChosenOperator(new Say20Operator());
+            player.setChosenOperator(new Say20Operator(player));
         });
         say40Btn = new Button("40");
         say40Btn.setOnMouseClicked(event -> {
-            player.setChosenOperator(new Say40Operator());
+            player.setChosenOperator(new Say40Operator(player));
         });
         sayFinishBtn = new Button("Finish");
         sayFinishBtn.setOnMouseClicked(event -> {
-            player.setChosenOperator(new SayEndOperator());
+            player.setChosenOperator(new SayEndOperator(player));
         });
     }
 

@@ -6,6 +6,7 @@ import hu.unideb.snapszer.model.Deck;
 import hu.unideb.snapszer.model.Game;
 import hu.unideb.snapszer.model.Human;
 import hu.unideb.snapszer.model.SnapszerDeck;
+import hu.unideb.snapszer.model.operators.CallOperator;
 import hu.unideb.snapszer.view.*;
 import javafx.application.Application;
 

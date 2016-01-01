@@ -1,18 +1,26 @@
 package hu.unideb.snapszer.model.operators;
 
 import hu.unideb.snapszer.model.Game;
+import hu.unideb.snapszer.model.Player;
 
 /**
  * Created by Fecó on 2015.12.06..
  */
-public class Say40Operator implements Operator {
-    @Override
-    public boolean isApplicable(Game game) {
-        return game.getCurrentPlayer().canSay40(game.getTrumpCard().getSuit());
+public class Say40Operator extends Operator {
+
+    public Say40Operator(Player player) {
+        super(player);
     }
 
     @Override
-    public void apply(Game game) {
-        game.getCurrentPlayer().say40();
+    public boolean isApplicable(Game game) {
+        if (!player.equals(game.getCurrentPlayer()))
+            return false;
+        return player.canSay40(game.getTrumpCard().getSuit());
+    }
+
+    @Override
+    public void onApply(Game game) {
+        player.say40();
     }
 }
