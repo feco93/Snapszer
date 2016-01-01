@@ -6,6 +6,7 @@
 package hu.unideb.snapszer.model;
 
 import hu.unideb.snapszer.model.operators.CallOperator;
+import hu.unideb.snapszer.model.operators.DrawOperator;
 import hu.unideb.snapszer.model.operators.Operator;
 import hu.unideb.snapszer.model.operators.SayEndOperator;
 import javafx.beans.property.ObjectProperty;
@@ -92,6 +93,10 @@ public class Game extends Task<Void> {
         return currentPlayer;
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     private HungarianCard getHighestCard() {
         for (HungarianCard card :
                 cardsOnTable) {
@@ -124,10 +129,11 @@ public class Game extends Task<Void> {
     }
 
     private void drawPhase() {
-        if (!isCover() && !deck.isEmpty()) {
-            for (Player player :
-                    players) {
-                player.drawCard(deck.drawCard());
+        for (Player player :
+                players) {
+            DrawOperator op = new DrawOperator(player);
+            if (op.isApplicable(this)) {
+                op.apply(this);
             }
         }
     }

@@ -14,10 +14,6 @@ public class CallOperator extends Operator {
         this.card = card;
     }
 
-    public HungarianCard getCard() {
-        return card;
-    }
-
     @Override
     public boolean isApplicable(Game game) {
         if ((game.isCover() && !game.getCardsOnTable().isEmpty()) ||
@@ -51,7 +47,7 @@ public class CallOperator extends Operator {
         return true;
     }
 
-    private boolean canCall(HungarianCardSuit suit) {
+    public boolean canCall(HungarianCardSuit suit) {
         if (!player.isSaid20() && !player.isSaid40()) {
             return true;
         }

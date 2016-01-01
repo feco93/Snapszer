@@ -24,7 +24,7 @@ public abstract class Operator {
 
     abstract public boolean isApplicable(Game game);
 
-    abstract public void onApply(Game game);
+    abstract protected void onApply(Game game);
 
     public void apply(Game game) {
         onApply(game);
