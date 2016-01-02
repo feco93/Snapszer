@@ -1,16 +1,15 @@
 package hu.unideb.snapszer;
 
 import hu.unideb.snapszer.controller.GameController;
-import hu.unideb.snapszer.model.Computer;
-import hu.unideb.snapszer.model.Deck;
-import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
-import hu.unideb.snapszer.model.Human;
-import hu.unideb.snapszer.model.SnapszerDeck;
-import hu.unideb.snapszer.view.*;
+import hu.unideb.snapszer.model.*;
+import hu.unideb.snapszer.view.SnapszerGameView;
+import hu.unideb.snapszer.view.TableView;
 import javafx.application.Application;
-
 import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -18,11 +17,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
@@ -42,6 +38,10 @@ public class MainApp extends Application {
     private SnapszerTwoPlayerGame game;
     private Human playerOne;
     private Computer playerTwo;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     private PerspectiveCamera addCamera(SubScene scene) {
         PerspectiveCamera perspectiveCamera = new PerspectiveCamera(true);
@@ -93,12 +93,6 @@ public class MainApp extends Application {
         AnchorPane.setBottomAnchor(sayEnd, 180.0);
         AnchorPane.setRightAnchor(sayEnd, 100.0);
         gameInfo.getChildren().addAll(scoreContainer, pointsContainer, say20, say40, sayEnd);
-    }
-
-    private void initGame() {
-        Deck deck = SnapszerDeck.getNewDeck();
-        playerOne = new Human();
-        playerTwo = new Computer();
         playerOne.scoreProperty().addListener((observable, oldValue, newValue) -> {
             playerOneScore.setText(String.format("Player: %d\n", newValue.intValue()));
         });
@@ -112,13 +106,21 @@ public class MainApp extends Application {
         playerTwo.pointsProperty().addListener((observable, oldValue, newValue) -> {
             playerTwoPoints.setText(String.format("Computer: %d\n", newValue.intValue()));
         });
-        game = new SnapszerTwoPlayerGame(playerOne, playerTwo, deck);
+    }
 
+    private void initGame() {
+        Deck deck = SnapszerDeck.getNewDeck();
+        game = new SnapszerTwoPlayerGame(playerOne, playerTwo, deck);
         tableView = new TableView();
         snapszerGameView = new SnapszerGameView(game);
         this.gameView.getChildren().clear();
         this.gameView.getChildren().addAll(tableView, snapszerGameView);
         controller = new GameController(snapszerGameView.getHumanPlayerView(), snapszerGameView.trumpCardViewProperty(), this.gameView);
+    }
+
+    private void initPlayers() {
+        playerOne = new Human();
+        playerTwo = new Computer();
     }
 
     private void playGame() {
@@ -138,6 +140,7 @@ public class MainApp extends Application {
         root = new StackPane();
         root.getChildren().addAll(gameInfo, game3d);
 
+        initPlayers();
         initGame();
         initGameInfo();
 
@@ -160,10 +163,6 @@ public class MainApp extends Application {
         addCamera(game3d);
 
         playGame();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
 }

@@ -23,10 +23,6 @@ import java.util.List;
  */
 public class SnapszerTwoPlayerGame extends Task<Void> {
 
-    public Deck getDeck() {
-        return deck;
-    }
-
     private Deck deck;
     private Player currentPlayer;
     private Player otherPlayer;
@@ -34,8 +30,9 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     private ObservableList<HungarianCard> playedCards;
     private ObjectProperty<HungarianCard> trumpCard;
     private boolean cover;
-
     public SnapszerTwoPlayerGame(Player playerOne, Player playerTwo, Deck deck) {
+        playerOne.initPlayer();
+        playerTwo.initPlayer();
         currentPlayer = playerOne;
         otherPlayer = playerTwo;
         this.deck = deck;
@@ -46,6 +43,10 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
             deck.insertCard(trumpCard.getValue(), 0);
             trumpCard.getValue().getSuit().setTrump(true);
         });
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 
     private void initGame() {

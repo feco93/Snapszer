@@ -16,13 +16,13 @@
  */
 package hu.unideb.snapszer.model;
 
-import java.util.List;
-
 import hu.unideb.snapszer.model.operators.Operator;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.util.List;
 
 /**
  * Model abstract class for a player.
@@ -47,20 +47,20 @@ public abstract class Player {
 
     private int beatsCounter;
 
+    /**
+     * Constructs a new Player object.
+     */
+    public Player() {
+        points = new SimpleIntegerProperty(0);
+        score = new SimpleIntegerProperty();
+    }
+
     public int getBeatsCounter() {
         return beatsCounter;
     }
 
     public void setBeatsCounter(int beatsCounter) {
         this.beatsCounter = beatsCounter;
-    }
-
-    public void setSaid20(boolean said20) {
-        this.said20 = said20;
-    }
-
-    public void setSaid40(boolean said40) {
-        this.said40 = said40;
     }
 
     public IntegerProperty scoreProperty() {
@@ -71,14 +71,10 @@ public abstract class Player {
         return points;
     }
 
-    /**
-     * Constructs a new Player object.
-     */
-    public Player() {
+    public void initPlayer() {
         beatsCounter = 0;
         cards = FXCollections.observableArrayList();
-        score = new SimpleIntegerProperty(0);
-        points = new SimpleIntegerProperty(0);
+        score.setValue(0);
         said20 = false;
         said40 = false;
     }
@@ -182,12 +178,19 @@ public abstract class Player {
 
     public abstract void setChosenOperator(Operator operator);
 
-
     public boolean isSaid20() {
         return said20;
     }
 
+    public void setSaid20(boolean said20) {
+        this.said20 = said20;
+    }
+
     public boolean isSaid40() {
         return said40;
+    }
+
+    public void setSaid40(boolean said40) {
+        this.said40 = said40;
     }
 }
