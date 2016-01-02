@@ -22,6 +22,10 @@ public abstract class Operator {
         this.player = player;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     abstract public boolean isApplicable(Game game);
 
     abstract protected void onApply(Game game);
@@ -30,7 +34,7 @@ public abstract class Operator {
         onApply(game);
         for (OperatorListener listener :
                 listeners) {
-            listener.onOperatorApplied(this, player);
+            listener.onOperatorApplied(this);
         }
     }
 

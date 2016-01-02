@@ -1,6 +1,7 @@
 package hu.unideb.snapszer.model.operators;
 
 import hu.unideb.snapszer.model.Game;
+import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.Player;
 
 /**
@@ -8,8 +9,14 @@ import hu.unideb.snapszer.model.Player;
  */
 public class DrawOperator extends Operator {
 
+    private HungarianCard card;
+
     public DrawOperator(Player player) {
         super(player);
+    }
+
+    public HungarianCard getCard() {
+        return card;
     }
 
     @Override
@@ -22,6 +29,7 @@ public class DrawOperator extends Operator {
 
     @Override
     protected void onApply(Game game) {
-        player.drawCard(game.getDeck().drawCard());
+        card = (HungarianCard) game.getDeck().drawCard();
+        player.drawCard(card);
     }
 }

@@ -48,17 +48,11 @@ public class Game extends Task<Void> {
     }
 
     private void initGame() {
-        for (Player player :
-                players) {
-            player.drawCards(deck.drawCards(3));
-        }
+        drawPhase(3);
         trumpCard.set((HungarianCard) deck.drawCard());
         deck.insertCard(trumpCard.get(), 0);
         trumpCard.get().getSuit().setTrump(true);
-        for (Player player :
-                players) {
-            player.drawCards(deck.drawCards(2));
-        }
+        drawPhase(2);
     }
 
     public boolean canCover() {
@@ -128,12 +122,14 @@ public class Game extends Task<Void> {
         cardsOnTable.clear();
     }
 
-    private void drawPhase() {
+    private void drawPhase(int numberOfCards) {
         for (Player player :
                 players) {
-            DrawOperator op = new DrawOperator(player);
-            if (op.isApplicable(this)) {
-                op.apply(this);
+            for (int i = 0; i < numberOfCards; ++i) {
+                DrawOperator op = new DrawOperator(player);
+                if (op.isApplicable(this)) {
+                    op.apply(this);
+                }
             }
         }
     }
@@ -166,7 +162,7 @@ public class Game extends Task<Void> {
                 }
             }
             beatPhase();
-            drawPhase();
+            drawPhase(1);
         }
     }
 }

@@ -7,5 +7,5 @@ import hu.unideb.snapszer.model.Player;
  */
 @FunctionalInterface
 public interface OperatorListener {
-    void onOperatorApplied(Operator operator, Player player);
+    void onOperatorApplied(Operator operator);
 }

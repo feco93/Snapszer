@@ -15,8 +15,8 @@ public class HumanView extends PlayerView {
     private final Button say40Btn;
     private final Button sayFinishBtn;
 
-    public HumanView(Player player, DeckView deckView, CalledCardsView calledCardsView) {
-        super(player, deckView, calledCardsView);
+    public HumanView(Player player) {
+        super(player);
         say20Btn = new Button("20");
         say20Btn.setOnMouseClicked(event -> {
             player.setChosenOperator(new Say20Operator(player));

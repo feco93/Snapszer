@@ -6,12 +6,9 @@ import hu.unideb.snapszer.model.Deck;
 import hu.unideb.snapszer.model.Game;
 import hu.unideb.snapszer.model.Human;
 import hu.unideb.snapszer.model.SnapszerDeck;
-import hu.unideb.snapszer.model.operators.CallOperator;
 import hu.unideb.snapszer.view.*;
 import javafx.application.Application;
 
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -35,18 +32,14 @@ public class MainApp extends Application {
     private SubScene game3d;
     private StackPane root;
     private TableView tableView;
-    private DeckView deckView;
+    private SnapszerGameView snapszerGameView;
     private GameController controller;
-    private PlayedCardsView playedCardsView;
-    private CalledCardsView calledCardsView;
     private Text playerOneScore;
     private Text playerTwoScore;
     private Text playerOnePoints;
     private Text playerTwoPoints;
     private Text pointsInfo;
     private Game game;
-    private HumanView playerOneView;
-    private PlayerView playerTwoView;
     private Human playerOne;
     private Computer playerTwo;
 
@@ -90,13 +83,13 @@ public class MainApp extends Application {
         pointsContainer.getChildren().addAll(pointsInfo, playerOnePoints, playerTwoPoints);
         AnchorPane.setLeftAnchor(pointsContainer, 10.0);
         AnchorPane.setBottomAnchor(pointsContainer, 10.0);
-        Button say20 = playerOneView.getSay20Btn();
+        Button say20 = snapszerGameView.getHumanPlayerView().getSay20Btn();
         AnchorPane.setBottomAnchor(say20, 100.0);
         AnchorPane.setRightAnchor(say20, 100.0);
-        Button say40 = playerOneView.getSay40Btn();
+        Button say40 = snapszerGameView.getHumanPlayerView().getSay40Btn();
         AnchorPane.setBottomAnchor(say40, 140.0);
         AnchorPane.setRightAnchor(say40, 100.0);
-        Button sayEnd = playerOneView.getSayFinishBtn();
+        Button sayEnd = snapszerGameView.getHumanPlayerView().getSayFinishBtn();
         AnchorPane.setBottomAnchor(sayEnd, 180.0);
         AnchorPane.setRightAnchor(sayEnd, 100.0);
         gameInfo.getChildren().addAll(scoreContainer, pointsContainer, say20, say40, sayEnd);
@@ -122,13 +115,9 @@ public class MainApp extends Application {
         game = new Game(playerOne, playerTwo, deck);
 
         tableView = new TableView();
-        deckView = new DeckView(game.getDeck(), game.trumpCardProperty());
-        calledCardsView = new CalledCardsView();
-        playedCardsView = new PlayedCardsView(game.getPlayedCards(), calledCardsView.cards);
-        playerOneView = new HumanView(playerOne, deckView, calledCardsView);
-        playerTwoView = new PlayerView(playerTwo, deckView, calledCardsView);
-        this.gameView.getChildren().addAll(tableView, deckView);
-        controller = new GameController(playerOneView, deckView.trumpCardViewProperty(), this.gameView);
+        snapszerGameView = new SnapszerGameView(game);
+        this.gameView.getChildren().addAll(tableView, snapszerGameView);
+        controller = new GameController(snapszerGameView.getHumanPlayerView(), snapszerGameView.trumpCardViewProperty(), this.gameView);
     }
 
     private void playGame() {
