@@ -18,14 +18,9 @@ package hu.unideb.snapszer.model;
 
 import java.util.List;
 
-import hu.unideb.snapszer.model.operators.CallOperator;
 import hu.unideb.snapszer.model.operators.Operator;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableIntegerValue;
-import javafx.beans.value.ObservableObjectValue;
-import javafx.beans.value.WritableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -50,6 +45,16 @@ public abstract class Player {
     private boolean said20;
     private boolean said40;
 
+    private int beatsCounter;
+
+    public int getBeatsCounter() {
+        return beatsCounter;
+    }
+
+    public void setBeatsCounter(int beatsCounter) {
+        this.beatsCounter = beatsCounter;
+    }
+
     public void setSaid20(boolean said20) {
         this.said20 = said20;
     }
@@ -70,6 +75,7 @@ public abstract class Player {
      * Constructs a new Player object.
      */
     public Player() {
+        beatsCounter = 0;
         cards = FXCollections.observableArrayList();
         score = new SimpleIntegerProperty(0);
         points = new SimpleIntegerProperty(0);
@@ -77,7 +83,7 @@ public abstract class Player {
         said40 = false;
     }
 
-    public abstract Operator chooseOperator(Game game);
+    public abstract Operator chooseOperator(SnapszerTwoPlayerGame game);
 
     /**
      * Add the specified score to the score of this player.

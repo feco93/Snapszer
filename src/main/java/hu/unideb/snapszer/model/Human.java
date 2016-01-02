@@ -21,7 +21,7 @@ public class Human extends Player {
     }
 
     @Override
-    public synchronized Operator chooseOperator(Game game) {
+    public synchronized Operator chooseOperator(SnapszerTwoPlayerGame game) {
         try {
             wait();
             return chosenOperator;

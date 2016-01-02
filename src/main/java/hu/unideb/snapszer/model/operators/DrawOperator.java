@@ -1,6 +1,6 @@
 package hu.unideb.snapszer.model.operators;
 
-import hu.unideb.snapszer.model.Game;
+import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
 import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.Player;
 
@@ -20,7 +20,7 @@ public class DrawOperator extends Operator {
     }
 
     @Override
-    public boolean isApplicable(Game game) {
+    public boolean isApplicable(SnapszerTwoPlayerGame game) {
         if (!game.isCover() && !game.getDeck().isEmpty()) {
             return true;
         }
@@ -28,7 +28,7 @@ public class DrawOperator extends Operator {
     }
 
     @Override
-    protected void onApply(Game game) {
+    protected void onApply(SnapszerTwoPlayerGame game) {
         card = (HungarianCard) game.getDeck().drawCard();
         player.drawCard(card);
     }

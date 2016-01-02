@@ -3,7 +3,7 @@ package hu.unideb.snapszer;
 import hu.unideb.snapszer.controller.GameController;
 import hu.unideb.snapszer.model.Computer;
 import hu.unideb.snapszer.model.Deck;
-import hu.unideb.snapszer.model.Game;
+import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
 import hu.unideb.snapszer.model.Human;
 import hu.unideb.snapszer.model.SnapszerDeck;
 import hu.unideb.snapszer.view.*;
@@ -39,7 +39,7 @@ public class MainApp extends Application {
     private Text playerOnePoints;
     private Text playerTwoPoints;
     private Text pointsInfo;
-    private Game game;
+    private SnapszerTwoPlayerGame game;
     private Human playerOne;
     private Computer playerTwo;
 
@@ -112,16 +112,20 @@ public class MainApp extends Application {
         playerTwo.pointsProperty().addListener((observable, oldValue, newValue) -> {
             playerTwoPoints.setText(String.format("Computer: %d\n", newValue.intValue()));
         });
-        game = new Game(playerOne, playerTwo, deck);
+        game = new SnapszerTwoPlayerGame(playerOne, playerTwo, deck);
 
         tableView = new TableView();
         snapszerGameView = new SnapszerGameView(game);
+        this.gameView.getChildren().clear();
         this.gameView.getChildren().addAll(tableView, snapszerGameView);
         controller = new GameController(snapszerGameView.getHumanPlayerView(), snapszerGameView.trumpCardViewProperty(), this.gameView);
     }
 
     private void playGame() {
-        game.setOnSucceeded(t -> System.out.println("asd"));
+        game.setOnSucceeded(t -> {
+            initGame();
+            playGame();
+        });
         Thread gameThread = new Thread(game);
         gameThread.start();
     }

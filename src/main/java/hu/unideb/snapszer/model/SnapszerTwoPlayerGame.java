@@ -11,19 +11,17 @@ import hu.unideb.snapszer.model.operators.Operator;
 import hu.unideb.snapszer.model.operators.SayEndOperator;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.WeakChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author Fecó
  */
-public class Game extends Task<Void> {
+public class SnapszerTwoPlayerGame extends Task<Void> {
 
     public Deck getDeck() {
         return deck;
@@ -31,16 +29,15 @@ public class Game extends Task<Void> {
 
     private Deck deck;
     private Player currentPlayer;
-    private List<Player> players;
+    private Player otherPlayer;
     private ObservableList<HungarianCard> cardsOnTable;
     private ObservableList<HungarianCard> playedCards;
     private ObjectProperty<HungarianCard> trumpCard;
     private boolean cover;
 
-    public Game(Player playerOne, Player playerTwo, Deck deck) {
+    public SnapszerTwoPlayerGame(Player playerOne, Player playerTwo, Deck deck) {
         currentPlayer = playerOne;
-        Player nextPlayer = playerTwo;
-        players = Arrays.asList(currentPlayer, nextPlayer);
+        otherPlayer = playerTwo;
         this.deck = deck;
         this.cardsOnTable = FXCollections.observableArrayList();
         this.playedCards = FXCollections.observableArrayList();
@@ -89,8 +86,12 @@ public class Game extends Task<Void> {
         return currentPlayer;
     }
 
+    public Player getOtherPlayer() {
+        return otherPlayer;
+    }
+
     public List<Player> getPlayers() {
-        return players;
+        return Arrays.asList(currentPlayer, otherPlayer);
     }
 
     private HungarianCard getHighestCard() {
@@ -114,7 +115,8 @@ public class Game extends Task<Void> {
     private void beatPhase() {
         int index = cardsOnTable.indexOf(getHighestCard());
         if (index > 0) {
-            swapPlayers(index);
+            otherPlayer.setBeatsCounter(otherPlayer.getBeatsCounter() + 1);
+            swapPlayers();
         }
         for (HungarianCard card :
                 cardsOnTable) {
@@ -126,7 +128,7 @@ public class Game extends Task<Void> {
 
     private void drawPhase(int numberOfCards) {
         for (Player player :
-                players) {
+                Arrays.asList(currentPlayer, otherPlayer)) {
             for (int i = 0; i < numberOfCards; ++i) {
                 DrawOperator op = new DrawOperator(player);
                 if (op.isApplicable(this)) {
@@ -136,20 +138,37 @@ public class Game extends Task<Void> {
         }
     }
 
-    private void swapPlayers(int index) {
-        currentPlayer = players.get(index);
-        List<Player> temp = new ArrayList<>();
-        temp.addAll(players.subList(index, players.size()));
-        temp.addAll(players.subList(0, index));
-        players = temp;
+    private void swapPlayers() {
+        Player temp = currentPlayer;
+        currentPlayer = otherPlayer;
+        otherPlayer = temp;
     }
 
     @Override
     protected Void call() throws Exception {
         initGame();
+        Player winnerPlayer = playMatch();
+        Player loserPlayer = getPlayers().stream().
+                filter(player -> !player.equals(winnerPlayer)).findFirst().get();
+        if (loserPlayer.getScore() < 33)
+            if (loserPlayer.getBeatsCounter() == 0)
+                winnerPlayer.addPoints(3);
+            else {
+                winnerPlayer.addPoints(2);
+            }
+        else {
+            winnerPlayer.addPoints(1);
+        }
+        return null;
+    }
+
+    private Player playMatch() {
         while (true) {
+            if (deck.isEmpty() && currentPlayer.cards.isEmpty() &&
+                    otherPlayer.cards.isEmpty())
+                break;
             for (Player player :
-                    players) {
+                    Arrays.asList(currentPlayer, otherPlayer)) {
                 while (true) {
                     Operator op = player.chooseOperator(this);
                     if (op.isApplicable(this)) {
@@ -158,7 +177,7 @@ public class Game extends Task<Void> {
                             break;
                         }
                         if (op instanceof SayEndOperator) {
-                            return null;
+                            return player;
                         }
                     }
                 }
@@ -166,5 +185,6 @@ public class Game extends Task<Void> {
             beatPhase();
             drawPhase(1);
         }
+        return currentPlayer;
     }
 }

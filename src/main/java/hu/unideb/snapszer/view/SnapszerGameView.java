@@ -31,7 +31,7 @@ public class SnapszerGameView extends Group {
     private ObjectProperty<HungarianCardView> trumpCardView;
     private final MySequentialTransition sequentialTransition;
 
-    public SnapszerGameView(Game game) {
+    public SnapszerGameView(SnapszerTwoPlayerGame game) {
         playerViews = new ArrayList<>();
         for (Player player :
                 game.getPlayers()) {
@@ -63,6 +63,7 @@ public class SnapszerGameView extends Group {
             index -= distanceBetweenCards;
             hungarianCardViews.add(cardView);
         }
+        Operator.clearListeners();
         Operator.addListener(this::onOperatorApplied);
         game.trumpCardProperty().addListener(observable -> {
             trumpCardView.setValue(hungarianCardViews.get(

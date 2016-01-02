@@ -24,10 +24,9 @@ public class SwapTrumpOperator extends Operator {
     }
 
     @Override
-    public boolean isApplicable(Game game) {
-        if (!player.equals(game.getCurrentPlayer()))
-            return false;
-        if (game.getDeck().size() < 4 && game.isCover())
+    public boolean isApplicable(SnapszerTwoPlayerGame game) {
+        if (!player.equals(game.getCurrentPlayer()) ||
+                game.getDeck().size() < 4 || game.isCover())
             return false;
         if (player.cards.stream().anyMatch(iCard ->
                 iCard.getSuit() == game.getTrumpCard().getSuit() &&
@@ -38,7 +37,7 @@ public class SwapTrumpOperator extends Operator {
     }
 
     @Override
-    public void onApply(Game game) {
+    public void onApply(SnapszerTwoPlayerGame game) {
         oldTrumpCard = game.getTrumpCard();
         game.getDeck().cards.remove(oldTrumpCard);
         newTrumpCard = (HungarianCard) player.cards.stream().filter(iCard ->
