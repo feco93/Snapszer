@@ -52,6 +52,19 @@ public class PlayerView {
         return cardsInHand;
     }
 
+    public HungarianCardView removeCard(HungarianCard hungarianCard) {
+        HungarianCardView hungarianCardView = cardsInHand.stream().
+                filter(cardView ->
+                        cardView.getCard().equals(hungarianCard)).
+                findFirst().get();
+        int index = cardsInHand.indexOf(hungarianCardView);
+        if (index == -1)
+            return null;
+        HungarianCardView toRet = cardsInHand.remove(index);
+        sortCards();
+        return toRet;
+    }
+
     public void drawCard(HungarianCardView hungarianCardView) {
         cardsInHand.add(hungarianCardView);
     }

@@ -4,6 +4,7 @@ import hu.unideb.snapszer.model.*;
 import hu.unideb.snapszer.model.operators.CallOperator;
 import hu.unideb.snapszer.model.operators.DrawOperator;
 import hu.unideb.snapszer.model.operators.Operator;
+import hu.unideb.snapszer.model.operators.SwapTrumpOperator;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -49,7 +50,7 @@ public class SnapszerGameView extends Group {
         sequentialTransition = new MySequentialTransition();
         trumpCardView = new SimpleObjectProperty<>();
         hungarianCardViews = FXCollections.observableArrayList();
-        double index = -2;
+        double index = -3;
         for (ICard card : game.getDeck()) {
             HungarianCardView cardView
                     = new HungarianCardView(
@@ -79,6 +80,20 @@ public class SnapszerGameView extends Group {
         if (operator instanceof CallOperator) {
             onCallOperatorApplied((CallOperator) operator);
         }
+        if (operator instanceof SwapTrumpOperator) {
+            onSwapTrumpOperatorApplied((SwapTrumpOperator) operator);
+        }
+    }
+
+    private void onSwapTrumpOperatorApplied(SwapTrumpOperator operator) {
+        PlayerView player = playerViews.stream().filter(
+                playerView -> playerView.getPlayer().equals(operator.getPlayer())).findFirst().get();
+        HungarianCardView newTrumpCard = player.removeCard(operator.getNewTrumpCard());
+        HungarianCardView oldTrumpCard = hungarianCardViews.stream().
+                filter(cardView ->
+                        cardView.getCard().equals(operator.getOldTrumpCard())).
+                findFirst().get();
+        player.drawCard(oldTrumpCard);
     }
 
     private void onCallOperatorApplied(CallOperator operator) {

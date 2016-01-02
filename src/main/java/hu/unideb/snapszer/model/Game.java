@@ -11,6 +11,7 @@ import hu.unideb.snapszer.model.operators.Operator;
 import hu.unideb.snapszer.model.operators.SayEndOperator;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.WeakChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -31,7 +32,6 @@ public class Game extends Task<Void> {
     private Deck deck;
     private Player currentPlayer;
     private List<Player> players;
-
     private ObservableList<HungarianCard> cardsOnTable;
     private ObservableList<HungarianCard> playedCards;
     private ObjectProperty<HungarianCard> trumpCard;
@@ -45,13 +45,15 @@ public class Game extends Task<Void> {
         this.cardsOnTable = FXCollections.observableArrayList();
         this.playedCards = FXCollections.observableArrayList();
         trumpCard = new SimpleObjectProperty<>();
+        trumpCard.addListener((observable) -> {
+            deck.insertCard(trumpCard.getValue(), 0);
+            trumpCard.getValue().getSuit().setTrump(true);
+        });
     }
 
     private void initGame() {
         drawPhase(3);
         trumpCard.set((HungarianCard) deck.drawCard());
-        deck.insertCard(trumpCard.get(), 0);
-        trumpCard.get().getSuit().setTrump(true);
         drawPhase(2);
     }
 

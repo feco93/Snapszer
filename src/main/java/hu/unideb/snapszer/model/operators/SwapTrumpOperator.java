@@ -8,8 +8,19 @@ import hu.unideb.snapszer.model.*;
 public class SwapTrumpOperator extends Operator {
 
 
+    private HungarianCard oldTrumpCard;
+    private HungarianCard newTrumpCard;
+
     public SwapTrumpOperator(Player player) {
         super(player);
+    }
+
+    public HungarianCard getOldTrumpCard() {
+        return oldTrumpCard;
+    }
+
+    public HungarianCard getNewTrumpCard() {
+        return newTrumpCard;
     }
 
     @Override
@@ -28,8 +39,9 @@ public class SwapTrumpOperator extends Operator {
 
     @Override
     public void onApply(Game game) {
-        HungarianCard oldTrumpCard = game.getTrumpCard();
-        HungarianCard newTrumpCard = (HungarianCard) player.cards.stream().filter(iCard ->
+        oldTrumpCard = game.getTrumpCard();
+        game.getDeck().cards.remove(oldTrumpCard);
+        newTrumpCard = (HungarianCard) player.cards.stream().filter(iCard ->
                 iCard.getSuit() == game.getTrumpCard().getSuit() &&
                         iCard.getRank() == HungarianCardRank.ALSO).findFirst().get();
         game.trumpCardProperty().setValue(newTrumpCard);
