@@ -1,9 +1,7 @@
 package hu.unideb.snapszer.view;
 
 import hu.unideb.snapszer.model.Player;
-import hu.unideb.snapszer.model.operators.Say20Operator;
-import hu.unideb.snapszer.model.operators.Say40Operator;
-import hu.unideb.snapszer.model.operators.SayEndOperator;
+import hu.unideb.snapszer.model.operators.*;
 import javafx.scene.control.Button;
 
 /**
@@ -14,6 +12,8 @@ public class HumanView extends PlayerView {
     private final Button say20Btn;
     private final Button say40Btn;
     private final Button sayFinishBtn;
+    private final Button snapszerBtn;
+    private final Button coverBtn;
 
     public HumanView(Player player) {
         super(player);
@@ -24,6 +24,14 @@ public class HumanView extends PlayerView {
         say40Btn = new Button("40");
         say40Btn.setOnMouseClicked(event -> {
             player.setChosenOperator(new Say40Operator(player));
+        });
+        snapszerBtn = new Button("Snapszer");
+        snapszerBtn.setOnMouseClicked(event -> {
+            player.setChosenOperator(new SnapszerOperator(player));
+        });
+        coverBtn = new Button("Cover");
+        coverBtn.setOnMouseClicked(event -> {
+            player.setChosenOperator(new CoverOperator(player));
         });
         sayFinishBtn = new Button("Finish");
         sayFinishBtn.setOnMouseClicked(event -> {
@@ -37,6 +45,14 @@ public class HumanView extends PlayerView {
 
     public Button getSay40Btn() {
         return say40Btn;
+    }
+
+    public Button getSnapszerBtn() {
+        return snapszerBtn;
+    }
+
+    public Button getCoverBtn() {
+        return coverBtn;
     }
 
     public Button getSayFinishBtn() {

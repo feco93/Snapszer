@@ -30,11 +30,15 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     private ObservableList<HungarianCard> playedCards;
     private ObjectProperty<HungarianCard> trumpCard;
     private boolean cover;
+    private boolean snapszer;
+
     public SnapszerTwoPlayerGame(Player playerOne, Player playerTwo, Deck deck) {
         playerOne.initPlayer();
         playerTwo.initPlayer();
         currentPlayer = playerOne;
         otherPlayer = playerTwo;
+        cover = false;
+        snapszer = false;
         this.deck = deck;
         this.cardsOnTable = FXCollections.observableArrayList();
         this.playedCards = FXCollections.observableArrayList();
@@ -55,16 +59,20 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
         drawPhase(2);
     }
 
-    public boolean canCover() {
-        return deck.size() >= 4;
-    }
-
     public boolean isCover() {
         return cover;
     }
 
     public void setCover(boolean cover) {
         this.cover = cover;
+    }
+
+    public boolean isSnapszer() {
+        return snapszer;
+    }
+
+    public void setSnapszer(boolean snapszer) {
+        this.snapszer = snapszer;
     }
 
     public ObjectProperty<HungarianCard> trumpCardProperty() {
@@ -165,7 +173,7 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
 
     private Player playMatch() {
         while (true) {
-            if (deck.isEmpty() && currentPlayer.cards.isEmpty() &&
+            if (currentPlayer.cards.isEmpty() &&
                     otherPlayer.cards.isEmpty())
                 break;
             for (Player player :

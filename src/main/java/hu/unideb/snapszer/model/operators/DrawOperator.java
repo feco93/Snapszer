@@ -1,8 +1,8 @@
 package hu.unideb.snapszer.model.operators;
 
-import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
 import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.Player;
+import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
 
 /**
  * Created by Fecó on 2016.01.01..
@@ -21,10 +21,8 @@ public class DrawOperator extends Operator {
 
     @Override
     public boolean isApplicable(SnapszerTwoPlayerGame game) {
-        if (!game.isCover() && !game.getDeck().isEmpty()) {
-            return true;
-        }
-        return false;
+        return !game.isSnapszer() &&
+                !game.isCover() && !game.getDeck().isEmpty();
     }
 
     @Override

@@ -21,7 +21,8 @@ public class CallOperator extends Operator {
     @Override
     public boolean isApplicable(SnapszerTwoPlayerGame game) {
         if ((game.isCover() && !game.getCardsOnTable().isEmpty()) ||
-                game.getDeck().isEmpty() && !game.getCardsOnTable().isEmpty()) {
+                (game.getDeck().isEmpty() && !game.getCardsOnTable().isEmpty()) ||
+                (game.isSnapszer() && !game.getCardsOnTable().isEmpty())) {
             return canCall(game.getCardsOnTable().get(0));
         }
         return canCall(game.getTrumpCard().getSuit());
@@ -69,11 +70,8 @@ public class CallOperator extends Operator {
                 }
             }
         }
-        if (player.isSaid40() && card.getSuit() == suit
+        return player.isSaid40() && card.getSuit() == suit
                 && (card.getRank() == HungarianCardRank.FELSO
-                || card.getRank() == HungarianCardRank.KIRALY)) {
-            return true;
-        }
-        return false;
+                || card.getRank() == HungarianCardRank.KIRALY);
     }
 }

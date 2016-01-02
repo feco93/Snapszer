@@ -22,14 +22,14 @@ import java.util.List;
  */
 public class SnapszerGameView extends Group {
 
-    private final double distanceBetweenCards = 0.5;
     public final ObservableList<HungarianCardView> hungarianCardViews;
+    private final double distanceBetweenCards = 0.5;
     private final List<PlayerView> playerViews;
     private final CalledCardsView calledCardsView;
     private final PlayedCardsView playedCardsView;
+    private final MySequentialTransition sequentialTransition;
     private HumanView humanPlayerView;
     private ObjectProperty<HungarianCardView> trumpCardView;
-    private final MySequentialTransition sequentialTransition;
 
     public SnapszerGameView(SnapszerTwoPlayerGame game) {
         playerViews = new ArrayList<>();

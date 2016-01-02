@@ -89,10 +89,16 @@ public class MainApp extends Application {
         Button say40 = snapszerGameView.getHumanPlayerView().getSay40Btn();
         AnchorPane.setBottomAnchor(say40, 140.0);
         AnchorPane.setRightAnchor(say40, 100.0);
+        Button snapszer = snapszerGameView.getHumanPlayerView().getSnapszerBtn();
+        AnchorPane.setBottomAnchor(snapszer, 220.0);
+        AnchorPane.setRightAnchor(snapszer, 100.0);
+        Button cover = snapszerGameView.getHumanPlayerView().getCoverBtn();
+        AnchorPane.setBottomAnchor(cover, 260.0);
+        AnchorPane.setRightAnchor(cover, 100.0);
         Button sayEnd = snapszerGameView.getHumanPlayerView().getSayFinishBtn();
         AnchorPane.setBottomAnchor(sayEnd, 180.0);
         AnchorPane.setRightAnchor(sayEnd, 100.0);
-        gameInfo.getChildren().addAll(scoreContainer, pointsContainer, say20, say40, sayEnd);
+        gameInfo.getChildren().addAll(scoreContainer, pointsContainer, say20, say40, snapszer, cover, sayEnd);
         playerOne.scoreProperty().addListener((observable, oldValue, newValue) -> {
             playerOneScore.setText(String.format("Player: %d\n", newValue.intValue()));
         });

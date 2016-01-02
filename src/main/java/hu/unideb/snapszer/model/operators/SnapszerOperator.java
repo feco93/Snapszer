@@ -4,11 +4,11 @@ import hu.unideb.snapszer.model.Player;
 import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
 
 /**
- * Created by Fecó on 2015.12.06..
+ * Created by Fecó on 2016.01.02..
  */
-public class CoverOperator extends Operator {
+public class SnapszerOperator extends Operator {
 
-    public CoverOperator(Player player) {
+    public SnapszerOperator(Player player) {
         super(player);
     }
 
@@ -16,11 +16,11 @@ public class CoverOperator extends Operator {
     public boolean isApplicable(SnapszerTwoPlayerGame game) {
         if (!player.equals(game.getCurrentPlayer()))
             return false;
-        return game.getDeck().size() >= 4;
+        return game.getDeck().size() == 10;
     }
 
     @Override
-    public void onApply(SnapszerTwoPlayerGame game) {
-        game.setCover(true);
+    protected void onApply(SnapszerTwoPlayerGame game) {
+        game.setSnapszer(true);
     }
 }
