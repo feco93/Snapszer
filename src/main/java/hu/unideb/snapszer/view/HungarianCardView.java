@@ -6,7 +6,6 @@
 package hu.unideb.snapszer.view;
 
 import hu.unideb.snapszer.model.HungarianCard;
-import java.util.Objects;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -23,6 +22,8 @@ import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
+import java.util.Objects;
+
 /**
  *
  * @author Fecó
@@ -34,17 +35,12 @@ public class HungarianCardView extends MeshView {
     private static final int WIDTH = 112;
     private static final int HEIGHT = 186;
     private static final int DEPTH = 1;
-    private TriangleMesh cardMesh;
     private final Rotate rotateX;
     private final Rotate rotateY;
     private final Rotate rotateZ;
     private final Translate translate;
-
-    public HungarianCard getCard() {
-        return card;
-    }
-
     private final HungarianCard card;
+    private TriangleMesh cardMesh;
 
     public HungarianCardView(HungarianCard card, Point3D startPosition) {
         this.card = card;
@@ -65,10 +61,27 @@ public class HungarianCardView extends MeshView {
         );
     }
 
+    public HungarianCard getCard() {
+        return card;
+    }
+
     public Timeline setTrump(double x, double y) {
         Timeline tl = new Timeline();
         KeyValue rz = new KeyValue(rotateZ.angleProperty(), 90);
         KeyValue rx = new KeyValue(rotateX.angleProperty(), -90);
+        KeyValue tx = new KeyValue(translate.xProperty(), x);
+        KeyValue ty = new KeyValue(translate.yProperty(), y);
+        KeyValue tz = new KeyValue(translate.zProperty(), 0);
+        KeyFrame kf = new KeyFrame(Duration.millis(600), tx, ty, tz);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(1000), rx, rz);
+        tl.getKeyFrames().addAll(kf, kf2);
+        return tl;
+    }
+
+    public Timeline coverOrSnapszer(double x, double y) {
+        Timeline tl = new Timeline();
+        KeyValue rz = new KeyValue(rotateZ.angleProperty(), 90);
+        KeyValue rx = new KeyValue(rotateX.angleProperty(), 90);
         KeyValue tx = new KeyValue(translate.xProperty(), x);
         KeyValue ty = new KeyValue(translate.yProperty(), y);
         KeyValue tz = new KeyValue(translate.zProperty(), 0);

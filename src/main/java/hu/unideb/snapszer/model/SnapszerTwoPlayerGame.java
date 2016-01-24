@@ -31,6 +31,7 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     private ObjectProperty<HungarianCard> trumpCard;
     private boolean cover;
     private boolean snapszer;
+    private Player sayerPlayer;
 
     public SnapszerTwoPlayerGame(Player playerOne, Player playerTwo, Deck deck) {
         playerOne.initPlayer();
@@ -65,6 +66,7 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
 
     public void setCover(boolean cover) {
         this.cover = cover;
+        this.sayerPlayer = getCurrentPlayer();
     }
 
     public boolean isSnapszer() {
@@ -73,6 +75,7 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
 
     public void setSnapszer(boolean snapszer) {
         this.snapszer = snapszer;
+        this.sayerPlayer = getCurrentPlayer();
     }
 
     public ObjectProperty<HungarianCard> trumpCardProperty() {
@@ -124,13 +127,13 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     private void beatPhase() {
         int index = cardsOnTable.indexOf(getHighestCard());
         if (index > 0) {
-            otherPlayer.setBeatsCounter(otherPlayer.getBeatsCounter() + 1);
             swapPlayers();
         }
         for (HungarianCard card :
                 cardsOnTable) {
             currentPlayer.addScore(card.getPoints());
         }
+        currentPlayer.setBeatsCounter(currentPlayer.getBeatsCounter() + 1);
         playedCards.addAll(cardsOnTable);
         cardsOnTable.clear();
     }
@@ -159,14 +162,36 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
         Player winnerPlayer = playMatch();
         Player loserPlayer = getPlayers().stream().
                 filter(player -> !player.equals(winnerPlayer)).findFirst().get();
-        if (loserPlayer.getScore() < 33)
+        if (isCover()) {
+            Player notSayerPlayer = getPlayers().stream().
+                    filter(player -> !player.equals(sayerPlayer)).findFirst().get();
+            if (sayerPlayer.getScore() < 66) {
+                notSayerPlayer.addPoints(1);
+            } else {
+                if (notSayerPlayer.getBeatsCounter() == 0) {
+                    sayerPlayer.addPoints(3);
+                } else if (notSayerPlayer.getScore() < 33) {
+                    sayerPlayer.addPoints(2);
+                } else {
+                    sayerPlayer.addPoints(1);
+                }
+            }
+        } else if (isSnapszer()) {
+            Player notSayerPlayer = getPlayers().stream().
+                    filter(player -> !player.equals(sayerPlayer)).findFirst().get();
+            if (sayerPlayer.getScore() < 66 || notSayerPlayer.getBeatsCounter() > 0) {
+                notSayerPlayer.addPoints(6);
+            } else {
+                sayerPlayer.addPoints(6);
+            }
+        } else {
             if (loserPlayer.getBeatsCounter() == 0)
                 winnerPlayer.addPoints(3);
-            else {
+            else if (loserPlayer.getScore() < 33)
                 winnerPlayer.addPoints(2);
+            else {
+                winnerPlayer.addPoints(1);
             }
-        else {
-            winnerPlayer.addPoints(1);
         }
         return null;
     }

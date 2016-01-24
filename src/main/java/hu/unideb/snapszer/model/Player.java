@@ -131,7 +131,7 @@ public abstract class Player {
     }
 
     public boolean canSay20() {
-        if (said20) {
+        if (said20 || said40) {
             return false;
         }
         for (ICard card : cards) {
@@ -152,7 +152,7 @@ public abstract class Player {
     }
 
     public boolean canSay40(HungarianCardSuit suit) {
-        if (said40) {
+        if (said40 || said20) {
             return false;
         }
         return cards.stream().anyMatch((ICard card) -> {

@@ -1,10 +1,7 @@
 package hu.unideb.snapszer.view;
 
 import hu.unideb.snapszer.model.*;
-import hu.unideb.snapszer.model.operators.CallOperator;
-import hu.unideb.snapszer.model.operators.DrawOperator;
-import hu.unideb.snapszer.model.operators.Operator;
-import hu.unideb.snapszer.model.operators.SwapTrumpOperator;
+import hu.unideb.snapszer.model.operators.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -84,6 +81,15 @@ public class SnapszerGameView extends Group {
         if (operator instanceof SwapTrumpOperator) {
             onSwapTrumpOperatorApplied((SwapTrumpOperator) operator);
         }
+        if (operator instanceof CoverOperator) {
+            onCoverOperatorApplied((CoverOperator) operator);
+        }
+    }
+
+    private void onCoverOperatorApplied(CoverOperator operator) {
+        sequentialTransition.addAnimation(
+                trumpCardView.getValue().coverOrSnapszer(60, -20));
+        sequentialTransition.playAnimationSynchronous();
     }
 
     private void onSwapTrumpOperatorApplied(SwapTrumpOperator operator) {

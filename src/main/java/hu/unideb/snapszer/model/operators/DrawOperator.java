@@ -21,8 +21,7 @@ public class DrawOperator extends Operator {
 
     @Override
     public boolean isApplicable(SnapszerTwoPlayerGame game) {
-        return !game.isSnapszer() &&
-                !game.isCover() && !game.getDeck().isEmpty();
+        return !game.isCover() && !game.getDeck().isEmpty();
     }
 
     @Override

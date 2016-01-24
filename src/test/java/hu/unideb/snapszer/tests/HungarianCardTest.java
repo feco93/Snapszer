@@ -8,12 +8,9 @@ package hu.unideb.snapszer.tests;
 import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.HungarianCardRank;
 import hu.unideb.snapszer.model.HungarianCardSuit;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.*;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -68,5 +65,13 @@ public class HungarianCardTest {
         HungarianCardSuit.PIROS.setTrump(true);
         result = pirosAsz.compareTo(tokAlso);
         assertTrue(result > 0);
+    }
+
+    @Test
+    public void compareTrumpNotTrumpCards2() {
+        HungarianCardSuit.PIROS.setTrump(false);
+        HungarianCardSuit.TOK.setTrump(true);
+        int result = pirosAsz.compareTo(tokAlso);
+        assertTrue(result < 0);
     }
 }

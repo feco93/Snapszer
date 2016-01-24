@@ -17,6 +17,7 @@ public class SnapszerDeck {
     public static Deck getNewDeck() {
         List<ICard> cards = new ArrayList<>();
         for (HungarianCardSuit suit : HungarianCardSuit.values()) {
+            suit.setTrump(false);
             for (HungarianCardRank rank : HungarianCardRank.values()) {
                 if (rank == HungarianCardRank.KILENC
                         || rank == HungarianCardRank.NYOLC

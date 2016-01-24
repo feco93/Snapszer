@@ -37,17 +37,18 @@ public class CallOperator extends Operator {
     }
 
     private boolean canCall(ICard calledCard) {
-        ICard toCall = player.cards.stream().filter(card ->
-                card.getSuit() == calledCard.getSuit()).max((a, b) ->
-                a.compareTo(b)).orElse(null);
-        if (toCall != null)
-            return toCall.equals(card);
-        toCall = player.cards.stream().filter(card -> {
-            HungarianCard hungarianCard = (HungarianCard) card;
-            return hungarianCard.getSuit().isTrump();
-        }).findFirst().orElse(null);
-        if (toCall != null) {
-            return toCall.getSuit().equals(card.getSuit());
+        boolean hasSameSuit =
+                player.cards.stream().anyMatch(iCard -> iCard.getSuit().equals(calledCard.getSuit()));
+        if (hasSameSuit) {
+            return card.getSuit().equals(calledCard.getSuit());
+        }
+        boolean hasTrump =
+                player.cards.stream().anyMatch(iCard -> {
+                    HungarianCard hungarianCard = (HungarianCard) iCard;
+                    return hungarianCard.getSuit().isTrump();
+                });
+        if (hasTrump) {
+            return card.getSuit().isTrump();
         }
         return true;
     }

@@ -14,8 +14,6 @@ public class SnapszerOperator extends Operator {
 
     @Override
     public boolean isApplicable(SnapszerTwoPlayerGame game) {
-        if (!player.equals(game.getCurrentPlayer()))
-            return false;
         return game.getDeck().size() == 10;
     }
 
