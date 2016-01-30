@@ -14,6 +14,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +25,7 @@ import java.util.List;
  */
 public class SnapszerTwoPlayerGame extends Task<Void> {
 
+    private final Logger logger = LoggerFactory.getLogger(SnapszerTwoPlayerGame.class);
     private Deck deck;
     private Player currentPlayer;
     private Player otherPlayer;
@@ -125,6 +128,7 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     }
 
     private void beatPhase() {
+        logger.trace("Beat Phase");
         int index = cardsOnTable.indexOf(getHighestCard());
         if (index > 0) {
             swapPlayers();
