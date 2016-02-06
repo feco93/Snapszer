@@ -79,7 +79,7 @@ public abstract class Player {
         said40 = false;
     }
 
-    public abstract Operator chooseOperator(SnapszerTwoPlayerGame game);
+    public abstract Operator chooseOperator(GameMatch game);
 
     /**
      * Add the specified score to the score of this player.

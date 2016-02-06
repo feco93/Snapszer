@@ -12,7 +12,7 @@ import hu.unideb.snapszer.model.operators.*;
  */
 public class Computer extends Player {
     @Override
-    public Operator chooseOperator(SnapszerTwoPlayerGame game) {
+    public Operator chooseOperator(GameMatch game) {
         if (game.getCurrentPlayer() == this) {
             if (canSay20()) {
                 return new Say20Operator(this);
@@ -27,7 +27,7 @@ public class Computer extends Player {
         return getFirstApplicableOperator(game);
     }
 
-    private CallOperator getFirstApplicableOperator(SnapszerTwoPlayerGame game) {
+    private CallOperator getFirstApplicableOperator(GameMatch game) {
         for (ICard card :
                 cards) {
             CallOperator op = new CallOperator(this, (HungarianCard) card);

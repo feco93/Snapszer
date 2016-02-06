@@ -28,7 +28,7 @@ public class SnapszerGameView extends Group {
     private HumanView humanPlayerView;
     private ObjectProperty<HungarianCardView> trumpCardView;
 
-    public SnapszerGameView(SnapszerTwoPlayerGame game) {
+    public SnapszerGameView(GameMatch game) {
         playerViews = new ArrayList<>();
         for (Player player :
                 game.getPlayers()) {

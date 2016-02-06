@@ -19,7 +19,7 @@ public class CallOperator extends Operator {
     }
 
     @Override
-    public boolean isApplicable(SnapszerTwoPlayerGame game) {
+    public boolean isApplicable(GameMatch game) {
         if ((game.isCover() && !game.getCardsOnTable().isEmpty()) ||
                 (game.getDeck().isEmpty() && !game.getCardsOnTable().isEmpty()) ||
                 (game.isSnapszer() && !game.getCardsOnTable().isEmpty())) {
@@ -29,7 +29,7 @@ public class CallOperator extends Operator {
     }
 
     @Override
-    public void onApply(SnapszerTwoPlayerGame game) {
+    public void onApply(GameMatch game) {
         player.setSaid20(false);
         player.setSaid40(false);
         player.removeCard(card);

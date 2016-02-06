@@ -5,7 +5,7 @@
 
     <groupId>hu.unideb</groupId>
     <artifactId>Snapszer</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>3.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Snapszer</name>
@@ -20,6 +20,14 @@
         <!-- Used as the 'Vendor' for JNLP generation -->
         <name>Your Organisation</name>
     </organization>
+
+    <repositories>
+        <repository>
+            <id>in-project</id>
+            <name>In Project Repo</name>
+            <url>file://${project.basedir}/libs</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
@@ -120,6 +128,11 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>com.interactivemesh.jfx.importer</groupId>
+            <artifactId>jim3dsModelImporterJFX</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.13</version>
@@ -134,11 +147,6 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
-        </dependency>        
-        <dependency>
-            <groupId>com.interactivemesh</groupId>
-            <artifactId>javafx3dsimporter</artifactId>
-            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>

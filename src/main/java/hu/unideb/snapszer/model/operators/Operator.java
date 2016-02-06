@@ -1,6 +1,6 @@
 package hu.unideb.snapszer.model.operators;
 
-import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
+import hu.unideb.snapszer.model.GameMatch;
 import hu.unideb.snapszer.model.Player;
 
 import java.util.ArrayList;
@@ -22,27 +22,27 @@ public abstract class Operator {
         this.player = player;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    abstract public boolean isApplicable(SnapszerTwoPlayerGame game);
-
-    abstract protected void onApply(SnapszerTwoPlayerGame game);
-
-    public void apply(SnapszerTwoPlayerGame game) {
-        onApply(game);
-        for (OperatorListener listener :
-                listeners) {
-            listener.onOperatorApplied(this);
-        }
-    }
-
     public static void addListener(OperatorListener listener) {
         listeners.add(listener);
     }
 
     public static void clearListeners() {
         listeners.clear();
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    abstract public boolean isApplicable(GameMatch game);
+
+    abstract protected void onApply(GameMatch game);
+
+    public void apply(GameMatch game) {
+        onApply(game);
+        for (OperatorListener listener :
+                listeners) {
+            listener.onOperatorApplied(this);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package hu.unideb.snapszer.model.operators;
 
-import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
+import hu.unideb.snapszer.model.GameMatch;
 import hu.unideb.snapszer.model.Player;
 
 /**
@@ -13,14 +13,14 @@ public class Say40Operator extends Operator {
     }
 
     @Override
-    public boolean isApplicable(SnapszerTwoPlayerGame game) {
+    public boolean isApplicable(GameMatch game) {
         if (!player.equals(game.getCurrentPlayer()))
             return false;
         return player.canSay40(game.getTrumpCard().getSuit());
     }
 
     @Override
-    public void onApply(SnapszerTwoPlayerGame game) {
+    public void onApply(GameMatch game) {
         player.say40();
     }
 }
