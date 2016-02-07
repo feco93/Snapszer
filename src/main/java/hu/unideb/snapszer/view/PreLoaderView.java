@@ -1,6 +1,5 @@
 package hu.unideb.snapszer.view;
 
-import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
@@ -16,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * Created by Fecó Sipos on 2016. 02. 07..
  */
-public class PreLoaderView extends Application {
+public class PreLoaderView {
     private Group backGround;
     private TableView tableView;
     private Scene scene;
@@ -24,12 +23,7 @@ public class PreLoaderView extends Application {
     private SubScene backGroundScene;
     private VBox controls;
 
-    public void display() {
-        launch();
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    public PreLoaderView() {
         backGround = new Group();
         tableView = new TableView();
         this.backGround.getChildren().add(tableView);
@@ -48,13 +42,17 @@ public class PreLoaderView extends Application {
                 System.exit(0);
             }
         });
+    }
+
+    public void start() {
+        Stage primaryStage = new Stage();
         primaryStage.setFullScreenExitHint("");
         primaryStage.fullScreenExitKeyProperty().set(KeyCombination.NO_MATCH);
         primaryStage.setResizable(false);
         primaryStage.setFullScreen(true);
-        primaryStage.setTitle("Snapszer");
         primaryStage.setScene(scene);
         primaryStage.show();
+
         backGroundScene.setWidth(primaryStage.getWidth());
         backGroundScene.setHeight(primaryStage.getHeight());
         addCamera(backGroundScene);
