@@ -5,35 +5,27 @@
  */
 package hu.unideb.snapszer.model;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Fecó
  */
 public class SnapszerTwoPlayerGame extends Task<Void> {
 
-    private final static Logger logger = LoggerFactory.getLogger(SnapszerTwoPlayerGame.class);
     private Deck deck;
     private Player playerOne;
     private Player playerTwo;
-    private ObjectProperty<GameMatch> gameMatchProperty;
+    private GameMatch gameMatch;
 
     public SnapszerTwoPlayerGame(Player playerOne, Player playerTwo) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
-        gameMatchProperty = new SimpleObjectProperty<>();
+        this.deck = SnapszerDeck.getNewDeck();
+        gameMatch = new GameMatch(playerOne, playerTwo, deck);
     }
 
-    public GameMatch getGameMatchProperty() {
-        return gameMatchProperty.get();
-    }
-
-    public ObjectProperty<GameMatch> gameMatchPropertyProperty() {
-        return gameMatchProperty;
+    public GameMatch getGameMatch() {
+        return gameMatch;
     }
 
     private boolean isGameOver() {
@@ -41,7 +33,6 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     }
 
     private void updatePoints(Player winnerPlayer) {
-        GameMatch gameMatch = gameMatchProperty.get();
         Player loserPlayer = gameMatch.getPlayers().stream().
                 filter(player -> !player.equals(winnerPlayer)).findFirst().get();
         if (gameMatch.isCover()) {
@@ -82,9 +73,6 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     @Override
     protected Void call() throws Exception {
         while (!isGameOver()) {
-            this.deck = SnapszerDeck.getNewDeck();
-            gameMatchProperty.setValue(new GameMatch(playerOne, playerTwo, deck));
-            GameMatch gameMatch = gameMatchProperty.get();
             Player winnerPlayer = gameMatch.play();
             updatePoints(winnerPlayer);
         }

@@ -8,8 +8,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +17,6 @@ import java.util.List;
  */
 public class GameMatch {
 
-    private final static Logger logger = LoggerFactory.getLogger(GameMatch.class);
     private Deck deck;
     private Player currentPlayer;
     private Player otherPlayer;
@@ -45,7 +42,6 @@ public class GameMatch {
             deck.insertCard(trumpCard.getValue(), 0);
             trumpCard.getValue().getSuit().setTrump(true);
         });
-        initGame();
     }
 
     public Deck getDeck() {
@@ -123,7 +119,6 @@ public class GameMatch {
     }
 
     private void beatPhase() {
-        logger.trace("Beat Phase");
         int index = cardsOnTable.indexOf(getHighestCard());
         if (index > 0) {
             swapPlayers();
@@ -156,6 +151,7 @@ public class GameMatch {
     }
 
     public Player play() {
+        initGame();
         while (true) {
             if (currentPlayer.cards.isEmpty() &&
                     otherPlayer.cards.isEmpty())

@@ -1,5 +1,6 @@
 package hu.unideb.snapszer.view;
 
+import hu.unideb.snapszer.UIGame;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
@@ -22,6 +23,8 @@ public class PreLoaderView {
     private StackPane root;
     private SubScene backGroundScene;
     private VBox controls;
+    private Button playGameBtn;
+    private Stage primaryStage;
 
     public PreLoaderView() {
         backGround = new Group();
@@ -29,9 +32,16 @@ public class PreLoaderView {
         this.backGround.getChildren().add(tableView);
         backGroundScene = new SubScene(this.backGround, 0, 0, true, SceneAntialiasing.BALANCED);
 
+        playGameBtn = new Button("Play game");
+        playGameBtn.setOnMouseClicked(event1 -> {
+            UIGame game = new UIGame();
+            primaryStage.close();
+            game.DisplayGame();
+        });
+
         controls = new VBox();
         controls.setAlignment(Pos.CENTER);
-        controls.getChildren().add(new Button("Play game"));
+        controls.getChildren().add(playGameBtn);
 
         root = new StackPane();
         root.getChildren().addAll(backGroundScene, controls);
@@ -45,7 +55,7 @@ public class PreLoaderView {
     }
 
     public void start() {
-        Stage primaryStage = new Stage();
+        primaryStage = new Stage();
         primaryStage.setFullScreenExitHint("");
         primaryStage.fullScreenExitKeyProperty().set(KeyCombination.NO_MATCH);
         primaryStage.setResizable(false);

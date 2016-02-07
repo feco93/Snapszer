@@ -7,7 +7,6 @@ import hu.unideb.snapszer.model.Player;
 import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
 import hu.unideb.snapszer.view.SnapszerGameView;
 import hu.unideb.snapszer.view.TableView;
-import javafx.application.Application;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -26,7 +25,7 @@ import javafx.stage.Stage;
 /**
  * Created by Fecó Sipos on 2016. 01. 31..
  */
-public class UIGame extends Application implements Game {
+public class UIGame implements Game {
 
     private Scene scene;
     private Group gameView;
@@ -46,25 +45,6 @@ public class UIGame extends Application implements Game {
     private Player playerTwo;
 
     public UIGame() {
-        playerOne = new Human();
-        playerTwo = new Computer();
-        game = new SnapszerTwoPlayerGame(playerOne, playerTwo);
-        game.gameMatchPropertyProperty().addListener((observable) -> {
-            snapszerGameView = new SnapszerGameView(game.getGameMatchProperty());
-            this.gameView.getChildren().addAll(snapszerGameView);
-            controller = new GameController(snapszerGameView.getHumanPlayerView(), snapszerGameView.trumpCardViewProperty(), this.gameView);
-        });
-    }
-
-    @Override
-    public void Start() {
-        launch();
-        Thread gameThread = new Thread(game);
-        gameThread.start();
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
         gameView = new Group();
         tableView = new TableView();
         this.gameView.getChildren().add(tableView);
@@ -79,6 +59,25 @@ public class UIGame extends Application implements Game {
                 System.exit(0);
             }
         });
+    }
+
+    @Override
+    public void Start() {
+        playerOne = new Human();
+        playerTwo = new Computer();
+        game = new SnapszerTwoPlayerGame(playerOne, playerTwo);
+        snapszerGameView = new SnapszerGameView(game.getGameMatch());
+        this.gameView.getChildren().addAll(snapszerGameView);
+        controller = new GameController(
+                snapszerGameView.getHumanPlayerView(),
+                snapszerGameView.trumpCardViewProperty()
+                , this.gameView);
+        Thread gameThread = new Thread(game);
+        gameThread.start();
+    }
+
+    public void DisplayGame() {
+        Stage primaryStage = new Stage();
         primaryStage.setFullScreenExitHint("");
         primaryStage.fullScreenExitKeyProperty().set(KeyCombination.NO_MATCH);
         primaryStage.setResizable(false);
@@ -89,6 +88,7 @@ public class UIGame extends Application implements Game {
         game3d.setWidth(primaryStage.getWidth());
         game3d.setHeight(primaryStage.getHeight());
         addCamera(game3d);
+        Start();
     }
 
     private PerspectiveCamera addCamera(SubScene scene) {
