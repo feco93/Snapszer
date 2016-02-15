@@ -25,7 +25,7 @@ public class SnapszerGameView extends Group {
     private final CalledCardsView calledCardsView;
     private final PlayedCardsView playedCardsView;
     private final MySequentialTransition sequentialTransition;
-    private HumanView humanPlayerView;
+    private PlayerView humanPlayerView;
     private ObjectProperty<HungarianCardView> trumpCardView;
 
     public SnapszerGameView(GameMatch game) {
@@ -34,8 +34,8 @@ public class SnapszerGameView extends Group {
                 game.getPlayers()) {
             PlayerView playerView;
             if (player instanceof Human) {
-                playerView = new HumanView(player);
-                humanPlayerView = (HumanView) playerView;
+                playerView = new PlayerView(player);
+                humanPlayerView = playerView;
             } else {
                 playerView = new PlayerView(player);
             }
@@ -128,7 +128,7 @@ public class SnapszerGameView extends Group {
         return trumpCardView;
     }
 
-    public HumanView getHumanPlayerView() {
+    public PlayerView getHumanPlayerView() {
         return humanPlayerView;
     }
 }

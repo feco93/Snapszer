@@ -27,7 +27,7 @@ public class GameController {
 
     private final ObservableList<HungarianCardView> handView;
 
-    public GameController(PlayerView player, ObjectProperty<HungarianCardView> trumpCard, Group root) {
+    public GameController(PlayerView player, ObjectProperty<HungarianCardView> trumpCard, Group scene) {
         this.handView = player.getCardsInHand();
         handView.addListener((ListChangeListener.Change<? extends HungarianCardView> c) -> {
             while (c.next()) {
@@ -38,8 +38,8 @@ public class GameController {
                             Human human = (Human) player.getPlayer();
                             human.setChosenOperator(new CallOperator(human, cardView.getCard()));
                         });
-                        cardView.setOnMouseEntered(event -> root.setCursor(Cursor.HAND));
-                        cardView.setOnMouseExited(event -> root.setCursor(Cursor.DEFAULT));
+                        cardView.setOnMouseEntered(event -> scene.setCursor(Cursor.HAND));
+                        cardView.setOnMouseExited(event -> scene.setCursor(Cursor.DEFAULT));
                     }
                 }
                 if (c.wasRemoved()) {
@@ -52,8 +52,8 @@ public class GameController {
             }
         });
         trumpCard.addListener(observable -> {
-            trumpCard.getValue().setOnMouseEntered(event -> root.setCursor(Cursor.HAND));
-            trumpCard.getValue().setOnMouseExited(event -> root.setCursor(Cursor.DEFAULT));
+            trumpCard.getValue().setOnMouseEntered(event -> scene.setCursor(Cursor.HAND));
+            trumpCard.getValue().setOnMouseExited(event -> scene.setCursor(Cursor.DEFAULT));
             trumpCard.getValue().setOnMouseClicked(event -> {
                 Human human = (Human) player.getPlayer();
                 human.setChosenOperator(new SwapTrumpOperator(human));

@@ -34,9 +34,10 @@ public class PreLoaderView {
 
         playGameBtn = new Button("Play game");
         playGameBtn.setOnMouseClicked(event1 -> {
-            UIGame game = new UIGame();
-            primaryStage.close();
-            game.DisplayGame();
+            UIGame game = new UIGame(primaryStage.getWidth(), primaryStage.getHeight());
+            primaryStage.setScene(game.getScene());
+            primaryStage.setFullScreen(true);
+            game.Start();
         });
 
         controls = new VBox();

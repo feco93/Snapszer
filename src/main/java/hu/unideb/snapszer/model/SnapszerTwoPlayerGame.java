@@ -5,6 +5,8 @@
  */
 package hu.unideb.snapszer.model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
 
 /**
@@ -15,17 +17,21 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     private Deck deck;
     private Player playerOne;
     private Player playerTwo;
-    private GameMatch gameMatch;
+    private ObjectProperty<GameMatch> gameMatch;
+
 
     public SnapszerTwoPlayerGame(Player playerOne, Player playerTwo) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
-        this.deck = SnapszerDeck.getNewDeck();
-        gameMatch = new GameMatch(playerOne, playerTwo, deck);
+        gameMatch = new SimpleObjectProperty<>();
+    }
+
+    public ObjectProperty<GameMatch> gameMatchProperty() {
+        return gameMatch;
     }
 
     public GameMatch getGameMatch() {
-        return gameMatch;
+        return gameMatch.get();
     }
 
     private boolean isGameOver() {
@@ -33,6 +39,7 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     }
 
     private void updatePoints(Player winnerPlayer) {
+        GameMatch gameMatch = getGameMatch();
         Player loserPlayer = gameMatch.getPlayers().stream().
                 filter(player -> !player.equals(winnerPlayer)).findFirst().get();
         if (gameMatch.isCover()) {
@@ -73,7 +80,9 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     @Override
     protected Void call() throws Exception {
         while (!isGameOver()) {
-            Player winnerPlayer = gameMatch.play();
+            deck = SnapszerDeck.getNewDeck();
+            gameMatch.setValue(new GameMatch(playerOne, playerTwo, deck));
+            Player winnerPlayer = getGameMatch().play();
             updatePoints(winnerPlayer);
         }
         return null;

@@ -13,7 +13,6 @@ public class MainApp extends Application {
 
 
     public static void main(String[] args) {
-        /*GameKernel kernel = new GameKernel(GameMode.GUI);*/
         launch();
     }
 

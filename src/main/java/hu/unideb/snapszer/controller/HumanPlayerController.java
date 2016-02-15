@@ -1,4 +1,4 @@
-package hu.unideb.snapszer.view;
+package hu.unideb.snapszer.controller;
 
 import hu.unideb.snapszer.model.Player;
 import hu.unideb.snapszer.model.operators.*;
@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 /**
  * Created by Fecó on 2015.12.20..
  */
-public class HumanView extends PlayerView {
+public class HumanPlayerController {
 
     private final Button say20Btn;
     private final Button say40Btn;
@@ -15,8 +15,7 @@ public class HumanView extends PlayerView {
     private final Button snapszerBtn;
     private final Button coverBtn;
 
-    public HumanView(Player player) {
-        super(player);
+    public HumanPlayerController(Player player) {
         say20Btn = new Button("20");
         say20Btn.setOnMouseClicked(event -> {
             player.setChosenOperator(new Say20Operator(player));
