@@ -35,6 +35,10 @@ public class PreLoaderView {
         playGameBtn = new Button("Play game");
         playGameBtn.setOnMouseClicked(event1 -> {
             UIGame game = new UIGame(primaryStage.getWidth(), primaryStage.getHeight());
+            game.getGameTask().setOnSucceeded(event -> {
+                primaryStage.setScene(scene);
+                primaryStage.setFullScreen(true);
+            });
             primaryStage.setScene(game.getScene());
             primaryStage.setFullScreen(true);
             game.Start();

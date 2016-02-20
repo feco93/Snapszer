@@ -9,6 +9,7 @@ import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
 import hu.unideb.snapszer.view.SnapszerGameView;
 import hu.unideb.snapszer.view.TableView;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -29,26 +30,20 @@ public class UIGame implements Game {
 
     private Scene scene;
     private Group gameView;
-    private AnchorPane gameInfo;
-    private SubScene game3d;
     private StackPane root;
     private TableView tableView;
     private SnapszerGameView snapszerGameView;
-    private Text playerOneScore;
-    private Text playerTwoScore;
-    private Text playerOnePoints;
-    private Text playerTwoPoints;
-    private Text pointsInfo;
     private SnapszerTwoPlayerGame game;
     private Player playerOne;
     private Player playerTwo;
+    private Task<Void> gameTask;
 
     public UIGame(double width, double height) {
         root = new StackPane();
         gameView = new Group();
         tableView = new TableView();
         this.gameView.getChildren().add(tableView);
-        game3d = new SubScene(this.gameView, width, height, true, SceneAntialiasing.BALANCED);
+        SubScene game3d = new SubScene(this.gameView, width, height, true, SceneAntialiasing.BALANCED);
         addCamera(game3d);
         root.getChildren().add(game3d);
         scene = new Scene(root, width, height, true, SceneAntialiasing.BALANCED);
@@ -58,14 +53,7 @@ public class UIGame implements Game {
                 System.exit(0);
             }
         });
-    }
 
-    public Scene getScene() {
-        return scene;
-    }
-
-    @Override
-    public void Start() {
         playerOne = new Human("Player");
         playerTwo = new Computer("Computer");
         initGameInfo();
@@ -85,9 +73,28 @@ public class UIGame implements Game {
 
         });
 
-        Thread gameThread = new Thread(game);
+        gameTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                game.run();
+                return null;
+            }
+        };
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    @Override
+    public void Start() {
+        Thread gameThread = new Thread(gameTask);
         gameThread.setDaemon(true);
         gameThread.start();
+    }
+
+    public Task getGameTask() {
+        return gameTask;
     }
 
     private PerspectiveCamera addCamera(SubScene scene) {
@@ -105,13 +112,13 @@ public class UIGame implements Game {
     }
 
     private void initGameInfo() {
-        gameInfo = new AnchorPane();
+        AnchorPane gameInfo = new AnchorPane();
         TextFlow scoreContainer = new TextFlow();
         scoreContainer.setTextAlignment(TextAlignment.LEFT);
-        playerOneScore = new Text("Player: 0\n");
+        Text playerOneScore = new Text("Player: 0\n");
         playerOneScore.setFill(Color.RED);
         playerOneScore.setFont(new Font("Arial", 32));
-        playerTwoScore = new Text("Computer: 0");
+        Text playerTwoScore = new Text("Computer: 0");
         playerTwoScore.setFill(Color.RED);
         playerTwoScore.setFont(new Font("Arial", 32));
         scoreContainer.getChildren().addAll(playerOneScore, playerTwoScore);
@@ -119,13 +126,13 @@ public class UIGame implements Game {
         AnchorPane.setLeftAnchor(scoreContainer, 10.0);
         TextFlow pointsContainer = new TextFlow();
         pointsContainer.setTextAlignment(TextAlignment.LEFT);
-        pointsInfo = new Text("Points:\n");
+        Text pointsInfo = new Text("Points:\n");
         pointsInfo.setFill(Color.RED);
         pointsInfo.setFont(new Font("Arial", 32));
-        playerOnePoints = new Text("Player: 0\n");
+        Text playerOnePoints = new Text("Player: 0\n");
         playerOnePoints.setFill(Color.RED);
         playerOnePoints.setFont(new Font("Arial", 32));
-        playerTwoPoints = new Text("Computer: 0");
+        Text playerTwoPoints = new Text("Computer: 0");
         playerTwoPoints.setFill(Color.RED);
         playerTwoPoints.setFont(new Font("Arial", 32));
         pointsContainer.getChildren().addAll(pointsInfo, playerOnePoints, playerTwoPoints);
