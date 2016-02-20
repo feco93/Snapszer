@@ -8,8 +8,9 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.commons.collections.ListUtils;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,8 +19,7 @@ import java.util.List;
 public class GameMatch {
 
     private Deck deck;
-    private Player currentPlayer;
-    private Player otherPlayer;
+    private List<Player> players;
     private ObservableList<HungarianCard> cardsOnTable;
     private ObservableList<HungarianCard> playedCards;
     private ObjectProperty<HungarianCard> trumpCard;
@@ -27,11 +27,8 @@ public class GameMatch {
     private boolean snapszer;
     private Player sayerPlayer;
 
-    public GameMatch(Player playerOne, Player playerTwo, Deck deck) {
-        playerOne.initPlayer();
-        playerTwo.initPlayer();
-        currentPlayer = playerOne;
-        otherPlayer = playerTwo;
+    public GameMatch(List<Player> players, Deck deck) {
+        this.players = players;
         cover = false;
         snapszer = false;
         this.deck = deck;
@@ -44,14 +41,32 @@ public class GameMatch {
         });
     }
 
-    public Deck getDeck() {
-        return deck;
+    public ObjectProperty<HungarianCard> trumpCardProperty() {
+        return trumpCard;
     }
 
-    private void initGame() {
-        drawPhase(3);
-        trumpCard.set((HungarianCard) deck.drawCard());
-        drawPhase(2);
+    public HungarianCard getTrumpCard() {
+        return trumpCard.get();
+    }
+
+    public ObservableList<HungarianCard> getCardsOnTable() {
+        return cardsOnTable;
+    }
+
+    public ObservableList<HungarianCard> getPlayedCards() {
+        return playedCards;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public Player getCurrentPlayer() {
+        return players.get(0);
+    }
+
+    public Player getSayerPlayer() {
+        return sayerPlayer;
     }
 
     public boolean isCover() {
@@ -72,32 +87,19 @@ public class GameMatch {
         this.sayerPlayer = getCurrentPlayer();
     }
 
-    public ObjectProperty<HungarianCard> trumpCardProperty() {
-        return trumpCard;
+    public Deck getDeck() {
+        return deck;
     }
 
-    public HungarianCard getTrumpCard() {
-        return trumpCard.get();
+    private void shufflePlayers() {
+        Collections.shuffle(players);
     }
 
-    public ObservableList<HungarianCard> getCardsOnTable() {
-        return cardsOnTable;
-    }
-
-    public ObservableList<HungarianCard> getPlayedCards() {
-        return playedCards;
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public Player getOtherPlayer() {
-        return otherPlayer;
-    }
-
-    public List<Player> getPlayers() {
-        return Arrays.asList(currentPlayer, otherPlayer);
+    private void initGame() {
+        shufflePlayers();
+        drawPhase(3);
+        trumpCard.set((HungarianCard) deck.drawCard());
+        drawPhase(2);
     }
 
     private HungarianCard getHighestCard() {
@@ -121,20 +123,20 @@ public class GameMatch {
     private void beatPhase() {
         int index = cardsOnTable.indexOf(getHighestCard());
         if (index > 0) {
-            swapPlayers();
+            swapPlayers(index);
         }
         for (HungarianCard card :
                 cardsOnTable) {
-            currentPlayer.addScore(card.getPoints());
+            getCurrentPlayer().addScore(card.getPoints());
         }
-        currentPlayer.setBeatsCounter(currentPlayer.getBeatsCounter() + 1);
+        getCurrentPlayer().setBeatsCounter(getCurrentPlayer().getBeatsCounter() + 1);
         playedCards.addAll(cardsOnTable);
         cardsOnTable.clear();
     }
 
     private void drawPhase(int numberOfCards) {
         for (Player player :
-                Arrays.asList(currentPlayer, otherPlayer)) {
+                getPlayers()) {
             for (int i = 0; i < numberOfCards; ++i) {
                 DrawOperator op = new DrawOperator(player);
                 if (op.isApplicable(this)) {
@@ -144,20 +146,25 @@ public class GameMatch {
         }
     }
 
-    private void swapPlayers() {
-        Player temp = currentPlayer;
-        currentPlayer = otherPlayer;
-        otherPlayer = temp;
+    private void swapPlayers(int newCurrentPlayerIndex) {
+        players =
+                ListUtils.union(
+                        players.subList(newCurrentPlayerIndex, players.size()),
+                        players.subList(0, newCurrentPlayerIndex));
+    }
+
+    private boolean isMatchOver() {
+        return getPlayers().stream().allMatch((player) -> player.cards.isEmpty()) &&
+                deck.isEmpty();
     }
 
     public Player play() {
         initGame();
         while (true) {
-            if (currentPlayer.cards.isEmpty() &&
-                    otherPlayer.cards.isEmpty())
+            if (isMatchOver())
                 break;
             for (Player player :
-                    Arrays.asList(currentPlayer, otherPlayer)) {
+                    getPlayers()) {
                 while (true) {
                     Operator op = player.chooseOperator(this);
                     if (op.isApplicable(this)) {
@@ -174,10 +181,6 @@ public class GameMatch {
             beatPhase();
             drawPhase(1);
         }
-        return currentPlayer;
-    }
-
-    public Player getSayerPlayer() {
-        return sayerPlayer;
+        return getCurrentPlayer();
     }
 }

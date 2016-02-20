@@ -11,6 +11,8 @@ import javafx.concurrent.Task;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
+
 /**
  * @author Fecó
  */
@@ -84,7 +86,9 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     protected Void call() throws Exception {
         while (!isGameOver()) {
             deck = SnapszerDeck.getNewDeck();
-            gameMatch.setValue(new GameMatch(playerOne, playerTwo, deck));
+            playerOne.initPlayer();
+            playerTwo.initPlayer();
+            gameMatch.setValue(new GameMatch(Arrays.asList(playerOne, playerTwo), deck));
             logger.trace("The match is starting...");
             Player winnerPlayer = getGameMatch().play();
             logger.trace("The match has been finished");
