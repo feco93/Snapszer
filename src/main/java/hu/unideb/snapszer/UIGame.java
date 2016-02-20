@@ -86,6 +86,7 @@ public class UIGame implements Game {
         });
 
         Thread gameThread = new Thread(game);
+        gameThread.setDaemon(true);
         gameThread.start();
     }
 

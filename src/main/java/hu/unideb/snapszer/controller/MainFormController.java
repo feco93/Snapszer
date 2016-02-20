@@ -1,5 +1,6 @@
 package hu.unideb.snapszer.controller;
 
+import hu.unideb.snapszer.ConsoleGame;
 import hu.unideb.snapszer.view.PreLoaderView;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
@@ -21,7 +22,8 @@ public class MainFormController {
 
     @FXML
     public void onComputerVSComputerClicked(MouseEvent event) {
-        System.out.println("Click");
+        ConsoleGame game = new ConsoleGame();
+        game.Start();
     }
 
     public void setStage(Stage stage) {

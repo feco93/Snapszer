@@ -8,12 +8,15 @@ package hu.unideb.snapszer.model;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Fecó
  */
 public class SnapszerTwoPlayerGame extends Task<Void> {
 
+    private static final Logger logger = LogManager.getLogger(SnapszerTwoPlayerGame.class);
     private Deck deck;
     private Player playerOne;
     private Player playerTwo;
@@ -82,7 +85,9 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
         while (!isGameOver()) {
             deck = SnapszerDeck.getNewDeck();
             gameMatch.setValue(new GameMatch(playerOne, playerTwo, deck));
+            logger.trace("The match is starting...");
             Player winnerPlayer = getGameMatch().play();
+            logger.trace("The match has been finished");
             updatePoints(winnerPlayer);
         }
         return null;
