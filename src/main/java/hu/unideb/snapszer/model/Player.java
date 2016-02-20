@@ -31,6 +31,8 @@ import java.util.List;
  */
 public abstract class Player {
 
+    private final String name;
+
     /**
      * Cards in this player hand.
      */
@@ -50,9 +52,10 @@ public abstract class Player {
     /**
      * Constructs a new Player object.
      */
-    public Player() {
+    public Player(String name) {
         points = new SimpleIntegerProperty(0);
         score = new SimpleIntegerProperty();
+        this.name = name;
     }
 
     public int getBeatsCounter() {

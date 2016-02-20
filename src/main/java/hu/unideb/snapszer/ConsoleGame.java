@@ -10,8 +10,8 @@ import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
 public class ConsoleGame implements Game {
     @Override
     public void Start() {
-        Player playerOne = new Computer();
-        Player playerTwo = new Computer();
+        Player playerOne = new Computer("Computer1");
+        Player playerTwo = new Computer("Computer2");
         SnapszerTwoPlayerGame game = new SnapszerTwoPlayerGame(playerOne, playerTwo);
         Thread gameThread = new Thread(game);
         gameThread.start();

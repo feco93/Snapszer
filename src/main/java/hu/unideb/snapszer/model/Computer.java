@@ -11,6 +11,11 @@ import hu.unideb.snapszer.model.operators.*;
  * @author Fecó
  */
 public class Computer extends Player {
+
+    public Computer(String name) {
+        super(name);
+    }
+
     @Override
     public Operator chooseOperator(GameMatch game) {
         if (game.getCurrentPlayer() == this) {

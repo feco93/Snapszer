@@ -14,6 +14,10 @@ public class Human extends Player {
 
     private Operator chosenOperator;
 
+    public Human(String name) {
+        super(name);
+    }
+
     @Override
     public synchronized void setChosenOperator(Operator operator) {
         chosenOperator = operator;

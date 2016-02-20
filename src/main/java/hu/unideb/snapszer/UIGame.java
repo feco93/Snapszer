@@ -66,8 +66,8 @@ public class UIGame implements Game {
 
     @Override
     public void Start() {
-        playerOne = new Human();
-        playerTwo = new Computer();
+        playerOne = new Human("Player");
+        playerTwo = new Computer("Computer");
         initGameInfo();
         game = new SnapszerTwoPlayerGame(playerOne, playerTwo);
 
