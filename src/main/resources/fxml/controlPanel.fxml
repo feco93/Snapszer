@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="controlPanel" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0"
+      xmlns="http://javafx.com/javafx/8" fx:controller="hu.unideb.snapszer.controller.HumanPlayerController">
+    <children>
+        <Button fx:id="finishBtn" mnemonicParsing="false" onMouseClicked="#onFinishBtnClicked" prefHeight="30.0"
+                prefWidth="150.0"
+                style="-fx-background-color: #5c67fa; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 15px;"
+                text="Finish">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Button>
+        <Button fx:id="snapszerBtn" mnemonicParsing="false" onMouseClicked="#onSnapszerBtnClicked" prefHeight="30.0"
+                prefWidth="150.0"
+                style="-fx-background-color: #5c67fa; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 15px;"
+                text="Snapszer">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Button>
+        <Button fx:id="coverBtn" mnemonicParsing="false" onMouseClicked="#onCoverBtnClicked" prefHeight="30.0"
+                prefWidth="150.0"
+                style="-fx-background-color: #5c67fa; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 15px;"
+                text="Cover">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Button>
+        <Button fx:id="say20Btn" mnemonicParsing="false" onMouseClicked="#onSay20BtnClicked" prefHeight="30.0"
+                prefWidth="150.0"
+                style="-fx-background-color: #5c67fa; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 15px;"
+                text="20">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Button>
+        <Button fx:id="say40Btn" mnemonicParsing="false" onMouseClicked="#onSay40Clicked" prefHeight="30.0"
+                prefWidth="150.0"
+                style="-fx-background-color: #5c67fa; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 15px;"
+                text="40">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Button>
+    </children>
+    <padding>
+        <Insets bottom="5.0" top="5.0"/>
+    </padding>
+</VBox>

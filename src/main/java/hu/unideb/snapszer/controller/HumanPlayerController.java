@@ -2,59 +2,72 @@ package hu.unideb.snapszer.controller;
 
 import hu.unideb.snapszer.model.Player;
 import hu.unideb.snapszer.model.operators.*;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 /**
  * Created by Fecó on 2015.12.20..
  */
+
 public class HumanPlayerController {
 
-    private final Button say20Btn;
-    private final Button say40Btn;
-    private final Button sayFinishBtn;
-    private final Button snapszerBtn;
-    private final Button coverBtn;
+    private Player player;
 
-    public HumanPlayerController(Player player) {
-        say20Btn = new Button("20");
-        say20Btn.setOnMouseClicked(event -> {
-            player.setChosenOperator(new Say20Operator(player));
-        });
-        say40Btn = new Button("40");
-        say40Btn.setOnMouseClicked(event -> {
-            player.setChosenOperator(new Say40Operator(player));
-        });
-        snapszerBtn = new Button("Snapszer");
-        snapszerBtn.setOnMouseClicked(event -> {
-            player.setChosenOperator(new SnapszerOperator(player));
-        });
-        coverBtn = new Button("Cover");
-        coverBtn.setOnMouseClicked(event -> {
-            player.setChosenOperator(new CoverOperator(player));
-        });
-        sayFinishBtn = new Button("Finish");
-        sayFinishBtn.setOnMouseClicked(event -> {
-            player.setChosenOperator(new SayEndOperator(player));
-        });
+    @FXML
+    private VBox controlPanel;
+
+    @FXML
+    private Button snapszerBtn;
+
+    @FXML
+    private Button say40Btn;
+
+    @FXML
+    private Button say20Btn;
+
+    @FXML
+    private Button finishBtn;
+
+    @FXML
+    private Button coverBtn;
+
+    public HumanPlayerController() {
     }
 
-    public Button getSay20Btn() {
-        return say20Btn;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
-    public Button getSay40Btn() {
-        return say40Btn;
+    @FXML
+    void onFinishBtnClicked(MouseEvent event) {
+        player.setChosenOperator(new SayEndOperator(player));
     }
 
-    public Button getSnapszerBtn() {
-        return snapszerBtn;
+    @FXML
+    void onSnapszerBtnClicked(MouseEvent event) {
+        player.setChosenOperator(new SnapszerOperator(player));
     }
 
-    public Button getCoverBtn() {
-        return coverBtn;
+    @FXML
+    void onCoverBtnClicked(MouseEvent event) {
+        player.setChosenOperator(new CoverOperator(player));
     }
 
-    public Button getSayFinishBtn() {
-        return sayFinishBtn;
+    @FXML
+    void onSay20BtnClicked(MouseEvent event) {
+        player.setChosenOperator(new Say20Operator(player));
     }
+
+    @FXML
+    void onSay40Clicked(MouseEvent event) {
+        player.setChosenOperator(new Say40Operator(player));
+    }
+
+    public Node getControlPanel() {
+        return controlPanel;
+    }
+
 }

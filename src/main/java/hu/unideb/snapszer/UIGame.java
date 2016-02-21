@@ -10,8 +10,8 @@ import hu.unideb.snapszer.view.SnapszerGameView;
 import hu.unideb.snapszer.view.TableView;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -22,6 +22,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.scene.transform.Rotate;
+
+import java.io.IOException;
 
 /**
  * Created by Fecó Sipos on 2016. 01. 31..
@@ -139,24 +141,21 @@ public class UIGame implements Game {
         AnchorPane.setLeftAnchor(pointsContainer, 10.0);
         AnchorPane.setBottomAnchor(pointsContainer, 10.0);
 
-        HumanPlayerController controller = new HumanPlayerController(playerOne);
-        Button say20 = controller.getSay20Btn();
-        AnchorPane.setBottomAnchor(say20, 100.0);
-        AnchorPane.setRightAnchor(say20, 100.0);
-        Button say40 = controller.getSay40Btn();
-        AnchorPane.setBottomAnchor(say40, 140.0);
-        AnchorPane.setRightAnchor(say40, 100.0);
-        Button snapszer = controller.getSnapszerBtn();
-        AnchorPane.setBottomAnchor(snapszer, 220.0);
-        AnchorPane.setRightAnchor(snapszer, 100.0);
-        Button cover = controller.getCoverBtn();
-        AnchorPane.setBottomAnchor(cover, 260.0);
-        AnchorPane.setRightAnchor(cover, 100.0);
-        Button sayEnd = controller.getSayFinishBtn();
-        AnchorPane.setBottomAnchor(sayEnd, 180.0);
-        AnchorPane.setRightAnchor(sayEnd, 100.0);
+        FXMLLoader loader =
+                new FXMLLoader(HumanPlayerController.class.getResource("/fxml/controlPanel.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        gameInfo.getChildren().addAll(scoreContainer, pointsContainer, say20, say40, snapszer, cover, sayEnd);
+        HumanPlayerController controller = loader.getController();
+        controller.setPlayer(playerOne);
+        Node controlPanel = controller.getControlPanel();
+        AnchorPane.setBottomAnchor(controlPanel, 70.0);
+        AnchorPane.setRightAnchor(controlPanel, 50.0);
+
+        gameInfo.getChildren().addAll(scoreContainer, pointsContainer, controlPanel);
         playerOne.scoreProperty().addListener((observable, oldValue, newValue) -> {
             playerOneScore.setText(String.format("Player: %d\n", newValue.intValue()));
         });
