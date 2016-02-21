@@ -8,8 +8,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.apache.commons.collections.ListUtils;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,16 +19,20 @@ import java.util.List;
 public class GameMatch {
 
     private Deck deck;
-    private List<Player> players;
     private ObservableList<HungarianCard> cardsOnTable;
     private ObservableList<HungarianCard> playedCards;
     private ObjectProperty<HungarianCard> trumpCard;
     private boolean cover;
     private boolean snapszer;
     private Player sayerPlayer;
+    private Player currentPlayer;
+    private Player nextPlayer;
 
-    public GameMatch(List<Player> players, Deck deck) {
-        this.players = players;
+    public GameMatch(Player playerOne, Player playerTwo, Deck deck) {
+        this.currentPlayer = playerOne;
+        this.nextPlayer = playerTwo;
+        this.currentPlayer.newMatch();
+        this.nextPlayer.newMatch();
         cover = false;
         snapszer = false;
         this.deck = deck;
@@ -58,15 +62,19 @@ public class GameMatch {
     }
 
     public List<Player> getPlayers() {
-        return players;
+        return Arrays.asList(currentPlayer, nextPlayer);
     }
 
     public Player getCurrentPlayer() {
-        return players.get(0);
+        return currentPlayer;
     }
 
     public Player getSayerPlayer() {
         return sayerPlayer;
+    }
+
+    public Player getNotSayerPlayer() {
+        return sayerPlayer.equals(currentPlayer) ? nextPlayer : currentPlayer;
     }
 
     public boolean isCover() {
@@ -92,7 +100,10 @@ public class GameMatch {
     }
 
     private void shufflePlayers() {
-        Collections.shuffle(players);
+        List<Player> tempList = getPlayers();
+        Collections.shuffle(tempList);
+        currentPlayer = tempList.get(0);
+        nextPlayer = tempList.get(1);
     }
 
     private void initGame() {
@@ -123,7 +134,7 @@ public class GameMatch {
     private void beatPhase() {
         int index = cardsOnTable.indexOf(getHighestCard());
         if (index > 0) {
-            swapPlayers(index);
+            swapPlayers();
         }
         for (HungarianCard card :
                 cardsOnTable) {
@@ -146,23 +157,23 @@ public class GameMatch {
         }
     }
 
-    private void swapPlayers(int newCurrentPlayerIndex) {
-        players =
-                ListUtils.union(
-                        players.subList(newCurrentPlayerIndex, players.size()),
-                        players.subList(0, newCurrentPlayerIndex));
+    private void swapPlayers() {
+        Player temp = currentPlayer;
+        currentPlayer = nextPlayer;
+        nextPlayer = temp;
     }
 
     private boolean isMatchOver() {
-        return getPlayers().stream().allMatch((player) -> player.cards.isEmpty()) &&
-                deck.isEmpty();
+        return (getPlayers().stream().allMatch((player) -> player.cards.isEmpty()) &&
+                deck.isEmpty()) ||
+                (isSnapszer() && getNotSayerPlayer().getBeatsCounter() > 0);
     }
 
-    public Player play() {
+    public void play() {
         initGame();
         while (true) {
             if (isMatchOver())
-                break;
+                return;
             for (Player player :
                     getPlayers()) {
                 while (true) {
@@ -173,7 +184,7 @@ public class GameMatch {
                             break;
                         }
                         if (op instanceof SayEndOperator) {
-                            return player;
+                            return;
                         }
                     }
                 }
@@ -181,6 +192,55 @@ public class GameMatch {
             beatPhase();
             drawPhase(1);
         }
-        return getCurrentPlayer();
+    }
+
+    public Player getWinnerPlayer() {
+        if (isCover()) {
+            if (sayerPlayer.getScore() < 66) {
+                return getNotSayerPlayer();
+            } else {
+                return sayerPlayer;
+            }
+        } else if (isSnapszer()) {
+            if (sayerPlayer.getScore() < 66 || getNotSayerPlayer().getBeatsCounter() > 0) {
+                return getNotSayerPlayer();
+            } else {
+                return sayerPlayer;
+            }
+        } else {
+            return currentPlayer;
+        }
+    }
+
+    public int getWonPoints() {
+        Player winnerPlayer = getWinnerPlayer();
+        Player loserPlayer = getLoserPlayer();
+        if (isCover()) {
+            if (winnerPlayer.equals(getSayerPlayer())) {
+                if (getNotSayerPlayer().getBeatsCounter() == 0) {
+                    return 3;
+                } else if (getNotSayerPlayer().getScore() < 33) {
+                    return 2;
+                } else {
+                    return 1;
+                }
+            } else {
+                return 1;
+            }
+        } else if (isSnapszer()) {
+            return 6;
+        } else {
+            if (loserPlayer.getBeatsCounter() == 0)
+                return 3;
+            else if (loserPlayer.getScore() < 33)
+                return 2;
+            else {
+                return 1;
+            }
+        }
+    }
+
+    public Player getLoserPlayer() {
+        return getWinnerPlayer().equals(currentPlayer) ? nextPlayer : currentPlayer;
     }
 }

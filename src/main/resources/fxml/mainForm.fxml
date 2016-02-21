@@ -23,7 +23,8 @@
                 <Font name="Times New Roman" size="14.0"/>
             </font>
         </Button>
-        <TextField alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+        <TextField fx:id="numberOfGamesTextField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                   minHeight="-Infinity"
                    minWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" promptText="Adja meg a játszmák számát!"/>
         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
                 onMouseClicked="#onComputerVSComputerClicked" prefHeight="30.0" prefWidth="300.0"

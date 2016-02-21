@@ -44,6 +44,8 @@ public abstract class Player {
 
     private IntegerProperty points;
 
+    private int wonGame;
+
     private boolean said20;
     private boolean said40;
 
@@ -53,9 +55,18 @@ public abstract class Player {
      * Constructs a new Player object.
      */
     public Player(String name) {
-        points = new SimpleIntegerProperty(0);
-        score = new SimpleIntegerProperty();
         this.name = name;
+        wonGame = 0;
+        points = new SimpleIntegerProperty(0);
+        score = new SimpleIntegerProperty(0);
+    }
+
+    public void incWonGame() {
+        ++wonGame;
+    }
+
+    public int getWonGame() {
+        return wonGame;
     }
 
     public int getBeatsCounter() {
@@ -74,7 +85,19 @@ public abstract class Player {
         return points;
     }
 
-    public void initPlayer() {
+    public int getPoints() {
+        return points.get();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void newGame() {
+        points.setValue(0);
+    }
+
+    public void newMatch() {
         beatsCounter = 0;
         cards = FXCollections.observableArrayList();
         score.setValue(0);

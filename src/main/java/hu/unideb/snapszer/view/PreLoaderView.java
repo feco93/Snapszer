@@ -41,7 +41,7 @@ public class PreLoaderView {
             });
             primaryStage.setScene(game.getScene());
             primaryStage.setFullScreen(true);
-            game.Start();
+            game.Start(1);
         });
 
         controls = new VBox();

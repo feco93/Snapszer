@@ -87,7 +87,7 @@ public class UIGame implements Game {
     }
 
     @Override
-    public void Start() {
+    public void Start(int numberOfGame) {
         Thread gameThread = new Thread(gameTask);
         gameThread.setDaemon(true);
         gameThread.start();
@@ -165,10 +165,10 @@ public class UIGame implements Game {
         });
 
         playerTwo.scoreProperty().addListener((observable, oldValue, newValue) -> {
-            playerTwoScore.setText(String.format("Computer: %d\n", newValue.intValue()));
+            playerTwoScore.setText(String.format("Computer: %d", newValue.intValue()));
         });
         playerTwo.pointsProperty().addListener((observable, oldValue, newValue) -> {
-            playerTwoPoints.setText(String.format("Computer: %d\n", newValue.intValue()));
+            playerTwoPoints.setText(String.format("Computer: %d", newValue.intValue()));
         });
         root.getChildren().add(0, gameInfo);
     }
