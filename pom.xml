@@ -9,7 +9,7 @@
     <name>snapszer</name>
 
     <packaging>jar</packaging>
-    <version>3.0</version>
+    <version>3.1</version>
 
     <organization>
         <!-- Used as the 'Vendor' for JNLP generation -->

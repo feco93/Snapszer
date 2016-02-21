@@ -1,17 +1,17 @@
 package hu.unideb.snapszer.view;
 
-import hu.unideb.snapszer.UIGame;
-import javafx.geometry.Pos;
+import hu.unideb.snapszer.controller.GameMenuController;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * Created by Fecó Sipos on 2016. 02. 07..
@@ -22,34 +22,16 @@ public class PreLoaderView {
     private Scene scene;
     private StackPane root;
     private SubScene backGroundScene;
-    private VBox controls;
-    private Button playGameBtn;
     private Stage primaryStage;
 
     public PreLoaderView() {
+        primaryStage = new Stage();
         backGround = new Group();
         tableView = new TableView();
         this.backGround.getChildren().add(tableView);
         backGroundScene = new SubScene(this.backGround, 0, 0, true, SceneAntialiasing.BALANCED);
 
-        playGameBtn = new Button("Play game");
-        playGameBtn.setOnMouseClicked(event1 -> {
-            UIGame game = new UIGame(primaryStage.getWidth(), primaryStage.getHeight());
-            game.getGameTask().setOnSucceeded(event -> {
-                primaryStage.setScene(scene);
-                primaryStage.setFullScreen(true);
-            });
-            primaryStage.setScene(game.getScene());
-            primaryStage.setFullScreen(true);
-            game.Start(1);
-        });
-
-        controls = new VBox();
-        controls.setAlignment(Pos.CENTER);
-        controls.getChildren().add(playGameBtn);
-
         root = new StackPane();
-        root.getChildren().addAll(backGroundScene, controls);
         scene = new Scene(root, 0, 0, true, SceneAntialiasing.BALANCED);
         scene.setFill(Color.rgb(10, 10, 40));
         scene.setOnKeyPressed((KeyEvent event) -> {
@@ -57,10 +39,19 @@ public class PreLoaderView {
                 System.exit(0);
             }
         });
+
+        FXMLLoader loader = new FXMLLoader(PreLoaderView.class.getResource("/fxml/gameMenu.fxml"));
+        loader.setController(new GameMenuController(primaryStage, scene));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Node mainMenu = loader.getRoot();
+        root.getChildren().addAll(backGroundScene, mainMenu);
     }
 
     public void start() {
-        primaryStage = new Stage();
         primaryStage.setFullScreenExitHint("");
         primaryStage.fullScreenExitKeyProperty().set(KeyCombination.NO_MATCH);
         primaryStage.setResizable(false);
