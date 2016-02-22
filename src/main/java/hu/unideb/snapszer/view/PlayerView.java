@@ -1,8 +1,8 @@
 package hu.unideb.snapszer.view;
 
-import hu.unideb.snapszer.model.Computer;
 import hu.unideb.snapszer.model.HungarianCard;
-import hu.unideb.snapszer.model.Player;
+import hu.unideb.snapszer.model.player.Computer;
+import hu.unideb.snapszer.model.player.Player;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -16,11 +16,6 @@ public class PlayerView {
     private final ObservableList<HungarianCardView> cardsInHand;
     private final MySequentialTransition sequentialTransition;
     private final Player player;
-
-    public Player getPlayer() {
-        return player;
-    }
-
 
     public PlayerView(Player player) {
         sequentialTransition = new MySequentialTransition();
@@ -46,6 +41,10 @@ public class PlayerView {
                 }
             }
         });
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public ObservableList<HungarianCardView> getCardsInHand() {

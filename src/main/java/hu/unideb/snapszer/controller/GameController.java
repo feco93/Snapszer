@@ -6,9 +6,9 @@
 
 package hu.unideb.snapszer.controller;
 
-import hu.unideb.snapszer.model.Human;
 import hu.unideb.snapszer.model.operators.CallOperator;
 import hu.unideb.snapszer.model.operators.SwapTrumpOperator;
+import hu.unideb.snapszer.model.player.Human;
 import hu.unideb.snapszer.view.HungarianCardView;
 import hu.unideb.snapszer.view.PlayerView;
 import javafx.beans.property.ObjectProperty;

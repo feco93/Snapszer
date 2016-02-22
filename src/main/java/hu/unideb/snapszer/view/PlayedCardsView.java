@@ -1,14 +1,9 @@
 package hu.unideb.snapszer.view;
 
-import hu.unideb.snapszer.model.Computer;
 import hu.unideb.snapszer.model.HungarianCard;
-import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
-
-import java.util.stream.Collectors;
 
 /**
  * Created by Fecó on 2015.12.09..

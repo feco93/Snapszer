@@ -1,7 +1,11 @@
 package hu.unideb.snapszer.view;
 
-import hu.unideb.snapszer.model.*;
+import hu.unideb.snapszer.model.GameMatch;
+import hu.unideb.snapszer.model.HungarianCard;
+import hu.unideb.snapszer.model.ICard;
 import hu.unideb.snapszer.model.operators.*;
+import hu.unideb.snapszer.model.player.Human;
+import hu.unideb.snapszer.model.player.Player;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;

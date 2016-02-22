@@ -4,6 +4,7 @@ import hu.unideb.snapszer.model.operators.CallOperator;
 import hu.unideb.snapszer.model.operators.DrawOperator;
 import hu.unideb.snapszer.model.operators.Operator;
 import hu.unideb.snapszer.model.operators.SayEndOperator;
+import hu.unideb.snapszer.model.player.Player;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;

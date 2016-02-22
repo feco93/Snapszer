@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.unideb.snapszer.model;
+package hu.unideb.snapszer.model.player;
 
+import hu.unideb.snapszer.model.GameMatch;
 import hu.unideb.snapszer.model.operators.Operator;
 
 /**

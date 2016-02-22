@@ -1,7 +1,7 @@
 package hu.unideb.snapszer.model.operators;
 
 import hu.unideb.snapszer.model.GameMatch;
-import hu.unideb.snapszer.model.Player;
+import hu.unideb.snapszer.model.player.Player;
 
 /**
  * Created by Fecó on 2016.01.02..

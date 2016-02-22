@@ -1,7 +1,7 @@
 package hu.unideb.snapszer.controller;
 
-import hu.unideb.snapszer.model.Player;
 import hu.unideb.snapszer.model.operators.*;
+import hu.unideb.snapszer.model.player.Player;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

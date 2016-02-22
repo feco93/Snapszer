@@ -14,8 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package hu.unideb.snapszer.model;
+package hu.unideb.snapszer.model.player;
 
+import hu.unideb.snapszer.model.GameMatch;
+import hu.unideb.snapszer.model.HungarianCardRank;
+import hu.unideb.snapszer.model.HungarianCardSuit;
+import hu.unideb.snapszer.model.ICard;
 import hu.unideb.snapszer.model.operators.Operator;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

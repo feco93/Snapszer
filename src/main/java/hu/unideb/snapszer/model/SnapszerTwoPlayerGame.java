@@ -5,6 +5,7 @@
  */
 package hu.unideb.snapszer.model;
 
+import hu.unideb.snapszer.model.player.Player;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;

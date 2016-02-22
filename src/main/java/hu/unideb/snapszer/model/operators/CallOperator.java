@@ -1,6 +1,7 @@
 package hu.unideb.snapszer.model.operators;
 
 import hu.unideb.snapszer.model.*;
+import hu.unideb.snapszer.model.player.Player;
 
 /**
  * Created by Fecó on 2015.12.05..

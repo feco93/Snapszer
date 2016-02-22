@@ -2,10 +2,10 @@ package hu.unideb.snapszer;
 
 import hu.unideb.snapszer.controller.GameController;
 import hu.unideb.snapszer.controller.HumanPlayerController;
-import hu.unideb.snapszer.model.Computer;
-import hu.unideb.snapszer.model.Human;
-import hu.unideb.snapszer.model.Player;
 import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
+import hu.unideb.snapszer.model.player.Computer;
+import hu.unideb.snapszer.model.player.Human;
+import hu.unideb.snapszer.model.player.Player;
 import hu.unideb.snapszer.view.SnapszerGameView;
 import hu.unideb.snapszer.view.TableView;
 import javafx.application.Platform;

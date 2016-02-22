@@ -3,9 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.unideb.snapszer.model;
+package hu.unideb.snapszer.model.player;
 
+import hu.unideb.snapszer.model.GameMatch;
+import hu.unideb.snapszer.model.HungarianCard;
+import hu.unideb.snapszer.model.ICard;
 import hu.unideb.snapszer.model.operators.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Fecó
@@ -30,6 +37,32 @@ public class Computer extends Player {
             }
         }
         return getFirstApplicableOperator(game);
+    }
+
+    protected List<Operator> getAllOperators() {
+        List<Operator> allOperators = new ArrayList<>(11);
+        allOperators.addAll(Arrays.asList(new CoverOperator(this),
+                new Say20Operator(this),
+                new Say40Operator(this),
+                new SayEndOperator(this),
+                new SnapszerOperator(this),
+                new SwapTrumpOperator(this)));
+        for (ICard card :
+                cards) {
+            CallOperator op = new CallOperator(this, (HungarianCard) card);
+            allOperators.add(op);
+        }
+        return allOperators;
+    }
+
+    protected List<Operator> getAllApplicableOperators(GameMatch game) {
+        List<Operator> applicableOperators = new ArrayList<>();
+        for (Operator op :
+                getAllOperators()) {
+            if (op.isApplicable(game))
+                applicableOperators.add(op);
+        }
+        return applicableOperators;
     }
 
     private CallOperator getFirstApplicableOperator(GameMatch game) {
