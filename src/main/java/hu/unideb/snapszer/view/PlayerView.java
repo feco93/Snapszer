@@ -60,7 +60,6 @@ public class PlayerView {
         if (index == -1)
             return null;
         HungarianCardView toRet = cardsInHand.remove(index);
-        sortCards();
         return toRet;
     }
 
@@ -68,7 +67,7 @@ public class PlayerView {
         cardsInHand.add(hungarianCardView);
     }
 
-    public HungarianCardView callCard(HungarianCard card) {
+    /*public HungarianCardView callCard(HungarianCard card) {
         HungarianCardView hungarianCardView = cardsInHand.stream().
                 filter(cardView ->
                         cardView.getCard().equals(card)).
@@ -84,9 +83,9 @@ public class PlayerView {
         sequentialTransition.playAnimationSynchronous();
         sortCards();
         return toRet;
-    }
+    }*/
 
-    private void sortCards() {
+    public void sortCards() {
         for (int i = 0; i < cardsInHand.size(); ++i) {
             Timeline tl;
             if (player instanceof Computer) {

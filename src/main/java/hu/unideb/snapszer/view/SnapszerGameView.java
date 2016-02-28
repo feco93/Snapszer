@@ -4,8 +4,10 @@ import hu.unideb.snapszer.model.GameMatch;
 import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.ICard;
 import hu.unideb.snapszer.model.operators.*;
+import hu.unideb.snapszer.model.player.Computer;
 import hu.unideb.snapszer.model.player.Human;
 import hu.unideb.snapszer.model.player.Player;
+import javafx.animation.Timeline;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -51,7 +53,7 @@ public class SnapszerGameView extends Group {
         sequentialTransition = new MySequentialTransition();
         trumpCardView = new SimpleObjectProperty<>();
         hungarianCardViews = FXCollections.observableArrayList();
-        double index = -3;
+        double index = -4;
         for (ICard card : game.getDeck()) {
             HungarianCardView cardView
                     = new HungarianCardView(
@@ -92,7 +94,7 @@ public class SnapszerGameView extends Group {
 
     private void onCoverOperatorApplied(CoverOperator operator) {
         sequentialTransition.addAnimation(
-                trumpCardView.getValue().coverOrSnapszer(60, -20));
+                trumpCardView.getValue().cover(60, -20));
         sequentialTransition.playAnimationSynchronous();
     }
 
@@ -110,7 +112,18 @@ public class SnapszerGameView extends Group {
     private void onCallOperatorApplied(CallOperator operator) {
         PlayerView player = playerViews.stream().filter(
                 playerView -> playerView.getPlayer().equals(operator.getPlayer())).findFirst().get();
-        HungarianCardView calledCard = player.callCard(operator.getCard());
+        HungarianCardView calledCard = player.removeCard(operator.getCard());
+        Timeline tl;
+        double translateY = calledCardsView.cards.isEmpty() ? -5 : -5.5;
+        double angleZ = calledCardsView.cards.isEmpty() ? 0 : 90;
+        if (player.getPlayer() instanceof Computer) {
+            tl = calledCard.callCard(translateY, 270, angleZ);
+        } else {
+            tl = calledCard.callCard(translateY, -90, angleZ);
+        }
+        sequentialTransition.addAnimation(tl);
+        sequentialTransition.playAnimationSynchronous();
+        player.sortCards();
         calledCardsView.add(calledCard);
     }
 

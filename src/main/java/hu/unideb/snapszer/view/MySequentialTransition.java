@@ -4,6 +4,8 @@ import javafx.animation.Animation;
 import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 
+import java.util.Collection;
+
 /**
  * Created by Fecó on 2015.12.09..
  */
@@ -18,6 +20,10 @@ public class MySequentialTransition {
 
     public void addAnimation(Animation animation) {
         sequentialTransition.getChildren().add(animation);
+    }
+
+    public void addAnimations(Collection<Animation> animations) {
+        sequentialTransition.getChildren().addAll(animations);
     }
 
     public synchronized void playAnimationSynchronous() {

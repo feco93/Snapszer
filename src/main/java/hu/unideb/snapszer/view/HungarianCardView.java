@@ -6,6 +6,7 @@
 package hu.unideb.snapszer.view;
 
 import hu.unideb.snapszer.model.HungarianCard;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -22,6 +23,8 @@ import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -78,7 +81,7 @@ public class HungarianCardView extends MeshView {
         return tl;
     }
 
-    public Timeline coverOrSnapszer(double x, double y) {
+    public Timeline cover(double x, double y) {
         Timeline tl = new Timeline();
         KeyValue rz = new KeyValue(rotateZ.angleProperty(), 90);
         KeyValue rx = new KeyValue(rotateX.angleProperty(), 90);
@@ -91,17 +94,25 @@ public class HungarianCardView extends MeshView {
         return tl;
     }
 
-    public Timeline beatCard(double y) {
+    public Collection<Animation> beatCard(double y) {
+        Collection<Animation> animations = new ArrayList<>();
         Timeline tl = new Timeline();
-        KeyValue rz = new KeyValue(rotateZ.angleProperty(), 0);
-        KeyValue ry = new KeyValue(rotateY.angleProperty(), 0);
-        KeyValue rx = new KeyValue(rotateX.angleProperty(), 90);
-        KeyValue tx = new KeyValue(translate.xProperty(), -80);
-        KeyValue ty = new KeyValue(translate.yProperty(), y);
-        KeyFrame kf = new KeyFrame(Duration.millis(1000), tx, ty);
-        KeyFrame kf2 = new KeyFrame(Duration.millis(700), rx, ry, rz);
+        KeyValue ry = new KeyValue(rotateY.angleProperty(), -90);
+        KeyValue tx = new KeyValue(translate.xProperty(), -40);
+        KeyValue ty = new KeyValue(translate.yProperty(), -40);
+        KeyFrame kf = new KeyFrame(Duration.millis(500), tx, ty);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(500), ry);
         tl.getKeyFrames().addAll(kf, kf2);
-        return tl;
+        animations.add(tl);
+        tl = new Timeline();
+        ry = new KeyValue(rotateY.angleProperty(), -180);
+        tx = new KeyValue(translate.xProperty(), -80);
+        ty = new KeyValue(translate.yProperty(), y);
+        kf = new KeyFrame(Duration.millis(500), tx, ty);
+        kf2 = new KeyFrame(Duration.millis(500), ry);
+        tl.getKeyFrames().addAll(kf, kf2);
+        animations.add(tl);
+        return animations;
     }
 
     public Timeline moveCard(double x) {
@@ -125,12 +136,12 @@ public class HungarianCardView extends MeshView {
         return tl;
     }
 
-    public Timeline callCard(int angleX, int angleZ) {
+    public Timeline callCard(double translateY, double angleX, double angleZ) {
         Timeline tl = new Timeline();
         KeyValue kv = new KeyValue(rotateX.angleProperty(), angleX);
         KeyValue kv2 = new KeyValue(rotateZ.angleProperty(), angleZ);
         KeyValue kv3 = new KeyValue(translate.xProperty(), 0);
-        KeyValue kv4 = new KeyValue(translate.yProperty(), -4);
+        KeyValue kv4 = new KeyValue(translate.yProperty(), translateY);
         KeyValue kv5 = new KeyValue(translate.zProperty(), 0);
         KeyFrame kf = new KeyFrame(Duration.seconds(1), kv, kv2, kv3, kv4, kv5);
         tl.getKeyFrames().add(kf);
