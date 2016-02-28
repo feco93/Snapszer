@@ -45,4 +45,9 @@ public abstract class Operator {
             listener.onOperatorApplied(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
 }

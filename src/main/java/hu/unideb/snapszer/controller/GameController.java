@@ -51,10 +51,16 @@ public class GameController {
                 }
             }
         });
-        trumpCard.addListener(observable -> {
-            trumpCard.getValue().setOnMouseEntered(event -> scene.setCursor(Cursor.HAND));
-            trumpCard.getValue().setOnMouseExited(event -> scene.setCursor(Cursor.DEFAULT));
-            trumpCard.getValue().setOnMouseClicked(event -> {
+        trumpCard.addListener((observable1, oldValue, newValue) -> {
+            if (oldValue != null) {
+                oldValue.setOnMouseEntered(null);
+                oldValue.setOnMouseExited(null);
+                oldValue.setOnMouseClicked(null);
+            }
+
+            newValue.setOnMouseEntered(event -> scene.setCursor(Cursor.HAND));
+            newValue.setOnMouseExited(event -> scene.setCursor(Cursor.DEFAULT));
+            newValue.setOnMouseClicked(event -> {
                 Human human = (Human) player.getPlayer();
                 human.setChosenOperator(new SwapTrumpOperator(human));
             });

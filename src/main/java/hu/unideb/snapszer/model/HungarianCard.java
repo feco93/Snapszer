@@ -8,7 +8,6 @@ package hu.unideb.snapszer.model;
 import java.util.Objects;
 
 /**
- *
  * @author Fecó
  */
 public class HungarianCard implements ICard {
@@ -76,6 +75,8 @@ public class HungarianCard implements ICard {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
         return obj.hashCode() == hashCode();
     }
 

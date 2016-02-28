@@ -9,6 +9,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +21,7 @@ import java.util.List;
  */
 public class GameMatch {
 
+    private static final Logger logger = LogManager.getLogger(GameMatch.class);
     private Deck deck;
     private ObservableList<HungarianCard> cardsOnTable;
     private ObservableList<HungarianCard> playedCards;
@@ -72,6 +75,10 @@ public class GameMatch {
 
     public Player getSayerPlayer() {
         return sayerPlayer;
+    }
+
+    public void setSayerPlayer(Player player) {
+        sayerPlayer = player;
     }
 
     public Player getNotSayerPlayer() {
@@ -180,6 +187,10 @@ public class GameMatch {
                     Operator op = player.chooseOperator(this);
                     if (op.isApplicable(this)) {
                         op.apply(this);
+                        logger.trace(String.format(
+                                "The %s player apply: %s",
+                                player.getName(),
+                                op.toString()));
                         if (op instanceof CallOperator) {
                             break;
                         }

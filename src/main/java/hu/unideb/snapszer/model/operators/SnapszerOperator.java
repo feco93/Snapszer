@@ -14,11 +14,14 @@ public class SnapszerOperator extends Operator {
 
     @Override
     public boolean isApplicable(GameMatch game) {
-        return game.getDeck().size() == 10;
+        return !game.isCover() &&
+                !game.isSnapszer() &&
+                game.getDeck().size() == 10;
     }
 
     @Override
     protected void onApply(GameMatch game) {
         game.setSnapszer(true);
+        game.setSayerPlayer(player);
     }
 }
