@@ -32,7 +32,7 @@ public class PlayedCardsView {
                     for (HungarianCardView cardView :
                             c.getAddedSubList()) {
                         sequentialTransition.addAnimations(
-                                cardView.beatCard(-4 - 0.5 * c.getList().size()));
+                                cardView.beatCard(-4 - (1 * c.getList().size())));
                     }
                     sequentialTransition.playAnimationSynchronous();
                 }

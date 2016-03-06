@@ -26,7 +26,7 @@ import java.util.List;
 public class SnapszerGameView extends Group {
 
     public final ObservableList<HungarianCardView> hungarianCardViews;
-    private final double distanceBetweenCards = 0.5;
+    private final double distanceBetweenCards = 1;
     private final List<PlayerView> playerViews;
     private final CalledCardsView calledCardsView;
     private final PlayedCardsView playedCardsView;

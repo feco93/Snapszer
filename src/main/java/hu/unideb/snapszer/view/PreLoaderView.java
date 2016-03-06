@@ -41,7 +41,7 @@ public class PreLoaderView {
         });
 
         FXMLLoader loader = new FXMLLoader(PreLoaderView.class.getResource("/fxml/gameMenu.fxml"));
-        loader.setController(new GameMenuController(primaryStage, scene));
+        loader.setController(new GameMenuController(scene, root));
         try {
             loader.load();
         } catch (IOException e) {

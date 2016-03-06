@@ -12,8 +12,6 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -30,7 +28,6 @@ import java.io.IOException;
  */
 public class UIGame implements Game {
 
-    private Scene scene;
     private Group gameView;
     private StackPane root;
     private TableView tableView;
@@ -48,13 +45,6 @@ public class UIGame implements Game {
         SubScene game3d = new SubScene(this.gameView, width, height, true, SceneAntialiasing.BALANCED);
         addCamera(game3d);
         root.getChildren().add(game3d);
-        scene = new Scene(root, width, height, true, SceneAntialiasing.BALANCED);
-        scene.setFill(Color.rgb(10, 10, 40));
-        scene.setOnKeyPressed((KeyEvent event) -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                System.exit(0);
-            }
-        });
 
         playerOne = new Human("Player");
         playerTwo = new ComputerClever();
@@ -84,8 +74,12 @@ public class UIGame implements Game {
         };
     }
 
-    public Scene getScene() {
-        return scene;
+    public StackPane getRoot() {
+        return root;
+    }
+
+    public void setRoot(StackPane root) {
+        this.root = root;
     }
 
     @Override

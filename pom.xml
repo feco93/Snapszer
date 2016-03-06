@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>hu.unideb</groupId>
     <artifactId>snapszer</artifactId>
     <name>snapszer</name>
-
     <packaging>jar</packaging>
     <version>3.2</version>
-
     <organization>
         <!-- Used as the 'Vendor' for JNLP generation -->
         <name>University Of Debrecen</name>
     </organization>
-
-    <properties>
-    </properties>
-
-
+    <properties></properties>
     <repositories>
         <repository>
             <id>project.local</id>
@@ -27,13 +19,9 @@
             <url>file:${project.basedir}/libs</url>
         </repository>
     </repositories>
-
     <build>
-
         <finalName>snapszer</finalName>
-
         <plugins>
-
             <plugin>
                 <groupId>com.zenjava</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -58,7 +46,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -71,8 +58,6 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
-
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -83,41 +68,66 @@
                     </additionalClasspathElements>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>com.agilejava.docbkx</groupId>
+                <artifactId>docbkx-maven-plugin</artifactId>
+                <version>2.0.14</version>
+                <configuration>
+                    <generatedSourceDirectory>${project.build.directory}/xinclude</generatedSourceDirectory>
+                    <xincludeSupported>true</xincludeSupported>
+                    <includes>DocbookResources.xml</includes>
+                    <foCustomization>src/docbkx/docbook.xsl</foCustomization>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <id>create-pdf</id>
+                        <goals>
+                            <goal>generate-pdf</goal>
+                        </goals>
+                        <configuration>
+                            <xincludeSupported>true</xincludeSupported>
+                            <includes>DocbookResources.xml</includes>
+                            <generatedSourceDirectory>${project.build.directory}/xinclude</generatedSourceDirectory>
+                            <foCustomization>src/docbkx/docbook.xsl</foCustomization>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.docbook</groupId>
+                        <artifactId>docbook-xml</artifactId>
+                        <version>5.0-all</version>
+                        <type>zip</type>
+                        <classifier>resources</classifier>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
-
-
     <dependencies>
-
         <!-- MigLayout -->
-
         <dependency>
             <groupId>com.miglayout</groupId>
             <artifactId>miglayout-javafx</artifactId>
             <version>5.0</version>
         </dependency>
-
         <!-- Apache Commons -->
-
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2.2</version>
         </dependency>
-
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
-
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
-
         <!-- Logging  -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -129,14 +139,12 @@
             <artifactId>log4j-core</artifactId>
             <version>2.5</version>
         </dependency>
-
         <!-- 3D model importer -->
         <dependency>
             <groupId>com.interactivemesh.jfx.importer</groupId>
             <artifactId>jim3dsModelImporterJFX</artifactId>
             <version>1.0</version>
         </dependency>
-
         <!-- Junit -->
         <dependency>
             <groupId>junit</groupId>
@@ -144,7 +152,5 @@
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
 </project>
