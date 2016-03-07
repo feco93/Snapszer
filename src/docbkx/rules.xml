@@ -1,0 +1,117 @@
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="hu"
+>
+    <title>Játékszabályok</title>
+
+    <para>A játékot 2 játékos játssza, a magyar kártya 20 lapjával. A hetes, nyolcas, kilences lapokat ki kell venni a
+        pakliból, ezeket a lapokat általában a pontok jelzésére szokták használni. A játék célja, hogy az egyik játékos
+        elérje a 66 pontot, illetve elvigye az utolsó ütést. A játékot 7 pontig játszák (a pontozásokat lásd:).
+    </para>
+    <para>
+        <emphasis role="bold">Játék menete:</emphasis>
+    </para>
+    <para>A pakli megkeverésével indul egy játszma, majd véletlenszerűen kiválasztásra kerül a hívó
+        játékos. A hívó játékos, majd az ellenfele 3-3 lapot kapnak az osztás során, ezután a következő lap
+        lesz az adu, majd 2-2 további lapot kapnak a játékosok. Az adu lapot a talon (kimaradt lapok)
+        alá helyezik el. Az osztás után, a hívó játékos hív egy lapot, majd az ellenfele is hív egy lapot. Aki elvitte
+        az ütést, az fog következőnek hívni. Az ütés után lapot húz mindkét játékos, először az húz, aki elvitte az
+        ütést, majd az ellenfele. Egy játszma addig tart, míg valamelyik játékos el nem éri a 66 pontot vagy elfogynak a
+        lapok és övé volt az utolsó ütés. Színre szín, adukényszer a következő esetekben van:
+        <itemizedlist>
+            <listitem>
+                <para>elfogyott a talon</para>
+            </listitem>
+            <listitem>
+                <para>az ellenfél snapszert mondott vagy takart</para>
+            </listitem>
+        </itemizedlist>
+        Ekkor a 2. játékosnak a hívott lappal megegyező színű lapot kell hívnia, ha nincs azzal megegyező színű lapja,
+        akkor adut kell hívnia, ha található nála.
+    </para>
+    <para>
+        <emphasis role="bold">Kártyák pontértékei:</emphasis>
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para>Ász : 11 pont</para>
+        </listitem>
+        <listitem>
+            <para>Tizes: 10 pont</para>
+        </listitem>
+        <listitem>
+            <para>Király: 4 pont</para>
+        </listitem>
+        <listitem>
+            <para>Felső: 3 pont</para>
+        </listitem>
+        <listitem>
+            <para>Alsó: 2 pont</para>
+        </listitem>
+    </itemizedlist>
+    <para>
+        <emphasis role="bold">Az ütés szabályai:</emphasis>
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para>Ha azonos a két hívott kárya színe, akkor azok pontértéke alapján üti valaki a hívott lapokat.</para>
+        </listitem>
+        <listitem>
+            <para>Ha különbő a hívott kártyák színe és az utóbb hívott kártya színe nem adu, akkor az első játékosé az
+                ütés.
+            </para>
+        </listitem>
+        <listitem>
+            <para>Ha az egyik kártya adu és a másik nem, akkor az adu viszi az ütést.</para>
+        </listitem>
+        <listitem>
+            <para>Ha mindkét kártya adu, akkor azok pontértéke dönt.</para>
+        </listitem>
+    </itemizedlist>
+    <para>
+        <emphasis role="bold">20, 40 bemondása:</emphasis>
+    </para>
+    <para>Ha a hívó játékos kezében azonos színű király és felső van, akkor jogosult a 20 bemondására, ha ez a szín adu,
+        akkor 40 bemondására van lehetősége. A bemondást követően a pontokat (20/40) hozzá kell adni a játékos
+        pontjaihoz. Bemondás után, csak a bemondásban résztvevő lapok közül hívhat (a megfelelő királyt vagy felsőt) a
+        játékos.
+    </para>
+    <para>
+        <emphasis role="bold">Snapszer:</emphasis>
+    </para>
+    <para>A játszma első körében mindkét játékosnak lehetősége van snapszert mondani. Ekkor a bemondó játékos vállalja,
+        hogy úgy éri el a 66 pontot, hogy az ellenfélnek nincs egy ütése sem.
+    </para>
+    <para>
+        <emphasis role="bold">Takarás:</emphasis>
+    </para>
+    <para>A hívó játékos hívás előtt takarhat, ha a talonban még legalább 4 lap van. Ekkor az adu lapot a talonra
+        helyezik és nincs lehetőség további
+        húzásra.
+    </para>
+    <para>
+        <emphasis role="bold">Adu cseréje:</emphasis>
+    </para>
+    <para>A hívó játékosnak lehetősége van kicserélni az adu lapot, ha a kezében található az adu alsó kártya és még
+        legalább 4 lap található a talonban.
+    </para>
+
+    <para>
+        <emphasis role="bold">Pontozási szabályok:</emphasis>
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para>ha az ellenfél elérte a 33 pontot: 1</para>
+        </listitem>
+        <listitem>
+            <para>ha az ellenfél nem érte el a 33 pontot („maccs”): 2</para>
+        </listitem>
+        <listitem>
+            <para>ha az ellenfél nem ütött („csendes snapszer”): 3</para>
+        </listitem>
+        <listitem>
+            <para>ha az, aki takart, nem éri el a 66-ot, az ellenfélnek: 1</para>
+        </listitem>
+        <listitem>
+            <para>snapszer (ha megbukott, az ellenfélnek): 6</para>
+        </listitem>
+    </itemizedlist>
+</chapter>

@@ -1,12 +1,15 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"  ?>
 
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-        "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-
-<book xmlns:xi="http://www.w3.org/2001/XInclude">
+<book xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://docbook.org/ns/docbook" version="5.0"
+      xml:lang="hu">
     <title>Snapszer kártyajáték</title>
-    <xi:include
-            xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml"/>
+    <xi:include href="rules.xml">
+        <xi:fallback>
+            <para>
+                <emphasis>XInclude: hiányzik a rules.xml állomány!</emphasis>
+            </para>
+        </xi:fallback>
+    </xi:include>
 </book>
 
 

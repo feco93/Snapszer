@@ -76,7 +76,46 @@
                     <generatedSourceDirectory>${project.build.directory}/xinclude</generatedSourceDirectory>
                     <xincludeSupported>true</xincludeSupported>
                     <includes>DocbookResources.xml</includes>
-                    <foCustomization>src/docbkx/docbook.xsl</foCustomization>
+                    <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
+                    <fop1Extensions>1</fop1Extensions>
+                    <paperType>A4</paperType>
+                    <l10nGentextLanguage>hu</l10nGentextLanguage>
+
+                    <bodyFontFamily>TimesNewRoman</bodyFontFamily>
+                    <titleFontFamily>TimesNewRoman</titleFontFamily>
+                    <sansFontFamily>TimesNewRoman</sansFontFamily>
+                    <symbolFontFamily>TimesNewRoman</symbolFontFamily>
+                    <fonts>
+                        <font>
+                            <name>TimesNewRoman</name>
+                            <style>normal</style>
+                            <weight>normal</weight>
+                            <embedFile>${basedir}/src/fonts/TimesNewRoman/times.ttf</embedFile>
+                            <metricsFile>${basedir}/src/fonts/TimesNewRoman/times-metrics.xml</metricsFile>
+                        </font>
+                        <font>
+                            <name>TimesNewRoman</name>
+                            <style>italic</style>
+                            <weight>normal</weight>
+                            <embedFile>${basedir}/src/fonts/TimesNewRoman/timesi.ttf</embedFile>
+                            <metricsFile>${basedir}/src/fonts/TimesNewRoman/timesi-metrics.xml</metricsFile>
+                        </font>
+                        <font>
+                            <name>TimesNewRoman</name>
+                            <style>normal</style>
+                            <weight>bold</weight>
+                            <embedFile>${basedir}/src/fonts/TimesNewRoman/timesbd.ttf</embedFile>
+                            <metricsFile>${basedir}/src/fonts/TimesNewRoman/timesbd-metrics.xml</metricsFile>
+                        </font>
+                        <font>
+                            <name>TimesNewRoman</name>
+                            <style>italic</style>
+                            <weight>bold</weight>
+                            <embedFile>${basedir}/src/fonts/TimesNewRoman/timesbi.ttf</embedFile>
+                            <metricsFile>${basedir}/src/fonts/TimesNewRoman/timesbi-metrics.xml</metricsFile>
+                        </font>
+                    </fonts>
+
                 </configuration>
                 <executions>
                     <execution>
@@ -97,7 +136,7 @@
                     <dependency>
                         <groupId>net.sf.docbook</groupId>
                         <artifactId>docbook-xml</artifactId>
-                        <version>5.0-all</version>
+                        <version>5.1b4-all</version>
                         <type>zip</type>
                         <classifier>resources</classifier>
                     </dependency>
