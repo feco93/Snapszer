@@ -124,12 +124,6 @@
                         <goals>
                             <goal>generate-pdf</goal>
                         </goals>
-                        <configuration>
-                            <xincludeSupported>true</xincludeSupported>
-                            <includes>DocbookResources.xml</includes>
-                            <generatedSourceDirectory>${project.build.directory}/xinclude</generatedSourceDirectory>
-                            <foCustomization>src/docbkx/docbook.xsl</foCustomization>
-                        </configuration>
                     </execution>
                 </executions>
                 <dependencies>

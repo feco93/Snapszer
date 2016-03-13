@@ -1,6 +1,8 @@
 package hu.unideb.snapszer.view;
 
+import hu.unideb.snapszer.UIGame;
 import hu.unideb.snapszer.controller.GameMenuController;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.input.KeyCode;
@@ -36,12 +38,12 @@ public class PreLoaderView {
         scene.setFill(Color.rgb(10, 10, 40));
         scene.setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode() == KeyCode.ESCAPE) {
-                System.exit(0);
+                Platform.exit();
             }
         });
 
         FXMLLoader loader = new FXMLLoader(PreLoaderView.class.getResource("/fxml/gameMenu.fxml"));
-        loader.setController(new GameMenuController(scene, root));
+        loader.setController(new GameMenuController(this));
         try {
             loader.load();
         } catch (IOException e) {
@@ -49,6 +51,25 @@ public class PreLoaderView {
         }
         Node mainMenu = loader.getRoot();
         root.getChildren().addAll(backGroundScene, mainMenu);
+    }
+
+    public void StartGame() {
+        UIGame game = new UIGame(scene.getWidth(), scene.getHeight());
+        game.getGameTask().setOnSucceeded(event1 -> Platform.runLater(() -> {
+            root.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(PreLoaderView.class.getResource("/fxml/gameMenu.fxml"));
+            loader.setController(new GameMenuController(this));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Node mainMenu = loader.getRoot();
+            root.getChildren().addAll(backGroundScene, mainMenu);
+        }));
+        root.getChildren().clear();
+        root.getChildren().addAll(game.getRoot().getChildren());
+        game.Start(1);
     }
 
     public void start() {

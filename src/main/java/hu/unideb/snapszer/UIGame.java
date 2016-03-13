@@ -28,32 +28,26 @@ import java.io.IOException;
  */
 public class UIGame implements Game {
 
-    private Group gameView;
     private StackPane root;
-    private TableView tableView;
-    private SnapszerGameView snapszerGameView;
-    private SnapszerTwoPlayerGame game;
-    private Player playerOne;
-    private Player playerTwo;
     private Task<Void> gameTask;
 
     public UIGame(double width, double height) {
         root = new StackPane();
-        gameView = new Group();
-        tableView = new TableView();
-        this.gameView.getChildren().add(tableView);
-        SubScene game3d = new SubScene(this.gameView, width, height, true, SceneAntialiasing.BALANCED);
+        Group gameView = new Group();
+        TableView tableView = new TableView();
+        gameView.getChildren().add(tableView);
+        SubScene game3d = new SubScene(gameView, width, height, true, SceneAntialiasing.BALANCED);
         addCamera(game3d);
         root.getChildren().add(game3d);
 
-        playerOne = new Human("Player");
-        playerTwo = new ComputerClever();
-        initGameInfo();
-        game = new SnapszerTwoPlayerGame(playerOne, playerTwo);
+        Player playerOne = new Human("Player");
+        Player playerTwo = new ComputerClever();
+        initGameInfo(playerOne, playerTwo);
+        SnapszerTwoPlayerGame game = new SnapszerTwoPlayerGame(playerOne, playerTwo);
 
         game.gameMatchProperty().addListener((event) ->
         {
-            snapszerGameView = new SnapszerGameView(game.getGameMatch());
+            SnapszerGameView snapszerGameView = new SnapszerGameView(game.getGameMatch());
             GameController gameController = new GameController(
                     snapszerGameView.getHumanPlayerView(),
                     snapszerGameView.trumpCardViewProperty(),
@@ -76,10 +70,6 @@ public class UIGame implements Game {
 
     public StackPane getRoot() {
         return root;
-    }
-
-    public void setRoot(StackPane root) {
-        this.root = root;
     }
 
     @Override
@@ -107,7 +97,7 @@ public class UIGame implements Game {
         return perspectiveCamera;
     }
 
-    private void initGameInfo() {
+    private void initGameInfo(Player playerOne, Player playerTwo) {
         AnchorPane gameInfo = new AnchorPane();
         TextFlow scoreContainer = new TextFlow();
         scoreContainer.setTextAlignment(TextAlignment.LEFT);
