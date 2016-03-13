@@ -3,6 +3,8 @@
 
     <!-- imports the original docbook stylesheet -->
     <xsl:import href="urn:docbkx:stylesheet"/>
+    <xsl:import href="mytitlepage.xsl"/>
+
 
     <!--
     *************************************************************
@@ -38,8 +40,10 @@
     Második oldal törlése
     *************************************************************
      -->
-    <xsl:template name="book.titlepage.verso"/>
-    <xsl:template name="book.titlepage.before.verso"/>
+
+    <xsl:attribute-set name="book.titlepage.recto.style">
+        <xsl:attribute name="font-size">6pt</xsl:attribute>
+    </xsl:attribute-set>
 
     <!--
     *************************************************************
