@@ -22,6 +22,6 @@ public class CoverOperator extends Operator {
     @Override
     public void onApply(GameMatch game) {
         game.setCover(true);
-        game.setSayerPlayer(player);
+        player.setSaidCover(true);
     }
 }

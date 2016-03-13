@@ -28,7 +28,6 @@ public class GameMatch {
     private ObjectProperty<HungarianCard> trumpCard;
     private boolean cover;
     private boolean snapszer;
-    private Player sayerPlayer;
     private Player currentPlayer;
     private Player nextPlayer;
 
@@ -74,15 +73,17 @@ public class GameMatch {
     }
 
     public Player getSayerPlayer() {
-        return sayerPlayer;
-    }
-
-    public void setSayerPlayer(Player player) {
-        sayerPlayer = player;
+        if (isCover()) {
+            return currentPlayer.isSaidCover() ? currentPlayer : nextPlayer;
+        }
+        return currentPlayer.isSaidCover() ? currentPlayer : nextPlayer;
     }
 
     public Player getNotSayerPlayer() {
-        return sayerPlayer.equals(currentPlayer) ? nextPlayer : currentPlayer;
+        if (isCover()) {
+            return currentPlayer.isSaidCover() ? nextPlayer : currentPlayer;
+        }
+        return currentPlayer.isSaidCover() ? nextPlayer : currentPlayer;
     }
 
     public boolean isCover() {
@@ -91,7 +92,6 @@ public class GameMatch {
 
     public void setCover(boolean cover) {
         this.cover = cover;
-        this.sayerPlayer = getCurrentPlayer();
     }
 
     public boolean isSnapszer() {
@@ -100,7 +100,6 @@ public class GameMatch {
 
     public void setSnapszer(boolean snapszer) {
         this.snapszer = snapszer;
-        this.sayerPlayer = getCurrentPlayer();
     }
 
     public Deck getDeck() {
@@ -207,16 +206,16 @@ public class GameMatch {
 
     public Player getWinnerPlayer() {
         if (isCover()) {
-            if (sayerPlayer.getScore() < 66) {
+            if (getSayerPlayer().getScore() < 66) {
                 return getNotSayerPlayer();
             } else {
-                return sayerPlayer;
+                return getSayerPlayer();
             }
         } else if (isSnapszer()) {
-            if (sayerPlayer.getScore() < 66 || getNotSayerPlayer().getBeatsCounter() > 0) {
+            if (getSayerPlayer().getScore() < 66 || getNotSayerPlayer().getBeatsCounter() > 0) {
                 return getNotSayerPlayer();
             } else {
-                return sayerPlayer;
+                return getSayerPlayer();
             }
         } else {
             return currentPlayer;

@@ -52,6 +52,8 @@ public abstract class Player {
 
     private boolean said20;
     private boolean said40;
+    private boolean saidCover;
+    private boolean saidSnapszer;
 
     private int beatsCounter;
 
@@ -107,6 +109,8 @@ public abstract class Player {
         score.setValue(0);
         said20 = false;
         said40 = false;
+        saidCover = false;
+        saidSnapszer = false;
     }
 
     public abstract Operator chooseOperator(GameMatch game);
@@ -222,5 +226,21 @@ public abstract class Player {
 
     public void setSaid40(boolean said40) {
         this.said40 = said40;
+    }
+
+    public boolean isSaidCover() {
+        return saidCover;
+    }
+
+    public void setSaidCover(boolean saidCover) {
+        this.saidCover = saidCover;
+    }
+
+    public boolean isSaidSnapszer() {
+        return saidSnapszer;
+    }
+
+    public void setSaidSnapszer(boolean saidSnapszer) {
+        this.saidSnapszer = saidSnapszer;
     }
 }
