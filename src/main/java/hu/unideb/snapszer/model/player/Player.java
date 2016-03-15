@@ -17,8 +17,6 @@
 package hu.unideb.snapszer.model.player;
 
 import hu.unideb.snapszer.model.GameMatch;
-import hu.unideb.snapszer.model.HungarianCardRank;
-import hu.unideb.snapszer.model.HungarianCardSuit;
 import hu.unideb.snapszer.model.ICard;
 import hu.unideb.snapszer.model.operators.Operator;
 import javafx.beans.property.IntegerProperty;
@@ -40,7 +38,7 @@ public abstract class Player {
     /**
      * Cards in this player hand.
      */
-    public ObservableList<ICard> cards;
+    private ObservableList<ICard> cards;
     /**
      * Score of this player.
      */
@@ -151,6 +149,10 @@ public abstract class Player {
         cards.add(card);
     }
 
+    public ObservableList<ICard> getCards() {
+        return cards;
+    }
+
     /**
      * Gets the value of score.
      *
@@ -164,50 +166,8 @@ public abstract class Player {
         cards.remove(card);
     }
 
-    public boolean canSay20() {
-        if (said20 || said40) {
-            return false;
-        }
-        for (ICard card : cards) {
-            if (card.getRank() == HungarianCardRank.KIRALY) {
-                if (cards.stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
-                        && item.getRank() == HungarianCardRank.FELSO)) {
-                    return true;
-                }
-            }
-            if (card.getRank() == HungarianCardRank.FELSO) {
-                if (cards.stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
-                        && item.getRank() == HungarianCardRank.KIRALY)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean canSay40(HungarianCardSuit suit) {
-        if (said40 || said20) {
-            return false;
-        }
-        return cards.stream().anyMatch((ICard card) -> {
-            return card.getSuit() == suit && card.getRank() == HungarianCardRank.FELSO;
-        }) && cards.stream().anyMatch((ICard card) -> {
-            return card.getSuit() == suit && card.getRank() == HungarianCardRank.KIRALY;
-        });
-    }
-
     public boolean canSayEnd() {
         return getScore() >= 66;
-    }
-
-    public void say20() {
-        this.score.set(this.score.get() + 20);
-        said20 = true;
-    }
-
-    public void say40() {
-        this.score.set(this.score.get() + 40);
-        said40 = true;
     }
 
     public abstract void setChosenOperator(Operator operator);

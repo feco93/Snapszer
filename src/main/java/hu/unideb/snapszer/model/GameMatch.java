@@ -171,7 +171,7 @@ public class GameMatch {
     }
 
     private boolean isMatchOver() {
-        return (getPlayers().stream().allMatch((player) -> player.cards.isEmpty())) ||
+        return (getPlayers().stream().allMatch((player) -> player.getCards().isEmpty())) ||
                 (isSnapszer() && getNotSayerPlayer().getBeatsCounter() > 0);
     }
 

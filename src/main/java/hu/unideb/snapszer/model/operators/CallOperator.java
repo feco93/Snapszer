@@ -39,12 +39,12 @@ public class CallOperator extends Operator {
 
     private boolean canCall(ICard calledCard) {
         boolean hasSameSuit =
-                player.cards.stream().anyMatch(iCard -> iCard.getSuit().equals(calledCard.getSuit()));
+                player.getCards().stream().anyMatch(iCard -> iCard.getSuit().equals(calledCard.getSuit()));
         if (hasSameSuit) {
             return card.getSuit().equals(calledCard.getSuit());
         }
         boolean hasTrump =
-                player.cards.stream().anyMatch(iCard -> {
+                player.getCards().stream().anyMatch(iCard -> {
                     HungarianCard hungarianCard = (HungarianCard) iCard;
                     return hungarianCard.getSuit().isTrump();
                 });
@@ -60,13 +60,13 @@ public class CallOperator extends Operator {
         }
         if (player.isSaid20()) {
             if (card.getRank() == HungarianCardRank.KIRALY) {
-                if (player.cards.stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
+                if (player.getCards().stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
                         && item.getRank() == HungarianCardRank.FELSO)) {
                     return true;
                 }
             }
             if (card.getRank() == HungarianCardRank.FELSO) {
-                if (player.cards.stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
+                if (player.getCards().stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
                         && item.getRank() == HungarianCardRank.KIRALY)) {
                     return true;
                 }

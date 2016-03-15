@@ -1,6 +1,9 @@
 package hu.unideb.snapszer.model.operators;
 
 import hu.unideb.snapszer.model.GameMatch;
+import hu.unideb.snapszer.model.HungarianCardRank;
+import hu.unideb.snapszer.model.HungarianCardSuit;
+import hu.unideb.snapszer.model.ICard;
 import hu.unideb.snapszer.model.player.Player;
 
 /**
@@ -16,11 +19,26 @@ public class Say40Operator extends Operator {
     public boolean isApplicable(GameMatch game) {
         if (!player.equals(game.getCurrentPlayer()))
             return false;
-        return player.canSay40(game.getTrumpCard().getSuit());
+        return canSay40(game.getTrumpCard().getSuit());
+    }
+
+    private boolean canSay40(HungarianCardSuit suit) {
+        if (player.isSaid40() || player.isSaid20()) {
+            return false;
+        }
+        return player.getCards().stream().anyMatch((ICard card) ->
+                card.getSuit() == suit && card.getRank() == HungarianCardRank.FELSO) &&
+                player.getCards().stream().anyMatch((ICard card) ->
+                        card.getSuit() == suit && card.getRank() == HungarianCardRank.KIRALY);
+    }
+
+    private void say40() {
+        player.addScore(40);
+        player.setSaid40(true);
     }
 
     @Override
     public void onApply(GameMatch game) {
-        player.say40();
+        say40();
     }
 }

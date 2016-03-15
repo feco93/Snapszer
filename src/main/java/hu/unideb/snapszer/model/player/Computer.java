@@ -26,11 +26,13 @@ public class Computer extends Player {
     @Override
     public Operator chooseOperator(GameMatch game) {
         if (game.getCurrentPlayer() == this) {
-            if (canSay20()) {
-                return new Say20Operator(this);
+            Say20Operator say20Operator = new Say20Operator(this);
+            if (say20Operator.isApplicable(game)) {
+                return say20Operator;
             }
-            if (canSay40(game.getTrumpCard().getSuit())) {
-                return new Say40Operator(this);
+            Say40Operator say40Operator = new Say40Operator(this);
+            if (say40Operator.isApplicable(game)) {
+                return say40Operator;
             }
             if (canSayEnd()) {
                 return new SayEndOperator(this);
@@ -48,7 +50,7 @@ public class Computer extends Player {
                 new SnapszerOperator(this),
                 new SwapTrumpOperator(this)));
         for (ICard card :
-                cards) {
+                getCards()) {
             CallOperator op = new CallOperator(this, (HungarianCard) card);
             allOperators.add(op);
         }
@@ -67,7 +69,7 @@ public class Computer extends Player {
 
     private CallOperator getFirstApplicableOperator(GameMatch game) {
         for (ICard card :
-                cards) {
+                getCards()) {
             CallOperator op = new CallOperator(this, (HungarianCard) card);
             if (op.isApplicable(game))
                 return op;

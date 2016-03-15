@@ -31,7 +31,7 @@ public class SwapTrumpOperator extends Operator {
         if (!player.equals(game.getCurrentPlayer()) ||
                 game.getDeck().size() < 4 || game.isCover())
             return false;
-        return player.cards.stream().anyMatch(iCard ->
+        return player.getCards().stream().anyMatch(iCard ->
                 iCard.getSuit() == game.getTrumpCard().getSuit() &&
                         iCard.getRank() == HungarianCardRank.ALSO);
     }
@@ -40,10 +40,10 @@ public class SwapTrumpOperator extends Operator {
     public void onApply(GameMatch game) {
         oldTrumpCard = game.getTrumpCard();
         game.getDeck().cards.remove(oldTrumpCard);
-        newTrumpCard = (HungarianCard) player.cards.stream().filter(iCard ->
+        newTrumpCard = (HungarianCard) player.getCards().stream().filter(iCard ->
                 iCard.getSuit() == game.getTrumpCard().getSuit() &&
                         iCard.getRank() == HungarianCardRank.ALSO).findFirst().get();
         game.trumpCardProperty().setValue(newTrumpCard);
-        player.cards.set(player.cards.indexOf(newTrumpCard), oldTrumpCard);
+        player.getCards().set(player.getCards().indexOf(newTrumpCard), oldTrumpCard);
     }
 }
