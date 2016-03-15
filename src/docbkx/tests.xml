@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xml:id="tests.xml"
+         version="5.0"
+         xml:lang="hu"
+         xmlns="http://docbook.org/ns/docbook"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+    <title>Tesztelés a projekt életciklusában</title>
+    <sect1>
+        <title>Bevezetés a tesztelésbe</title>
+        <para></para>
+    </sect1>
+    <sect1>
+        <title>Egységtesztelés</title>
+        <para>Az egységteszt olyan tesztelési szint, mely a program legkisebb, önállóan működő részét teszteli.</para>
+        <para>Tesztelő környezet kialakítása</para>
+        <para>A játék program teszteléséhez a JUnit tesztelő keretrendszert használtam. Maven projekt esetén, a JUnit
+            könnyen használatba vehető. Először is a projekt függőségeként hozzá kell adni a junit függőséget. Érdemes a
+            függőség hatáskörét megadni, mely jelen esetben a test hatáskör lesz. Ha ez kész van, akkor létre kell hozni
+            a megfelelő könyvtár struktúrát. A következő struktúrát kell követni: src/test/java. Ebben a könyvtárban
+            lehet
+            elhelyezni a kívánt teszt osztyályokat, és a további könyvtárakat struktúrálás céljából.
+        </para>
+        <para>
+            <emphasis role="bold">Példa operátor tesztelésére</emphasis>
+        </para>
+        <programlisting language="java">
+            <![CDATA[
+@Test
+public void applicableTest() {
+    when(currentPlayer.getCards()).thenReturn(deckContains20);
+    when(gameMatchMock.getCurrentPlayer()).thenReturn(currentPlayer);
+    Say20Operator say20Operator = new Say20Operator(currentPlayer);
+    assertTrue(say20Operator.isApplicable(gameMatchMock));
+}
+]]>
+        </programlisting>
+        <para>
+            <emphasis role="bold">Jelentések készítése</emphasis>
+        </para>
+    </sect1>
+</chapter>

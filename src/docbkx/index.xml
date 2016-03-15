@@ -11,6 +11,13 @@
             </para>
         </xi:fallback>
     </xi:include>
+    <xi:include href="tests.xml">
+        <xi:fallback>
+            <para>
+                <emphasis>XInclude: hiányzik a tests.xml állomány!</emphasis>
+            </para>
+        </xi:fallback>
+    </xi:include>
 </book>
 
 
