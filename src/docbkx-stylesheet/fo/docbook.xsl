@@ -8,7 +8,7 @@
 
     <!--
     *************************************************************
-    Fejezetek automatikus felirat kikapcsolása
+    Fejezet feliratok kikapcsolása
     *************************************************************
     -->
     <xsl:param name="chapter.autolabel">0</xsl:param>
@@ -34,16 +34,6 @@
             <xsl:when test="$element = 'chapter'">1</xsl:when>
         </xsl:choose>
     </xsl:template>
-
-    <!--
-    *************************************************************
-    Második oldal törlése
-    *************************************************************
-     -->
-
-    <xsl:attribute-set name="book.titlepage.recto.style">
-        <xsl:attribute name="font-size">6pt</xsl:attribute>
-    </xsl:attribute-set>
 
     <!--
     *************************************************************
@@ -73,5 +63,10 @@
     -->
     <xsl:param name="body.start.indent">0pt</xsl:param>
     <xsl:param name="body.end.indent">0pt</xsl:param>
+
+    <xsl:attribute-set name="monospace.verbatim.properties">
+        <xsl:attribute name="wrap-option">wrap</xsl:attribute>
+        <xsl:attribute name="font-size">10</xsl:attribute>
+    </xsl:attribute-set>
 
 </xsl:stylesheet>
