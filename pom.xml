@@ -75,7 +75,7 @@
                 <configuration>
                     <generatedSourceDirectory>${project.build.directory}/xinclude</generatedSourceDirectory>
                     <xincludeSupported>true</xincludeSupported>
-                    <includes>DocbookResources.xml</includes>
+                    <includes>index.xml</includes>
                     <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
                     <fop1Extensions>1</fop1Extensions>
                     <paperType>A4</paperType>
@@ -185,5 +185,12 @@
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
+        <!-- Mocking -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+        </dependency>
+
     </dependencies>
 </project>
