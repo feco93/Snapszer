@@ -6,5 +6,68 @@
          xmlns="http://docbook.org/ns/docbook"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
     <title>Felhasználói felület JavaFX tecnológiával</title>
-    <para></para>
+    <para>A JavaFX olyan grafikai és média osztályok összessége, amelyek lehetővé teszik vastag kliens alkalmazások
+        tervezését, implementálását, tesztelését. A JavaFX API támogatja 2D-s, illetve 3D-s alkalmazások fejlesztését
+        is. Legújabb verziója a JavaFX8, mely része a JDK 8-nak.
+    </para>
+    <para>
+        Legnagyobb ereje a közvetlen MVC (Model-View-Controller) támogatásban nyílvánul meg. Az MVC minta a következő
+        módon valósul meg JavaFX-ben:
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para>
+                <emphasis role="bold">Model:</emphasis>
+                A model tartalmazza az üzleti logika megvalósításához szükséges csomagokat, osztályokat.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                <emphasis role="bold">View:</emphasis>
+                A view a megjelenítésért felelős. A megjelenítést több módon is implementálhatjuk. Az ajánlott módszer
+                szerint létre kell hozni egy állományt, melyben FXML (XML alapú dekleratív leíró nyelv) segítségével
+                definiálni lehet a felhasználói felületet. A másik módszerrel olyan osztályokat kell létrehozni, amelyek
+                leírják a megjelenítést.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                <emphasis role="bold">Controller:</emphasis>
+                A controller kapcsolja össze a modelt a megjelenítéssel. Itt célszerű implementálni az eseménykezelő
+                metódusokat (pl: nyomógomb megnyomása). Szem előtt kell tartani, hogy üzleti logikát lehetőleg ne
+                tartalmazzon a controller, azért a model felel.
+            </para>
+        </listitem>
+    </itemizedlist>
+    <para>
+        <emphasis role="bold">MVC minta alkalmazása a projektben</emphasis>
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para>
+                <emphasis role="bold">Model:</emphasis>
+                A modelt leíró osztályok a model csomagban kaptak helyet. Ide
+                tartoznak az operátorok, a játékosokat leíró, a játék logikáját megvalósító osztályok.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                <emphasis role="bold">View:</emphasis>
+                A view két módon valósul meg a projektben. A lapok, az asztal dinamikusan kerül feldolgozásra futási
+                időben. Az asztal 3ds formátumban van eltárolva, melyet az Interactivemesh API dolgoz fel. Az
+                Interactivemesh egy Node típusú objektumot állít elő, melyet egyszerűen meg tudunk jeleníteni a
+                felhasználói felületen. A lapokat hasábok reprezentálják, melyek textúrával vannak ellátva (elő és
+                hátlap textúra). A menük és a felhasználói interakcióhoz szükséges nyomógombok tervezése a JavaFX Scene
+                Builder segítségével történt. A JavaFX Scene Builder egy felhasználói felület tervezésére alkalmas
+                program, amely fxml állományt állít elő.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                <emphasis role="bold">Controller:</emphasis>
+                A contoller osztályok a contoller csomagban találhatóak. Ide tartoznak a menük kezeléséért felelős
+                osztályok, illetve a játékban szereplő felhasználói felület kezeléséhez szükséges osztályok.
+            </para>
+        </listitem>
+    </itemizedlist>
 </chapter>

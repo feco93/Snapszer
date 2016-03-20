@@ -4,6 +4,13 @@
       xml:lang="hu">
     <title>SZAKDOLGOZAT</title>
     <subtitle>Sipos Ferenc</subtitle>
+    <xi:include href="introduction.xml">
+        <xi:fallback>
+            <para>
+                <emphasis>XInclude: hiányzik az introduction.xml állomány!</emphasis>
+            </para>
+        </xi:fallback>
+    </xi:include>
     <xi:include href="rules.xml">
         <xi:fallback>
             <para>
@@ -22,6 +29,13 @@
         <xi:fallback>
             <para>
                 <emphasis>XInclude: hiányzik a tests.xml állomány!</emphasis>
+            </para>
+        </xi:fallback>
+    </xi:include>
+    <xi:include href="conclusion.xml">
+        <xi:fallback>
+            <para>
+                <emphasis>XInclude: hiányzik a conclusion.xml állomány!</emphasis>
             </para>
         </xi:fallback>
     </xi:include>

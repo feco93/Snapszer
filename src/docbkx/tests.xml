@@ -5,10 +5,18 @@
          xml:lang="hu"
          xmlns="http://docbook.org/ns/docbook"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-    <title>Tesztelés a projekt életciklusában</title>
+    <title>Tesztelés</title>
     <sect1>
-        <title>Bevezetés a tesztelésbe</title>
-        <para></para>
+        <title>A tesztelés szerepe a fejlesztési folyamatban</title>
+        <para>Napjainban a programokkal szemben támasztott követelmények megnőttek. Ezek a követelmények lehetnek
+            funcionálisak és nem funkciónálisak is. Ahhoz, hogy ezeket a követelményeket teljesíteni tudják a programok,
+            megfelelő tesztelésre van szükség. Egy játék program esetén, mint a snapszer kártyajáték felveti a tesztelés
+            szükségességét. Ezek a tesztelések támogathatják a fejlesztés menetetét, javíthatják a kód minőségét. A
+            fejlesztők első sorban egységtesztek segítségével szokták tesztelni a programot. Az egységtesztek
+            készülhetnek párhuzamosan a programmal vagy akár a fejlesztés megkezdése előtt is elkészülhetnek. Az agilis
+            szoftverfejlesztési módszertanok közül az XP (Extreme Programming) szorgalmazza a TDD (Test Driven
+            Development) alkalmazását, ahol is az egységtesztek hamarabb készülnek el, mint a program.
+        </para>
     </sect1>
     <sect1>
         <title>Egységtesztelés</title>
@@ -17,15 +25,36 @@
             <emphasis role="bold">Tesztelő környezet kialakítása</emphasis>
         </para>
         <para>A játék program teszteléséhez a JUnit tesztelő keretrendszert használtam. Maven projekt esetén, a JUnit
-            könnyen használatba vehető. Először is a projekt függőségeként hozzá kell adni a junit függőséget. Érdemes a
-            függőség hatáskörét megadni, mely jelen esetben a test hatáskör lesz. Ha ez kész van, akkor létre kell hozni
-            a megfelelő könyvtár struktúrát. A következő struktúrát kell követni: src/test/java. Ebben a könyvtárban
-            lehet elhelyezni a kívánt teszt osztyályokat, és a további könyvtárakat struktúrálás céljából.
+            könnyen használatba vehető. Először is a projekt függőségek közzé fel kell venni a következő függőséget:
+        </para>
+        <programlisting language="xml">
+            <![CDATA[
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.10</version>
+    <scope>test</scope>
+</dependency>
+]]>
+        </programlisting>
+        <para>Ezen kívül még szükség van a mockito keretrendszerre, melyet a következő módon lehet megadni:</para>
+        <programlisting language="xml">
+            <![CDATA[
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-all</artifactId>
+    <version>1.10.19</version>
+</dependency>
+]]>
+        </programlisting>
+        <para>Ha ez kész van, akkor létre kell hozni a megfelelő könyvtár struktúrát. A következő struktúrát kell
+            követni: src/test/java. Ebben a könyvtárban lehet elhelyezni a kívánt teszt osztyályokat, és a további
+            könyvtárakat struktúrálás céljából.
         </para>
         <para>
             <emphasis role="bold">Példa operátor tesztelésére</emphasis>
         </para>
-        <para>A következő példákban megvizsgáljuk, hogy miként lehet teszteket végre hajtani a Say20Operator osztályon.
+        <para>A következő példákban megvizsgáljuk, hogy miként lehet teszteket végrehajtani a Say20Operator osztályon.
             A Say20Operator feladata a 20 bemondását kezelni. Mint minden operátor, a vizsgált operátorunk is függ a
             játék állásától. Az egység teszteket izoláltan kell elvégezni, más osztályok és a futtató környezet nem
             lehetnek hatással a tesztekre. Az egység tesztjeinket úgy tudjuk végrehajtani a tesztelendő osztályon, hogy
@@ -35,7 +64,7 @@
             Ezek a listákat a konstruktorban példányosítjuk és final módosítóval látjuk el őket, hogy a későbbiekben
             ezeket ne lehessen módosítani.
         </para>
-        <programlisting>
+        <programlisting language="java">
             <![CDATA[
 private final ObservableList<ICard> deckContains20;
 private final ObservableList<ICard> deckNotContains20;
@@ -71,7 +100,7 @@ public Say20OperatorTest() {
             lehetővé, hogy a tesztünk ne függjön más osztályoktól. Előre megadjuk az objektumok viselkedését, hogy
             bizonyos paraméterek esetén az egyes metódus hívások milyen értékeket szolgáltassanak. Az applicableTest
             metódusban egy assert metódus szerepel, ami annyit jelent ki, hogy a jelenlegi állapotban a játékosnak
-            lehetősége van a 20 bemondására. A játék jelenlegi állapotát a mock objektumok szolgáltassák, így
+            lehetősége van a 20 bemondására. A játék jelenlegi állapotát a mock objektumok szolgáltatják, így
             a teszt metódus csak a Say20Operator működésére fókuszál.
         </para>
         <programlisting language="java">
