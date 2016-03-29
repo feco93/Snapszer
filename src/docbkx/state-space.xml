@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xml:id="state-space.xml"
+         version="5.0"
+         xml:lang="hu"
+         xmlns="http://docbook.org/ns/docbook"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+    <title>Állapottér-reprezentáció</title>
+    <para>Az általunk vizsgált snapszer kártyajáték osztályozás szerint stratégiai, 2 személyes, nem zérusösszegű,
+        sztochasztikus, nem teljes információjú játék.
+    </para>
+    <para>All = { (h, x) | h
+        <symbol role="symbolfont">&#x2208;</symbol>
+        H, x {A, B} }
+    </para>
+</chapter>

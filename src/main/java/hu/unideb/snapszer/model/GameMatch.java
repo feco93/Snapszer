@@ -26,7 +26,6 @@ public class GameMatch {
     private ObservableList<HungarianCard> cardsOnTable;
     private ObservableList<HungarianCard> playedCards;
     private ObjectProperty<HungarianCard> trumpCard;
-    private boolean cover;
     private boolean snapszer;
     private Player currentPlayer;
     private Player nextPlayer;
@@ -36,8 +35,6 @@ public class GameMatch {
         this.nextPlayer = playerTwo;
         this.currentPlayer.newMatch();
         this.nextPlayer.newMatch();
-        cover = false;
-        snapszer = false;
         this.deck = deck;
         this.cardsOnTable = FXCollections.observableArrayList();
         this.playedCards = FXCollections.observableArrayList();
@@ -87,15 +84,11 @@ public class GameMatch {
     }
 
     public boolean isCover() {
-        return cover;
-    }
-
-    public void setCover(boolean cover) {
-        this.cover = cover;
+        return getPlayers().stream().anyMatch(player -> player.isSaidCover());
     }
 
     public boolean isSnapszer() {
-        return snapszer;
+        return getPlayers().stream().anyMatch(player -> player.isSaidSnapszer());
     }
 
     public void setSnapszer(boolean snapszer) {

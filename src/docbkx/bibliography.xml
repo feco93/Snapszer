@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bibliography xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xml:id="bibliography.xml"
+              version="5.0"
+              xml:lang="hu"
+              xmlns="http://docbook.org/ns/docbook"
+              xsi:schemaLocation="
+           http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd
+           http://www.w3.org/1999/xlink http://www.docbook.org/xml/5.0/xsd/xlink.xsd">
+    <title>Irodalomjegyzék</title>
+
+    <biblioentry xml:id="bib.javafx">
+        <abbrev xml:id="bib.javafx.abbrev">JavaFX</abbrev>
+        <editor>
+            <personname>Cindy Castillo</personname>
+        </editor>
+        <title>
+            <link xlink:href="http://docs.oracle.com/javase/8/javafx/JFXGR.pdf">
+                JavaFX Working with JavaFX Graphics Release 8
+            </link>
+        </title>
+        <publishername>Oracle</publishername>
+        <pubdate>March, 2014</pubdate>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.docbook">
+        <abbrev xml:id="bib.docbook.abbrev">Docbook</abbrev>
+        <title>
+            <link xlink:href="http://www.sagehill.net/docbookxsl/">
+                DocBook XSL: The Complete Guide
+            </link>
+        </title>
+        <publishername>Sagehill Enterprises</publishername>
+        <pubdate>September, 2007</pubdate>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.mockito">
+        <abbrev xml:id="bib.mockito.abbrev">Mockito</abbrev>
+        <title>
+            <link xlink:href="http://www.vogella.com/tutorials/Mockito/article.html">
+                Testing with Mockito
+            </link>
+        </title>
+        <publishername>Lars Vogel</publishername>
+        <pubdate>June, 2015</pubdate>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.artificial_intelligence">
+        <abbrev xml:id="bib.artificial_intelligence.abbrev">ARTIFICIAL INTELLIGENCE</abbrev>
+        <title>
+            <link xlink:href="http://aries.ektf.hu/~gkusper/ArtificialIntelligence_LectureNotes.v.1.0.4.pdf">
+                ARTIFICIAL INTELLIGENCE AND ITS TEACHING
+            </link>
+        </title>
+        <publishername>Eszterházy Károly Collage
+            Institute of Mathematics and Informatics
+        </publishername>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.mi">
+        <abbrev xml:id="bib.mi.abbrev">MI</abbrev>
+        <title>
+            <link xlink:href="http://www.inf.unideb.hu/~varteres/mi/tartalom.htm">
+                Mesterséges intelligencia
+            </link>
+        </title>
+        <author>
+            <personname>Dr. Várterész Magdolna</personname>
+        </author>
+    </biblioentry>
+</bibliography>

@@ -47,9 +47,6 @@
                 <xsl:text>Témavezető: Dr. Halász Gábor József</xsl:text>
             </fo:block>
             <fo:block font-size="12pt" text-align="left">
-                <xsl:text>Beosztása:</xsl:text>
-            </fo:block>
-            <fo:block font-size="12pt" text-align="left">
                 <xsl:text>Egyetemi docens, dékánhelyettes</xsl:text>
             </fo:block>
         </fo:block-container>
@@ -57,9 +54,7 @@
             <fo:block font-size="12pt" text-align="left">
                 <xsl:text>Készítette: Sipos Ferenc</xsl:text>
             </fo:block>
-            <fo:block font-size="12pt" text-align="left">
-                <xsl:text>Szak megnevezés:</xsl:text>
-            </fo:block>
+
             <fo:block font-size="12pt" text-align="left">
                 <xsl:text>Programtervező informatikus</xsl:text>
             </fo:block>

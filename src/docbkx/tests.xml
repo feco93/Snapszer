@@ -138,6 +138,38 @@ public void notApplicableTest() {
 }
 ]]>
         </programlisting>
+        <para>A mockito keretrendszer lehetővé teszi számunkra, hogy különböző viselkedéseket teszteljünk:</para>
+        <itemizedlist>
+            <listitem>
+                <para>egy mock objektum metódusai meghívódtak-e bizonyos paraméterekkel</para>
+            </listitem>
+            <listitem>
+                <para>egy mock objektum metódusai hányszor kerültek meghívásra</para>
+            </listitem>
+            <listitem>
+                <para>bizonyos kivételek kiváltódtak-e</para>
+            </listitem>
+        </itemizedlist>
+        <para>A következő példában a 40 bemondását reprezentáló operátort teszteljük, abból az aspektusból, hogy az
+            operátor alkalmazása meghívta-e az általunk megadott metódusokat.
+        </para>
+        <programlisting language="java">
+            <![CDATA[
+@Test
+public void applyTest() {
+    when(currentPlayer.getCards()).thenReturn(deckContains40);
+    when(gameMatchMock.getCurrentPlayer()).thenReturn(currentPlayer);
+    Say40Operator say40Operator = new Say40Operator(currentPlayer);
+    say40Operator.apply(gameMatchMock);
+    verify(currentPlayer).setSaid40(eq(true));
+    verify(currentPlayer).addScore(eq(40));
+}
+]]>
+        </programlisting>
+        <para>A verify metódus segítségével teszteljük azt a viselkedést, miszerint a jelenlegi játékos (aki alkalmazta
+            a 40 bemondását) setSaid40 metódusa a logikai igaz (true) paraméterrel, illetve az addScore
+            metódus a 40 paraméterrel lett meghívva.
+        </para>
         <para>
             <emphasis role="bold">Jelentések készítése</emphasis>
         </para>

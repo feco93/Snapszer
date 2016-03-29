@@ -20,6 +20,7 @@ public class Say20OperatorTest {
 
     private final ObservableList<ICard> deckContains20;
     private final ObservableList<ICard> deckNotContains20;
+    private final ObservableList<ICard> deckContains20_2;
     private Player currentPlayer;
     private GameMatch gameMatchMock;
     private Player nextPlayer;
@@ -31,6 +32,12 @@ public class Say20OperatorTest {
                 new HungarianCard(HungarianCardRank.ASZ, HungarianCardSuit.ZOLD),
                 new HungarianCard(HungarianCardRank.TIZ, HungarianCardSuit.MAKK),
                 new HungarianCard(HungarianCardRank.ALSO, HungarianCardSuit.TOK));
+        deckContains20_2 = FXCollections.observableArrayList(
+                new HungarianCard(HungarianCardRank.FELSO, HungarianCardSuit.TOK),
+                new HungarianCard(HungarianCardRank.ALSO, HungarianCardSuit.PIROS),
+                new HungarianCard(HungarianCardRank.ASZ, HungarianCardSuit.ZOLD),
+                new HungarianCard(HungarianCardRank.TIZ, HungarianCardSuit.MAKK),
+                new HungarianCard(HungarianCardRank.KIRALY, HungarianCardSuit.TOK));
         deckNotContains20 = FXCollections.observableArrayList(
                 new HungarianCard(HungarianCardRank.KIRALY, HungarianCardSuit.PIROS),
                 new HungarianCard(HungarianCardRank.FELSO, HungarianCardSuit.ZOLD),
@@ -56,6 +63,15 @@ public class Say20OperatorTest {
     }
 
     @Test
+    public void applicableTest2() {
+
+        when(currentPlayer.getCards()).thenReturn(deckContains20_2);
+        when(gameMatchMock.getCurrentPlayer()).thenReturn(currentPlayer);
+        Say20Operator say20Operator = new Say20Operator(currentPlayer);
+        assertTrue(say20Operator.isApplicable(gameMatchMock));
+    }
+
+    @Test
     public void notApplicableTest() {
         when(currentPlayer.getCards()).thenReturn(deckNotContains20);
         when(gameMatchMock.getCurrentPlayer()).thenReturn(currentPlayer);
@@ -69,5 +85,33 @@ public class Say20OperatorTest {
         when(gameMatchMock.getCurrentPlayer()).thenReturn(currentPlayer);
         Say20Operator say20Operator = new Say20Operator(nextPlayer);
         assertFalse(say20Operator.isApplicable(gameMatchMock));
+    }
+
+    @Test
+    public void notApplicableTest3() {
+        when(currentPlayer.getCards()).thenReturn(deckContains20);
+        when(currentPlayer.isSaid20()).thenReturn(true);
+        when(gameMatchMock.getCurrentPlayer()).thenReturn(currentPlayer);
+        Say20Operator say20Operator = new Say20Operator(currentPlayer);
+        assertFalse(say20Operator.isApplicable(gameMatchMock));
+    }
+
+    @Test
+    public void notApplicableTest4() {
+        when(currentPlayer.getCards()).thenReturn(deckContains20);
+        when(currentPlayer.isSaid40()).thenReturn(true);
+        when(gameMatchMock.getCurrentPlayer()).thenReturn(currentPlayer);
+        Say20Operator say20Operator = new Say20Operator(currentPlayer);
+        assertFalse(say20Operator.isApplicable(gameMatchMock));
+    }
+
+    @Test
+    public void applyTest() {
+        when(currentPlayer.getCards()).thenReturn(deckContains20);
+        when(gameMatchMock.getCurrentPlayer()).thenReturn(currentPlayer);
+        Say20Operator say20Operator = new Say20Operator(currentPlayer);
+        say20Operator.apply(gameMatchMock);
+        when(currentPlayer.isSaid20()).thenReturn(true);
+        assertTrue(currentPlayer.isSaid20());
     }
 }

@@ -18,6 +18,13 @@
             </para>
         </xi:fallback>
     </xi:include>
+    <xi:include href="state-space.xml">
+        <xi:fallback>
+            <para>
+                <emphasis>XInclude: hiányzik a state-space.xml állomány!</emphasis>
+            </para>
+        </xi:fallback>
+    </xi:include>
     <xi:include href="javafx.xml">
         <xi:fallback>
             <para>
@@ -36,6 +43,13 @@
         <xi:fallback>
             <para>
                 <emphasis>XInclude: hiányzik a conclusion.xml állomány!</emphasis>
+            </para>
+        </xi:fallback>
+    </xi:include>
+    <xi:include href="bibliography.xml">
+        <xi:fallback>
+            <para>
+                <emphasis>XInclude: hiányzik a bibliography.xml állomány!</emphasis>
             </para>
         </xi:fallback>
     </xi:include>
