@@ -71,6 +71,8 @@
         <xsl:attribute name="font-size">10</xsl:attribute>
     </xsl:attribute-set>
 
+    <xsl:param name="font-selection-strategy">character-by-character</xsl:param>
+
 
     <xsl:template match="symbol[@role = 'symbolfont']">
         <fo:inline font-family="Symbol">
