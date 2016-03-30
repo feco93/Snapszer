@@ -19,8 +19,6 @@ import java.io.IOException;
  * Created by Fecó Sipos on 2016. 02. 07..
  */
 public class PreLoaderView {
-    private Group backGround;
-    private TableView tableView;
     private Scene scene;
     private StackPane root;
     private SubScene backGroundScene;
@@ -28,10 +26,10 @@ public class PreLoaderView {
 
     public PreLoaderView() {
         primaryStage = new Stage();
-        backGround = new Group();
-        tableView = new TableView();
-        this.backGround.getChildren().add(tableView);
-        backGroundScene = new SubScene(this.backGround, 0, 0, true, SceneAntialiasing.BALANCED);
+        Group backGround = new Group();
+        TableView tableView = new TableView();
+        backGround.getChildren().add(tableView);
+        backGroundScene = new SubScene(backGround, 0, 0, true, SceneAntialiasing.BALANCED);
 
         root = new StackPane();
         scene = new Scene(root, 0, 0, true, SceneAntialiasing.BALANCED);
