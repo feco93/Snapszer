@@ -1,5 +1,5 @@
 <xsl:stylesheet
-        xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
         version="1.0"
 >
 
@@ -66,18 +66,10 @@
     <xsl:param name="body.start.indent">0pt</xsl:param>
     <xsl:param name="body.end.indent">0pt</xsl:param>
 
+
     <xsl:attribute-set name="monospace.verbatim.properties">
         <xsl:attribute name="wrap-option">wrap</xsl:attribute>
         <xsl:attribute name="font-size">10</xsl:attribute>
     </xsl:attribute-set>
-
-    <xsl:param name="font-selection-strategy">character-by-character</xsl:param>
-
-
-    <xsl:template match="symbol[@role = 'symbolfont']">
-        <fo:inline font-family="Symbol">
-            <xsl:call-template name="inline.charseq"/>
-        </fo:inline>
-    </xsl:template>
 
 </xsl:stylesheet>

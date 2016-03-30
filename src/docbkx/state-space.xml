@@ -9,8 +9,44 @@
     <para>Az általunk vizsgált snapszer kártyajáték osztályozás szerint stratégiai, 2 személyes, nem zérusösszegű,
         sztochasztikus, nem teljes információjú játék.
     </para>
-    <para>All = { (h, x) | h
-        <symbol role="symbolfont">&#x2208;</symbol>
-        H, x {A, B} }
+    <para>
+        S legyen a játék állásainak a halmaza, {A, B} a két játékos.
     </para>
+    <para>
+        All = { (s, c, x) | s &#x2208; S, c &#x2208; {A, B} }, x &#x2208; {A, B} }
+    </para>
+    <para>Ahol:</para>
+    <itemizedlist>
+        <listitem>
+            <para>s: a jelenlegi játék állás</para>
+        </listitem>
+        <listitem>
+            <para>c: a hívó játékos</para>
+        </listitem>
+        <listitem>
+            <para>x: a jelenlegi játékos</para>
+        </listitem>
+    </itemizedlist>
+    <para>A játék állásokat a kártya lapok helyzetével írjuk le. A következő helyzetek fordulhatnak elő:</para>
+    <itemizedlist>
+        <listitem>
+            <para>A talonban van: 0</para>
+        </listitem>
+        <listitem>
+            <para>Az A játékos kezében van: 1</para>
+        </listitem>
+        <listitem>
+            <para>A B játékos kezében van: 2</para>
+        </listitem>
+        <listitem>
+            <para>Adu lap: 3</para>
+        </listitem>
+        <listitem>
+            <para>Ki van játsza: 4</para>
+        </listitem>
+        <listitem>
+            <para>Elütötték: 5</para>
+        </listitem>
+    </itemizedlist>
+    <para>Kezdőállapot: (0, 0, 0 ... 0) - 32 db 0, mivel kezdetben az összes lap a talonban található.</para>
 </chapter>
