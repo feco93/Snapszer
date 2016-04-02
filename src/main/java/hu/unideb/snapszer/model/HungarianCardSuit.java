@@ -36,6 +36,7 @@ public enum HungarianCardSuit implements ISuit{
         this.value = point;
     }
 
+    @Override
     public int getValue() {
         return value;
     }

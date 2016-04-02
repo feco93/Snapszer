@@ -14,9 +14,10 @@ public class CoverOperator extends Operator {
 
     @Override
     public boolean isApplicable(GameMatch game) {
-        if (!player.equals(game.getCurrentPlayer()))
-            return false;
-        return !game.isSnapszer() && !game.isCover() && game.getDeck().size() >= 4;
+        return player.equals(game.getCurrentPlayer()) &&
+                !game.isSnapszer() &&
+                !game.isCover() &&
+                game.getDeck().size() >= 4;
     }
 
     @Override

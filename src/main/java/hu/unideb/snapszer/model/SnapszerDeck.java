@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class SnapszerDeck {
 
-    public static Deck getNewDeck() {
-        List<ICard> cards = new ArrayList<>();
+    public static Deck<HungarianCard> getNewDeck() {
+        List<HungarianCard> cards = new ArrayList<>();
         for (HungarianCardSuit suit : HungarianCardSuit.values()) {
             suit.setTrump(false);
             for (HungarianCardRank rank : HungarianCardRank.values()) {
@@ -28,8 +28,7 @@ public class SnapszerDeck {
                 cards.add(card);
             }
         }
-        Deck deck = new Deck(cards);
-        deck.shuffle();
+        Deck<HungarianCard> deck = new Deck<>(cards);
         return deck;
     }
 

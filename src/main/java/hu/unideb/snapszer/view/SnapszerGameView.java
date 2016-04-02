@@ -2,7 +2,6 @@ package hu.unideb.snapszer.view;
 
 import hu.unideb.snapszer.model.GameMatch;
 import hu.unideb.snapszer.model.HungarianCard;
-import hu.unideb.snapszer.model.ICard;
 import hu.unideb.snapszer.model.operators.*;
 import hu.unideb.snapszer.model.player.Computer;
 import hu.unideb.snapszer.model.player.Human;
@@ -54,10 +53,10 @@ public class SnapszerGameView extends Group {
         trumpCardView = new SimpleObjectProperty<>();
         hungarianCardViews = FXCollections.observableArrayList();
         double index = -4;
-        for (ICard card : game.getDeck()) {
+        for (HungarianCard card : game.getDeck()) {
             HungarianCardView cardView
                     = new HungarianCardView(
-                    (HungarianCard) card,
+                    card,
                     new Point3D(80, index, 0));
             AmbientLight light = new AmbientLight(Color.WHITE);
             light.getScope().add(cardView);

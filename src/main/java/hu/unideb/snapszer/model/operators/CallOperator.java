@@ -48,10 +48,7 @@ public class CallOperator extends Operator {
                     HungarianCard hungarianCard = (HungarianCard) iCard;
                     return hungarianCard.getSuit().isTrump();
                 });
-        if (hasTrump) {
-            return card.getSuit().isTrump();
-        }
-        return true;
+        return !hasTrump || card.getSuit().isTrump();
     }
 
     public boolean canCall(HungarianCardSuit suit) {

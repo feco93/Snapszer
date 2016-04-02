@@ -10,5 +10,5 @@ package hu.unideb.snapszer.model;
  * @author Fecó
  */
 public interface ISuit {
-    
+    int getValue();
 }

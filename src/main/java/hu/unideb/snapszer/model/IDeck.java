@@ -11,10 +11,12 @@ import java.util.List;
  *
  * @author Fecó
  */
-public interface IDeck {
-    List<ICard> drawCards(int count);
-    ICard drawCard();
-    void insertCard(ICard card, int index);
+public interface IDeck<T extends ICard> extends Iterable<T> {
+    List<T> drawCards(int count);
+
+    T drawCard();
+
+    void insertCard(T card, int index);
     Boolean isEmpty();
     void shuffle();
     int size();

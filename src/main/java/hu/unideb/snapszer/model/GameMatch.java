@@ -22,14 +22,14 @@ import java.util.List;
 public class GameMatch {
 
     private static final Logger logger = LogManager.getLogger(GameMatch.class);
-    private Deck deck;
+    private Deck<HungarianCard> deck;
     private ObservableList<HungarianCard> cardsOnTable;
     private ObservableList<HungarianCard> playedCards;
     private ObjectProperty<HungarianCard> trumpCard;
     private Player currentPlayer;
     private Player nextPlayer;
 
-    public GameMatch(Player playerOne, Player playerTwo, Deck deck) {
+    public GameMatch(Player playerOne, Player playerTwo, Deck<HungarianCard> deck) {
         this.currentPlayer = playerOne;
         this.nextPlayer = playerTwo;
         this.currentPlayer.newMatch();
@@ -90,7 +90,7 @@ public class GameMatch {
         return getPlayers().stream().anyMatch(player -> player.isSaidSnapszer());
     }
 
-    public Deck getDeck() {
+    public Deck<HungarianCard> getDeck() {
         return deck;
     }
 
@@ -104,7 +104,7 @@ public class GameMatch {
     private void initGame() {
         shufflePlayers();
         drawPhase(3);
-        trumpCard.set((HungarianCard) deck.drawCard());
+        trumpCard.set(deck.drawCard());
         drawPhase(2);
     }
 

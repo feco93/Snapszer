@@ -28,11 +28,9 @@ public class SwapTrumpOperator extends Operator {
 
     @Override
     public boolean isApplicable(GameMatch game) {
-        if (!player.equals(game.getCurrentPlayer()) ||
-                game.getDeck().size() < 4 || game.isCover())
-            return false;
-        return player.getCards().stream().anyMatch(iCard ->
-                iCard.getSuit() == game.getTrumpCard().getSuit() &&
+        return !(!player.equals(game.getCurrentPlayer()) ||
+                game.getDeck().size() < 4 || game.isCover()) &&
+                player.getCards().stream().anyMatch(iCard -> iCard.getSuit() == game.getTrumpCard().getSuit() &&
                         iCard.getRank() == HungarianCardRank.ALSO);
     }
 

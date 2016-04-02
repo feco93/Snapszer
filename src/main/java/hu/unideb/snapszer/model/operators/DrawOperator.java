@@ -26,7 +26,7 @@ public class DrawOperator extends Operator {
 
     @Override
     protected void onApply(GameMatch game) {
-        card = (HungarianCard) game.getDeck().drawCard();
+        card = game.getDeck().drawCard();
         player.drawCard(card);
     }
 }

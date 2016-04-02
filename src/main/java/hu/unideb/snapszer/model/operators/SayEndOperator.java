@@ -14,9 +14,7 @@ public class SayEndOperator extends Operator {
 
     @Override
     public boolean isApplicable(GameMatch game) {
-        if (!player.equals(game.getCurrentPlayer()))
-            return false;
-        return player.canSayEnd();
+        return player.equals(game.getCurrentPlayer()) && player.canSayEnd();
     }
 
     @Override

@@ -52,6 +52,7 @@ public class SnapszerTwoPlayerGame extends Task<Void> {
     protected Void call() throws Exception {
         while (!isGameOver()) {
             deck = SnapszerDeck.getNewDeck();
+            deck.shuffle();
 
             gameMatch.setValue(new GameMatch(playerOne, playerTwo, deck));
             logger.info("The match is starting...");

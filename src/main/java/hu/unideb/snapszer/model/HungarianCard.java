@@ -14,7 +14,6 @@ public class HungarianCard implements ICard {
 
     private final HungarianCardRank rank;
     private final HungarianCardSuit suit;
-    private boolean faceUp;
 
     public HungarianCard(HungarianCardRank rank, HungarianCardSuit suit) {
         this.rank = rank;
@@ -35,20 +34,6 @@ public class HungarianCard implements ICard {
         return suit;
     }
 
-    @Override
-    public boolean isFaceup() {
-        return faceUp;
-    }
-
-    @Override
-    public void turnDown() {
-        faceUp = false;
-    }
-
-    @Override
-    public void turnUp() {
-        faceUp = true;
-    }
 
     @Override
     public int compareTo(ICard o) {

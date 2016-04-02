@@ -10,7 +10,7 @@ package hu.unideb.snapszer.model;
  *
  * @author Feco
  */
-public enum HungarianCardRank implements IRank{
+public enum HungarianCardRank implements IRank {
 
     /**
      * The Alsó rank.
@@ -51,6 +51,7 @@ public enum HungarianCardRank implements IRank{
         this.value = point;
     }
 
+    @Override
     public int getValue() {
         return value;
     }

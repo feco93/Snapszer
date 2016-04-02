@@ -23,6 +23,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -32,6 +34,8 @@ import java.util.List;
  * @author Feco
  */
 public abstract class Player {
+
+    protected static final Logger logger = LogManager.getLogger(Player.class);
 
     private final String name;
 

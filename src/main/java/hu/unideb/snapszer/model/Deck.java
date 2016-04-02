@@ -16,29 +16,28 @@
  */
 package hu.unideb.snapszer.model;
 
-import java.util.*;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.util.*;
 
 /**
  * Model class for a deck.
  *
  * @author Feco
  */
-public class Deck implements IDeck, Iterable<ICard> {
+public class Deck<T extends ICard> implements IDeck<T> {
 
     /**
      * Cards in this deck.
      */
-    public final ObservableList<ICard> cards;
+    public final ObservableList<T> cards;
 
     /**
-     * Constructs a new Deck object.
-     *
-     * @param cards
+     * Constructs new deck with the given cards.
+     * @param cards the initial cards of the deck
      */
-    public Deck(Collection<? extends ICard> cards) {
+    public Deck(Collection<T> cards) {
         this.cards = FXCollections.observableArrayList(cards);
     }
 
@@ -53,19 +52,9 @@ public class Deck implements IDeck, Iterable<ICard> {
     }
 
     @Override
-    public List<ICard> drawCards(int count) {
-        List<ICard> toDraw = new ArrayList<>();
-
-        ListIterator li = cards.listIterator(cards.size());
-        // Iterate in reverse.
-        while (count > 0) {
-            if (li.hasPrevious()) {
-                toDraw.add((ICard) li.previous());
-                li.remove();
-            }
-            --count;
-        }
-
+    public List<T> drawCards(int count) {
+        List<T> toDraw = new ArrayList<>(cards.subList(cards.size() - count, cards.size()));
+        cards.removeAll(toDraw);
         return toDraw;
     }
 
@@ -80,18 +69,18 @@ public class Deck implements IDeck, Iterable<ICard> {
     }
 
     @Override
-    public void insertCard(ICard card, int index) {
+    public void insertCard(T card, int index) {
         cards.add(index, card);
     }
 
     @Override
-    public ICard drawCard() {
+    public T drawCard() {
         return drawCards(1).get(0);
     }
 
     @Override
-    public Iterator<ICard> iterator() {
-        return new Iterator<ICard>() {
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
 
             private int currentIndex = 0;
 
@@ -101,7 +90,7 @@ public class Deck implements IDeck, Iterable<ICard> {
             }
 
             @Override
-            public ICard next() {
+            public T next() {
                 return cards.get(currentIndex++);
             }
         };

@@ -16,9 +16,8 @@ public class Say20Operator extends Operator {
 
     @Override
     public boolean isApplicable(GameMatch game) {
-        if (!player.equals(game.getCurrentPlayer()))
-            return false;
-        return canSay20();
+        return player.equals(game.getCurrentPlayer()) &&
+                canSay20();
     }
 
     public boolean canSay20() {

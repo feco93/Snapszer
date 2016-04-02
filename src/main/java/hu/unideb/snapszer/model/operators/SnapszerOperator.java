@@ -21,7 +21,6 @@ public class SnapszerOperator extends Operator {
 
     @Override
     protected void onApply(GameMatch game) {
-        game.setSnapszer(true);
         player.setSaidSnapszer(true);
     }
 }

@@ -1,0 +1,72 @@
+package hu.unideb.snapszer.model.player;
+
+import hu.unideb.snapszer.model.GameMatch;
+import hu.unideb.snapszer.model.HungarianCard;
+import hu.unideb.snapszer.model.SnapszerDeck;
+import hu.unideb.snapszer.model.operators.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Created by User on 2016. 04. 02..
+ */
+public class ComputerChampion extends Computer {
+
+    public ComputerChampion() {
+        this("Computer (Champion)");
+    }
+
+    public ComputerChampion(String name) {
+        super(name);
+    }
+
+    @Override
+    public Operator chooseOperator(GameMatch game) {
+        return chooseGoodOperator(game);
+    }
+
+    private Operator chooseGoodOperator(GameMatch game) {
+        return getAllApplicableOperators(game).stream().min(
+                (o1, o2) -> getHeuristic(o1, game).compareTo(getHeuristic(o2, game))).get();
+
+    }
+
+    private Integer getHeuristic(Operator op, GameMatch game) {
+        if (op instanceof SayEndOperator)
+            return -1;
+        if (op instanceof SwapTrumpOperator)
+            return 0;
+        if (op instanceof Say40Operator)
+            return Math.max(66 - getScore() - 40, 0);
+        if (op instanceof Say20Operator)
+            return Math.max(66 - getScore() - 20, 0);
+        if (op instanceof CallOperator) {
+            CallOperator callOperator = (CallOperator) op;
+            if (!game.getCardsOnTable().isEmpty()) {
+                if (game.getCardsOnTable().get(0).compareTo(callOperator.getCard()) < 0) {
+                    return Math.max(66 - getScore() - callOperator.getCard().getPoints(), 0);
+                } else {
+                    return 66 - getScore() + callOperator.getCard().getPoints();
+                }
+            } else {
+                if (higherCardInGame(callOperator.getCard(), game.getPlayedCards())) {
+                    return Math.max(66 - getScore() + callOperator.getCard().getPoints(), 0);
+                }
+                return Math.max(66 - getScore() - callOperator.getCard().getPoints(), 0);
+            }
+        }
+        return 100;
+    }
+
+    private boolean higherCardInGame(HungarianCard card, List<HungarianCard> playedCards) {
+        List<HungarianCard> greaterCards = higherCards(card);
+        return !playedCards.containsAll(greaterCards);
+    }
+
+    private List<HungarianCard> higherCards(HungarianCard card) {
+        return SnapszerDeck.getNewDeck().cards.stream().filter(
+                otherCard -> card.getSuit() == otherCard.getSuit() &&
+                        otherCard.getRank().compareTo(otherCard.getRank()) > 0).collect(Collectors.toList());
+    }
+}

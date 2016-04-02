@@ -7,6 +7,7 @@ package hu.unideb.snapszer.model.player;
 
 import hu.unideb.snapszer.model.GameMatch;
 import hu.unideb.snapszer.model.operators.Operator;
+import org.apache.logging.log4j.Level;
 
 /**
  * @author Fecó
@@ -31,7 +32,7 @@ public class Human extends Player {
             wait();
             return chosenOperator;
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "The game has been stopped.");
         }
         return null;
     }
