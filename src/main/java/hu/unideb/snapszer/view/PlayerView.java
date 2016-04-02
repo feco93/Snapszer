@@ -59,8 +59,7 @@ public class PlayerView {
         int index = cardsInHand.indexOf(hungarianCardView);
         if (index == -1)
             return null;
-        HungarianCardView toRet = cardsInHand.remove(index);
-        return toRet;
+        return cardsInHand.remove(index);
     }
 
     public void drawCard(HungarianCardView hungarianCardView) {

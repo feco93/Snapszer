@@ -26,7 +26,6 @@ public class GameMatch {
     private ObservableList<HungarianCard> cardsOnTable;
     private ObservableList<HungarianCard> playedCards;
     private ObjectProperty<HungarianCard> trumpCard;
-    private boolean snapszer;
     private Player currentPlayer;
     private Player nextPlayer;
 
@@ -89,10 +88,6 @@ public class GameMatch {
 
     public boolean isSnapszer() {
         return getPlayers().stream().anyMatch(player -> player.isSaidSnapszer());
-    }
-
-    public void setSnapszer(boolean snapszer) {
-        this.snapszer = snapszer;
     }
 
     public Deck getDeck() {
@@ -215,6 +210,10 @@ public class GameMatch {
         }
     }
 
+    public Player getLoserPlayer() {
+        return getWinnerPlayer().equals(currentPlayer) ? nextPlayer : currentPlayer;
+    }
+
     public int getWonPoints() {
         Player winnerPlayer = getWinnerPlayer();
         Player loserPlayer = getLoserPlayer();
@@ -241,9 +240,5 @@ public class GameMatch {
                 return 1;
             }
         }
-    }
-
-    public Player getLoserPlayer() {
-        return getWinnerPlayer().equals(currentPlayer) ? nextPlayer : currentPlayer;
     }
 }

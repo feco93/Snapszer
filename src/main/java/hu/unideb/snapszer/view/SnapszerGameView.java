@@ -70,7 +70,7 @@ public class SnapszerGameView extends Group {
         Operator.addListener(this::onOperatorApplied);
         game.trumpCardProperty().addListener(observable -> {
             trumpCardView.setValue(hungarianCardViews.get(
-                    hungarianCardViews.indexOf(game.trumpCardProperty().getValue())));
+                    hungarianCardViews.indexOf(game.getTrumpCard())));
             sequentialTransition.addAnimation(
                     trumpCardView.getValue().setTrump(60, -1));
             sequentialTransition.playAnimationSynchronous();
@@ -101,7 +101,7 @@ public class SnapszerGameView extends Group {
     private void onSwapTrumpOperatorApplied(SwapTrumpOperator operator) {
         PlayerView player = playerViews.stream().filter(
                 playerView -> playerView.getPlayer().equals(operator.getPlayer())).findFirst().get();
-        HungarianCardView newTrumpCard = player.removeCard(operator.getNewTrumpCard());
+        player.removeCard(operator.getNewTrumpCard());
         HungarianCardView oldTrumpCard = hungarianCardViews.stream().
                 filter(cardView ->
                         cardView.getCard().equals(operator.getOldTrumpCard())).
