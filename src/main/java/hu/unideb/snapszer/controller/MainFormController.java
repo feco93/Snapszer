@@ -26,8 +26,14 @@ public class MainFormController {
     @FXML
     public void onComputerVSComputerClicked(MouseEvent event) {
         ConsoleGame game = new ConsoleGame();
-        int numberOfGames = Integer.valueOf(numberOfGamesTextField.getText());
-        game.Start(numberOfGames);
+        try {
+            int numberOfGames = Integer.parseUnsignedInt(numberOfGamesTextField.getText());
+            game.Start(numberOfGames);
+        }
+        catch (NumberFormatException e)
+        {
+            numberOfGamesTextField.setText("The value must be unsigned integer!");
+        }
     }
 
     public void setStage(Stage stage) {
