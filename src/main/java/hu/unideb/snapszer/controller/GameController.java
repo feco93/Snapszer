@@ -6,7 +6,7 @@
 
 package hu.unideb.snapszer.controller;
 
-import hu.unideb.snapszer.model.operators.CallOperator;
+import hu.unideb.snapszer.model.operators.PlayCardOperator;
 import hu.unideb.snapszer.model.operators.SwapTrumpOperator;
 import hu.unideb.snapszer.model.player.Human;
 import hu.unideb.snapszer.view.HungarianCardView;
@@ -36,7 +36,7 @@ public class GameController {
                             c.getAddedSubList()) {
                         cardView.setOnMouseClicked(event -> {
                             Human human = (Human) player.getPlayer();
-                            human.setChosenOperator(new CallOperator(human, cardView.getCard()));
+                            human.setChosenOperator(new PlayCardOperator(human, cardView.getCard()));
                         });
                         cardView.setOnMouseEntered(event -> scene.setCursor(Cursor.HAND));
                         cardView.setOnMouseExited(event -> scene.setCursor(Cursor.DEFAULT));

@@ -174,8 +174,6 @@ public abstract class Player {
         return getScore() >= 66;
     }
 
-    public abstract void setChosenOperator(Operator operator);
-
     public boolean isSaid20() {
         return said20;
     }

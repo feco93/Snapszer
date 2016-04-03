@@ -1,7 +1,7 @@
 package hu.unideb.snapszer.controller;
 
 import hu.unideb.snapszer.model.operators.*;
-import hu.unideb.snapszer.model.player.Player;
+import hu.unideb.snapszer.model.player.Human;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 
 public class HumanPlayerController {
 
-    private Player player;
+    private Human player;
 
     @FXML
     private VBox controlPanel;
@@ -37,7 +37,7 @@ public class HumanPlayerController {
     public HumanPlayerController() {
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(Human player) {
         this.player = player;
     }
 

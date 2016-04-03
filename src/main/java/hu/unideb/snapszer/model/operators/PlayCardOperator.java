@@ -6,11 +6,11 @@ import hu.unideb.snapszer.model.player.Player;
 /**
  * Created by Fecó on 2015.12.05..
  */
-public class CallOperator extends Operator {
+public class PlayCardOperator extends Operator {
 
     private HungarianCard card;
 
-    public CallOperator(Player player, HungarianCard card) {
+    public PlayCardOperator(Player player, HungarianCard card) {
         super(player);
         this.card = card;
     }

@@ -20,7 +20,6 @@ public class Human extends Player {
         super(name);
     }
 
-    @Override
     public synchronized void setChosenOperator(Operator operator) {
         chosenOperator = operator;
         notify();

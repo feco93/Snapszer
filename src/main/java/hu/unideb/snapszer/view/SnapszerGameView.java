@@ -80,8 +80,8 @@ public class SnapszerGameView extends Group {
         if (operator instanceof DrawOperator) {
             onDrawOperatorApplied((DrawOperator) operator);
         }
-        if (operator instanceof CallOperator) {
-            onCallOperatorApplied((CallOperator) operator);
+        if (operator instanceof PlayCardOperator) {
+            onCallOperatorApplied((PlayCardOperator) operator);
         }
         if (operator instanceof SwapTrumpOperator) {
             onSwapTrumpOperatorApplied((SwapTrumpOperator) operator);
@@ -108,7 +108,7 @@ public class SnapszerGameView extends Group {
         player.drawCard(oldTrumpCard);
     }
 
-    private void onCallOperatorApplied(CallOperator operator) {
+    private void onCallOperatorApplied(PlayCardOperator operator) {
         PlayerView player = playerViews.stream().filter(
                 playerView -> playerView.getPlayer().equals(operator.getPlayer())).findFirst().get();
         HungarianCardView calledCard = player.removeCard(operator.getCard());

@@ -41,19 +41,19 @@ public class ComputerChampion extends Computer {
             return Math.max(66 - getScore() - 40, 0);
         if (op instanceof Say20Operator)
             return Math.max(66 - getScore() - 20, 0);
-        if (op instanceof CallOperator) {
-            CallOperator callOperator = (CallOperator) op;
+        if (op instanceof PlayCardOperator) {
+            PlayCardOperator playCardOperator = (PlayCardOperator) op;
             if (!game.getCardsOnTable().isEmpty()) {
-                if (game.getCardsOnTable().get(0).compareTo(callOperator.getCard()) < 0) {
-                    return Math.max(66 - getScore() - callOperator.getCard().getPoints(), 0);
+                if (game.getCardsOnTable().get(0).compareTo(playCardOperator.getCard()) < 0) {
+                    return Math.max(66 - getScore() - playCardOperator.getCard().getPoints(), 0);
                 } else {
-                    return 66 - getScore() + callOperator.getCard().getPoints();
+                    return 66 - getScore() + playCardOperator.getCard().getPoints();
                 }
             } else {
-                if (higherCardInGame(callOperator.getCard(), game.getPlayedCards())) {
-                    return Math.max(66 - getScore() + callOperator.getCard().getPoints(), 0);
+                if (higherCardInGame(playCardOperator.getCard(), game.getPlayedCards())) {
+                    return Math.max(66 - getScore() + playCardOperator.getCard().getPoints(), 0);
                 }
-                return Math.max(66 - getScore() - callOperator.getCard().getPoints(), 0);
+                return Math.max(66 - getScore() - playCardOperator.getCard().getPoints(), 0);
             }
         }
         return 100;

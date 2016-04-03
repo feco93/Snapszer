@@ -1,8 +1,8 @@
 package hu.unideb.snapszer.model;
 
-import hu.unideb.snapszer.model.operators.CallOperator;
 import hu.unideb.snapszer.model.operators.DrawOperator;
 import hu.unideb.snapszer.model.operators.Operator;
+import hu.unideb.snapszer.model.operators.PlayCardOperator;
 import hu.unideb.snapszer.model.operators.SayEndOperator;
 import hu.unideb.snapszer.model.player.Player;
 import javafx.beans.property.ObjectProperty;
@@ -83,11 +83,11 @@ public class GameMatch {
     }
 
     public boolean isCover() {
-        return getPlayers().stream().anyMatch(player -> player.isSaidCover());
+        return getPlayers().stream().anyMatch(Player::isSaidCover);
     }
 
     public boolean isSnapszer() {
-        return getPlayers().stream().anyMatch(player -> player.isSaidSnapszer());
+        return getPlayers().stream().anyMatch(Player::isSaidSnapszer);
     }
 
     public Deck<HungarianCard> getDeck() {
@@ -178,7 +178,7 @@ public class GameMatch {
                                 "The %s player apply: %s",
                                 player.getName(),
                                 op.toString()));
-                        if (op instanceof CallOperator) {
+                        if (op instanceof PlayCardOperator) {
                             break;
                         }
                         if (op instanceof SayEndOperator) {

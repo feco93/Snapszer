@@ -13,32 +13,15 @@ import hu.unideb.snapszer.model.operators.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Fecó
  */
-public class Computer extends Player {
+public abstract class Computer extends Player {
 
     public Computer(String name) {
         super(name);
-    }
-
-    @Override
-    public Operator chooseOperator(GameMatch game) {
-        if (game.getCurrentPlayer() == this) {
-            Say20Operator say20Operator = new Say20Operator(this);
-            if (say20Operator.isApplicable(game)) {
-                return say20Operator;
-            }
-            Say40Operator say40Operator = new Say40Operator(this);
-            if (say40Operator.isApplicable(game)) {
-                return say40Operator;
-            }
-            if (canSayEnd()) {
-                return new SayEndOperator(this);
-            }
-        }
-        return getFirstApplicableOperator(game);
     }
 
     protected List<Operator> getAllOperators() {
@@ -51,34 +34,16 @@ public class Computer extends Player {
                 new SwapTrumpOperator(this)));
         for (ICard card :
                 getCards()) {
-            CallOperator op = new CallOperator(this, (HungarianCard) card);
+            PlayCardOperator op = new PlayCardOperator(this, (HungarianCard) card);
             allOperators.add(op);
         }
         return allOperators;
     }
 
     protected List<Operator> getAllApplicableOperators(GameMatch game) {
-        List<Operator> applicableOperators = new ArrayList<>();
-        for (Operator op :
-                getAllOperators()) {
-            if (op.isApplicable(game))
-                applicableOperators.add(op);
-        }
+        List<Operator> applicableOperators = getAllOperators().stream().
+                filter(op -> op.isApplicable(game)).
+                collect(Collectors.toList());
         return applicableOperators;
-    }
-
-    private CallOperator getFirstApplicableOperator(GameMatch game) {
-        for (ICard card :
-                getCards()) {
-            CallOperator op = new CallOperator(this, (HungarianCard) card);
-            if (op.isApplicable(game))
-                return op;
-        }
-        return null;
-    }
-
-    @Override
-    public void setChosenOperator(Operator operator) {
-
     }
 }

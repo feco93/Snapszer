@@ -30,9 +30,4 @@ public class ComputerRand extends Computer {
         int index = randomGenerator.nextInt(operators.size());
         return operators.get(index);
     }
-
-    @Override
-    public void setChosenOperator(Operator operator) {
-
-    }
 }

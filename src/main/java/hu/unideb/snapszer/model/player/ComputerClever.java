@@ -37,16 +37,16 @@ public class ComputerClever extends Computer {
             return 66 - getScore() - 40;
         if (op instanceof Say20Operator)
             return 66 - getScore() - 20;
-        if (op instanceof CallOperator) {
-            CallOperator callOperator = (CallOperator) op;
+        if (op instanceof PlayCardOperator) {
+            PlayCardOperator playCardOperator = (PlayCardOperator) op;
             if (!game.getCardsOnTable().isEmpty()) {
-                if (game.getCardsOnTable().get(0).compareTo(callOperator.getCard()) < 0) {
-                    return Math.max(66 - getScore() - callOperator.getCard().getPoints(), 1);
+                if (game.getCardsOnTable().get(0).compareTo(playCardOperator.getCard()) < 0) {
+                    return Math.max(66 - getScore() - playCardOperator.getCard().getPoints(), 1);
                 } else {
-                    return 66 - getScore() + callOperator.getCard().getPoints();
+                    return 66 - getScore() + playCardOperator.getCard().getPoints();
                 }
             } else {
-                return Math.max(66 - getScore() - callOperator.getCard().getPoints(), 1);
+                return Math.max(66 - getScore() - playCardOperator.getCard().getPoints(), 1);
             }
         }
         return 100;

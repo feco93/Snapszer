@@ -3,9 +3,9 @@ package hu.unideb.snapszer;
 import hu.unideb.snapszer.controller.GameController;
 import hu.unideb.snapszer.controller.HumanPlayerController;
 import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
+import hu.unideb.snapszer.model.player.Computer;
 import hu.unideb.snapszer.model.player.ComputerClever;
 import hu.unideb.snapszer.model.player.Human;
-import hu.unideb.snapszer.model.player.Player;
 import hu.unideb.snapszer.view.SnapszerGameView;
 import hu.unideb.snapszer.view.TableView;
 import javafx.application.Platform;
@@ -40,8 +40,8 @@ public class UIGame implements Game {
         addCamera(game3d);
         root.getChildren().add(game3d);
 
-        Player playerOne = new Human("Player");
-        Player playerTwo = new ComputerClever();
+        Human playerOne = new Human("Player");
+        Computer playerTwo = new ComputerClever();
         initGameInfo(playerOne, playerTwo);
         SnapszerTwoPlayerGame game = new SnapszerTwoPlayerGame(playerOne, playerTwo);
 
@@ -97,7 +97,7 @@ public class UIGame implements Game {
         return perspectiveCamera;
     }
 
-    private void initGameInfo(Player playerOne, Player playerTwo) {
+    private void initGameInfo(Human playerOne, Computer playerTwo) {
         AnchorPane gameInfo = new AnchorPane();
         TextFlow scoreContainer = new TextFlow();
         scoreContainer.setTextAlignment(TextAlignment.LEFT);
