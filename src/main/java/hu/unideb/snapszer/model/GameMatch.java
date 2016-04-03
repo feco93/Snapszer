@@ -72,14 +72,14 @@ public class GameMatch {
         if (isCover()) {
             return currentPlayer.isSaidCover() ? currentPlayer : nextPlayer;
         }
-        return currentPlayer.isSaidCover() ? currentPlayer : nextPlayer;
+        return currentPlayer.isSaidSnapszer() ? currentPlayer : nextPlayer;
     }
 
     public Player getNotSayerPlayer() {
         if (isCover()) {
             return currentPlayer.isSaidCover() ? nextPlayer : currentPlayer;
         }
-        return currentPlayer.isSaidCover() ? nextPlayer : currentPlayer;
+        return currentPlayer.isSaidSnapszer() ? nextPlayer : currentPlayer;
     }
 
     public boolean isCover() {
