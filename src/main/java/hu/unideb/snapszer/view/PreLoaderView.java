@@ -74,7 +74,7 @@ public class PreLoaderView {
         primaryStage.setFullScreenExitHint("");
         primaryStage.fullScreenExitKeyProperty().set(KeyCombination.NO_MATCH);
         primaryStage.setResizable(false);
-        primaryStage.setFullScreen(false);
+        primaryStage.setFullScreen(true);
         primaryStage.setScene(scene);
         primaryStage.show();
 

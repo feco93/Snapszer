@@ -2,6 +2,7 @@ package hu.unideb.snapszer.model.player;
 
 import hu.unideb.snapszer.model.GameMatch;
 import hu.unideb.snapszer.model.HungarianCard;
+import hu.unideb.snapszer.model.HungarianCardRank;
 import hu.unideb.snapszer.model.SnapszerDeck;
 import hu.unideb.snapszer.model.operators.*;
 
@@ -23,59 +24,74 @@ public class ComputerWorldChampion extends Computer {
 
     @Override
     public Operator chooseOperator(GameMatch game) {
-        return chooseGoodOperator(game);
+        return getAllApplicableOperators(game).stream().max(
+                (o1, o2) -> getGoodness(o1, game).compareTo(getGoodness(o2, game))).get();
     }
 
-    private Operator chooseGoodOperator(GameMatch game) {
-        return getAllApplicableOperators(game).stream().min(
-                (o1, o2) -> getHeuristic(o1, game).compareTo(getHeuristic(o2, game))).get();
-
-    }
-
-    private Integer getHeuristic(Operator op, GameMatch game) {
+    private Integer getGoodness(Operator op, GameMatch game) {
         if (op instanceof SayEndOperator)
-            return -1;
+            return Integer.MAX_VALUE;
         if (op instanceof SwapTrumpOperator)
-            return 0;
+            return Integer.MAX_VALUE - 1;
         if (op instanceof Say40Operator)
-            return Math.max(66 - getScore() - 40, 0);
+            return 40;
         if (op instanceof Say20Operator)
-            return Math.max(66 - getScore() - 20, 0);
+            return 20;
         if (op instanceof PlayCardOperator) {
             PlayCardOperator playCardOperator = (PlayCardOperator) op;
-            if (!game.getCardsOnTable().isEmpty()) {
-                if (game.getCardsOnTable().get(0).compareTo(playCardOperator.getCard()) < 0) {
-                    return Math.max(66 - getScore() - playCardOperator.getCard().getPoints(), 0);
-                } else {
-                    return 66 - getScore() + playCardOperator.getCard().getPoints();
-                }
-            } else {
-                if (higherCardInGame(playCardOperator.getCard(), game.getPlayedCards())) {
-                    return Math.max(66 - getScore() + playCardOperator.getCard().getPoints(), 0);
-                }
-                return Math.max(66 - getScore() - playCardOperator.getCard().getPoints(), 0);
-            }
+            return getGoodness(playCardOperator, game);
         }
-        return 100;
+        if (op instanceof SnapszerOperator) {
+            Say40Operator say40Operator = new Say40Operator(this);
+            if (say40Operator.isApplicable(game) &&
+                    cards.stream().anyMatch(iCard -> {
+                        HungarianCard card = (HungarianCard) iCard;
+                        return card.getRank() == HungarianCardRank.ASZ &&
+                                card.getSuit().isTrump();
+                    }) &&
+                    cards.stream().anyMatch(iCard -> {
+                        HungarianCard card = (HungarianCard) iCard;
+                        return card.getRank() == HungarianCardRank.TIZ &&
+                                card.getSuit().isTrump();
+                    }))
+                return Integer.MAX_VALUE;
+        }
+        return Integer.MIN_VALUE;
     }
 
-    private boolean higherCardInGame(HungarianCard card, List<HungarianCard> playedCards) {
-        return !playedCards.containsAll(higherCards(card));
+    private Integer getGoodness(PlayCardOperator playCardOperator, GameMatch game) {
+        if (!game.getCardsOnTable().isEmpty()) {
+            if (game.getCardsOnTable().get(0).compareTo(playCardOperator.getCard()) < 0) {
+                if (!playCardOperator.getCard().getSuit().isTrump())
+                    return (HungarianCardRank.ASZ.getValue() - playCardOperator.getCard().getPoints()) * 2;
+                else
+                    return HungarianCardRank.ASZ.getValue() - playCardOperator.getCard().getPoints();
+            } else {
+                return -1 * playCardOperator.getCard().getPoints();
+            }
+        } else {
+            if (!higherCardInSameSuit(playCardOperator.getCard(), game.getPlayedCards()))
+                if (!playCardOperator.getCard().getSuit().isTrump())
+                    return playCardOperator.getCard().getPoints() * 2;
+                else
+                    return playCardOperator.getCard().getPoints();
+            else {
+                if (playCardOperator.getCard().getSuit().isTrump())
+                    return -2 * playCardOperator.getCard().getPoints();
+                else
+                    return -1 * playCardOperator.getCard().getPoints();
+            }
+        }
+    }
+
+    private boolean higherCardInSameSuit(HungarianCard card, List<HungarianCard> playedCards) {
+        List<HungarianCard> higherCards = higherCards(card);
+        return !playedCards.containsAll(higherCards);
     }
 
     private List<HungarianCard> higherCards(HungarianCard card) {
-        return SnapszerDeck.getNewDeck().cards.stream().filter(
+        return SnapszerDeck.getSampleDeck().cards.stream().filter(
                 otherCard -> card.getSuit() == otherCard.getSuit() &&
-                        otherCard.getRank().compareTo(otherCard.getRank()) > 0).collect(Collectors.toList());
-    }
-
-    private boolean lowerCardInGame(HungarianCard card, List<HungarianCard> playedCards) {
-        return !playedCards.containsAll(lowerCards(card));
-    }
-
-    private List<HungarianCard> lowerCards(HungarianCard card) {
-        return SnapszerDeck.getNewDeck().cards.stream().filter(
-                otherCard -> card.getSuit() == otherCard.getSuit() &&
-                        otherCard.getRank().compareTo(otherCard.getRank()) < 0).collect(Collectors.toList());
+                        otherCard.getRank().compareTo(card.getRank()) > 0).collect(Collectors.toList());
     }
 }

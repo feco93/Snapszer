@@ -28,11 +28,11 @@ public class ComputerChampion extends Computer {
 
     private Operator chooseGoodOperator(GameMatch game) {
         return getAllApplicableOperators(game).stream().min(
-                (o1, o2) -> getHeuristic(o1, game).compareTo(getHeuristic(o2, game))).get();
+                (o1, o2) -> getGoodness(o1, game).compareTo(getGoodness(o2, game))).get();
 
     }
 
-    private Integer getHeuristic(Operator op, GameMatch game) {
+    private Integer getGoodness(Operator op, GameMatch game) {
         if (op instanceof SayEndOperator)
             return -1;
         if (op instanceof SwapTrumpOperator)
@@ -65,8 +65,8 @@ public class ComputerChampion extends Computer {
     }
 
     private List<HungarianCard> higherCards(HungarianCard card) {
-        return SnapszerDeck.getNewDeck().cards.stream().filter(
+        return SnapszerDeck.getSampleDeck().cards.stream().filter(
                 otherCard -> card.getSuit() == otherCard.getSuit() &&
-                        otherCard.getRank().compareTo(otherCard.getRank()) > 0).collect(Collectors.toList());
+                        otherCard.getRank().compareTo(card.getRank()) > 0).collect(Collectors.toList());
     }
 }

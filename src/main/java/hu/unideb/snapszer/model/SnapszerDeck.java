@@ -32,4 +32,21 @@ public class SnapszerDeck {
         return deck;
     }
 
+    public static Deck<HungarianCard> getSampleDeck() {
+        List<HungarianCard> cards = new ArrayList<>();
+        for (HungarianCardSuit suit : HungarianCardSuit.values()) {
+            for (HungarianCardRank rank : HungarianCardRank.values()) {
+                if (rank == HungarianCardRank.KILENC
+                        || rank == HungarianCardRank.NYOLC
+                        || rank == HungarianCardRank.HET) {
+                    continue;
+                }
+                HungarianCard card = new HungarianCard(rank, suit);
+                cards.add(card);
+            }
+        }
+        Deck<HungarianCard> deck = new Deck<>(cards);
+        return deck;
+    }
+
 }

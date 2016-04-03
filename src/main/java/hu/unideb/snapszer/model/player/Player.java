@@ -42,7 +42,7 @@ public abstract class Player {
     /**
      * Cards in this player hand.
      */
-    private ObservableList<ICard> cards;
+    protected ObservableList<ICard> cards;
     /**
      * Score of this player.
      */
