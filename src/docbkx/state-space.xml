@@ -9,25 +9,48 @@
     <para>Az általunk vizsgált snapszer kártyajáték osztályozás szerint stratégiai, 2 személyes, nem zérusösszegű,
         sztochasztikus, nem teljes információjú játék.
     </para>
-    <para>
-        S legyen a játék állásainak a halmaza, {A, B} a két játékos.
+
+    <para>Először is össze kell gyűjteni a játék szempontjából fontos jellemzőket. A játszma szempontjából fontos
+        jellemzők:
     </para>
-    <para>
-        All = { (s, c, x) | s &#x2208; S, c &#x2208; {A, B} }, x &#x2208; {A, B} }
-    </para>
-    <para>Ahol:</para>
     <itemizedlist>
         <listitem>
-            <para>s: a jelenlegi játék állás</para>
+            <para>A kártyalapok helyzete</para>
         </listitem>
         <listitem>
-            <para>c: a hívó játékos</para>
+            <para>Ki a hívó játékos</para>
         </listitem>
         <listitem>
-            <para>x: a jelenlegi játékos</para>
+            <para>Ki a jelenlegi játékos</para>
         </listitem>
     </itemizedlist>
-    <para>A játék állásokat a kártya lapok helyzetével írjuk le. A következő helyzetek fordulhatnak elő:</para>
+
+    <para>A játékos fontos jellemzői:</para>
+    <itemizedlist>
+        <listitem>
+            <para>Hány pontja van a játékosnak</para>
+        </listitem>
+        <listitem>
+            <para>Mondott-e 20-at az adott körben</para>
+        </listitem>
+        <listitem>
+            <para>Mondott-e 40-et az adott körben</para>
+        </listitem>
+        <listitem>
+            <para>Takart-e</para>
+        </listitem>
+        <listitem>
+            <para>Mondott-e snapszert</para>
+        </listitem>
+    </itemizedlist>
+    <para>Egy játék állást a (h<subscript>1</subscript>, h<subscript>2</subscript>, h<subscript>3</subscript>, ..., h
+        <subscript>32</subscript>) értékekkel írjuk le.
+    </para>
+    <para>h
+        <subscript>i</subscript>
+        lehetséges értékei:
+    </para>
+
     <itemizedlist>
         <listitem>
             <para>A talonban van: 0</para>
@@ -48,5 +71,92 @@
             <para>Elütötték: 5</para>
         </listitem>
     </itemizedlist>
-    <para>Kezdőállapot: (0, 0, 0 ... 0) - 32 db 0, mivel kezdetben az összes lap a talonban található.</para>
+
+    <para>Egy játékos állapotát a (h<subscript>1</subscript>, h<subscript>2</subscript>, h<subscript>3</subscript>, h
+        <subscript>4</subscript>, h<subscript>5</subscript>) értékekkel írjuk le.
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para>h
+                <subscript>1</subscript>
+                &#x2208; N &#x222A; 0
+            </para>
+        </listitem>
+        <listitem>
+            <para>h
+                <subscript>2</subscript>
+                ... h
+                <subscript>5</subscript>
+                &#x2208; {I, H}
+            </para>
+        </listitem>
+    </itemizedlist>
+
+    <para>
+        S legyen a játék állásainak a halmaza, {A, B} a két játékos.
+    </para>
+    <para>
+        All = { (s, c, x) | s &#x2208; S, c &#x2208; {A, B} }, x &#x2208; {A, B} }
+    </para>
+    <para>Ahol:</para>
+    <itemizedlist>
+        <listitem>
+            <para>s: a jelenlegi játék állás</para>
+        </listitem>
+        <listitem>
+            <para>c: a hívó játékos</para>
+        </listitem>
+        <listitem>
+            <para>x: a jelenlegi játékos</para>
+        </listitem>
+    </itemizedlist>
+
+    <para>Kezdő játék állás: (0, 0, 0 ... 0) - 32 db 0, mivel kezdetben az összes lap a talonban található.</para>
+    <para>Kezdő játékos állapot: (0, h, h, h, h, h).</para>
+    <para>Kezdőállapot: (s, c, x)</para>
+    <para>Ahol:</para>
+    <itemizedlist>
+        <listitem>
+            <para>s: a kezdő játék állás</para>
+        </listitem>
+        <listitem>
+            <para>c: a kezdő játékos</para>
+        </listitem>
+        <listitem>
+            <para>x: a jelenlegi játékos, megegyezik a kezdő játékossal</para>
+        </listitem>
+    </itemizedlist>
+    <para>Végállapotok halmaza: { (s, c, x) | &#x2200; a
+        <subscript>i</subscript>
+        = 5 &#x2228; }
+    </para>
+    <para>
+        <emphasis role="bold">Operátorok:</emphasis>
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para>Lapot hív</para>
+        </listitem>
+        <listitem>
+            <para>Lapot húz</para>
+        </listitem>
+        <listitem>
+            <para>Takar</para>
+        </listitem>
+        <listitem>
+            <para>Snapszert mond</para>
+        </listitem>
+        <listitem>
+            <para>20-t mond</para>
+        </listitem>
+        <listitem>
+            <para>40-t mond</para>
+        </listitem>
+        <listitem>
+            <para>Adu lapot cserél</para>
+        </listitem>
+        <listitem>
+            <para>Elég bemondása</para>
+        </listitem>
+    </itemizedlist>
 </chapter>

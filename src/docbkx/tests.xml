@@ -48,7 +48,7 @@
 ]]>
         </programlisting>
         <para>Ha ez kész van, akkor létre kell hozni a megfelelő könyvtár struktúrát. A következő struktúrát kell
-            követni: src/test/java. Ebben a könyvtárban lehet elhelyezni a kívánt teszt osztyályokat, és a további
+            követni: src/test/java. Ebben a könyvtárban lehet elhelyezni a kívánt teszt osztályokat, és a további
             könyvtárakat struktúrálás céljából.
         </para>
         <para>
