@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xml:id="rules.xml"
-         version="5.0"
-         xml:lang="hu"
-         xmlns="http://docbook.org/ns/docbook"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<chapter
+        xml:id="rules.xml"
+        xmlns="http://docbook.org/ns/docbook" version="5.1" xml:lang="hu"
+>
     <title>Játékszabályok</title>
 
     <para>A játékot 2 játékos játssza, a magyar kártya 20 lapjával. A hetes, nyolcas, kilences lapokat ki kell venni a

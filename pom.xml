@@ -81,12 +81,6 @@
                     <includes>index.xml</includes>
                     <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
                     <paperType>A4</paperType>
-
-                    <bodyFontFamily>TimesNewRoman</bodyFontFamily>
-                    <titleFontFamily>TimesNewRoman</titleFontFamily>
-                    <sansFontFamily>TimesNewRoman</sansFontFamily>
-                    <symbolFontFamily>Symbol</symbolFontFamily>
-
                     <fonts>
                         <font>
                             <name>TimesNewRoman</name>
@@ -131,9 +125,15 @@
                     <dependency>
                         <groupId>net.sf.docbook</groupId>
                         <artifactId>docbook-xml</artifactId>
-                        <version>5.1b4-all</version>
+                        <version>5.0-all</version>
                         <type>zip</type>
                         <classifier>resources</classifier>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sf.offo</groupId>
+                        <artifactId>fop-hyph</artifactId>
+                        <version>2.0</version>
+                        <scope>runtime</scope>
                     </dependency>
                 </dependencies>
             </plugin>

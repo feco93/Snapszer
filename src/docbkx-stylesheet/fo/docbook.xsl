@@ -1,9 +1,9 @@
-<xsl:stylesheet
+﻿<xsl:stylesheet
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
         version="1.0"
 >
 
-    <!-- imports the original docbook stylesheet -->
+    <!-- imports the original docbook stylesheet  -->
     <xsl:import href="urn:docbkx:stylesheet"/>
     <xsl:import href="mytitlepage.xsl"/>
 
@@ -43,9 +43,11 @@
     *************************************************************
     -->
 
-    <xsl:param name="body.font.family">Times New Roman</xsl:param>
-    <xsl:param name="title.font.family">Times New Roman</xsl:param>
+    <xsl:param name="symbol.font.family">Symbol</xsl:param>
+    <xsl:param name="body.font.family">TimesNewRoman</xsl:param>
+    <xsl:param name="title.font.family">TimesNewRoman</xsl:param>
     <xsl:param name="body.font.master">12</xsl:param>
+
 
     <!--
     *************************************************************

@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bibliography xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xml:id="bibliography.xml"
-              version="5.0"
-              xml:lang="hu"
-              xmlns="http://docbook.org/ns/docbook"
-              xsi:schemaLocation="
-           http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd
-           http://www.w3.org/1999/xlink http://www.docbook.org/xml/5.0/xsd/xlink.xsd">
+<bibliography
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xml:id="bibliography.xml" xmlns="http://docbook.org/ns/docbook" version="5.1"
+        xml:lang="hu"
+>
     <title>Irodalomjegyzék</title>
 
     <biblioentry xml:id="bib.javafx">

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xml:id="javafx.xml"
-         version="5.0"
-         xml:lang="hu"
-         xmlns="http://docbook.org/ns/docbook"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<chapter
+        xml:id="javafx.xml"
+        xmlns="http://docbook.org/ns/docbook" version="5.1" xml:lang="hu"
+>
     <title>Felhasználói felület JavaFX tecnológiával</title>
     <para>A JavaFX olyan grafikai és média osztályok összessége, amelyek lehetővé teszik vastag kliens alkalmazások
         tervezését, implementálását, tesztelését. A JavaFX API támogatja 2D-s, illetve 3D-s alkalmazások fejlesztését
