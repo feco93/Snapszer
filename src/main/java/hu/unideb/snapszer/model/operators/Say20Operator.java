@@ -20,7 +20,7 @@ public class Say20Operator extends Operator {
                 canSay20();
     }
 
-    public boolean canSay20() {
+    private boolean canSay20() {
         if (player.isSaid20() || player.isSaid40()) {
             return false;
         }
@@ -41,13 +41,9 @@ public class Say20Operator extends Operator {
         return false;
     }
 
-    public void say20() {
-        player.addScore(20);
-        player.setSaid20(true);
-    }
-
     @Override
     public void onApply(GameMatch game) {
-        say20();
+        player.addScore(20);
+        player.setSaid20(true);
     }
 }

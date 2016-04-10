@@ -3,7 +3,6 @@ package hu.unideb.snapszer.model.operators;
 import hu.unideb.snapszer.model.GameMatch;
 import hu.unideb.snapszer.model.HungarianCardRank;
 import hu.unideb.snapszer.model.HungarianCardSuit;
-import hu.unideb.snapszer.model.ICard;
 import hu.unideb.snapszer.model.player.Player;
 
 /**
@@ -24,20 +23,16 @@ public class Say40Operator extends Operator {
     private boolean canSay40(HungarianCardSuit suit) {
         return !(player.isSaid40() || player.isSaid20()) &&
                 player.getCards().stream().anyMatch(
-                        (ICard card) -> card.getSuit() == suit &&
+                        card -> card.getSuit() == suit &&
                                 card.getRank() == HungarianCardRank.FELSO) &&
                 player.getCards().stream().anyMatch(
-                        (ICard card) -> card.getSuit() == suit &&
+                        card -> card.getSuit() == suit &&
                                 card.getRank() == HungarianCardRank.KIRALY);
-    }
-
-    private void say40() {
-        player.addScore(40);
-        player.setSaid40(true);
     }
 
     @Override
     public void onApply(GameMatch game) {
-        say40();
+        player.addScore(40);
+        player.setSaid40(true);
     }
 }
