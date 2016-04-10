@@ -17,6 +17,7 @@
 package hu.unideb.snapszer.model.player;
 
 import hu.unideb.snapszer.model.GameMatch;
+import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.ICard;
 import hu.unideb.snapszer.model.operators.Operator;
 import javafx.beans.property.IntegerProperty;
@@ -42,7 +43,7 @@ public abstract class Player {
     /**
      * Cards in this player hand.
      */
-    protected ObservableList<ICard> cards;
+    protected ObservableList<HungarianCard> cards;
     /**
      * Score of this player.
      */
@@ -140,7 +141,7 @@ public abstract class Player {
      *
      * @param cards
      */
-    public void drawCards(List<ICard> cards) {
+    public void drawCards(List<HungarianCard> cards) {
         this.cards.addAll(cards);
     }
 
@@ -149,11 +150,11 @@ public abstract class Player {
      *
      * @param card
      */
-    public void drawCard(ICard card) {
+    public void drawCard(HungarianCard card) {
         cards.add(card);
     }
 
-    public ObservableList<ICard> getCards() {
+    public ObservableList<HungarianCard> getCards() {
         return cards;
     }
 
@@ -168,10 +169,6 @@ public abstract class Player {
 
     public void removeCard(ICard card) {
         cards.remove(card);
-    }
-
-    public boolean canSayEnd() {
-        return getScore() >= 66;
     }
 
     public boolean isSaid20() {

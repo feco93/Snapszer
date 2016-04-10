@@ -38,7 +38,7 @@ public class SwapTrumpOperator extends Operator {
     public void onApply(GameMatch game) {
         oldTrumpCard = game.getTrumpCard();
         game.getDeck().cards.remove(oldTrumpCard);
-        newTrumpCard = (HungarianCard) player.getCards().stream().filter(iCard ->
+        newTrumpCard = player.getCards().stream().filter(iCard ->
                 iCard.getSuit() == game.getTrumpCard().getSuit() &&
                         iCard.getRank() == HungarianCardRank.ALSO).findFirst().get();
         game.trumpCardProperty().setValue(newTrumpCard);

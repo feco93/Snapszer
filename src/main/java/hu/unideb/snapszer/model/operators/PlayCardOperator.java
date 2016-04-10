@@ -21,12 +21,14 @@ public class PlayCardOperator extends Operator {
 
     @Override
     public boolean isApplicable(GameMatch game) {
+        if (!player.getCards().stream().anyMatch(hungarianCard -> hungarianCard.equals(card)))
+            return false;
         if ((game.isCover() && !game.getCardsOnTable().isEmpty()) ||
                 (game.getDeck().isEmpty() && !game.getCardsOnTable().isEmpty()) ||
                 (game.isSnapszer() && !game.getCardsOnTable().isEmpty())) {
             return canCall(game.getCardsOnTable().get(0));
         }
-        return canCall(game.getTrumpCard().getSuit());
+        return canCall(game.getTrumpSuit());
     }
 
     @Override
@@ -45,7 +47,7 @@ public class PlayCardOperator extends Operator {
         }
         boolean hasTrump =
                 player.getCards().stream().anyMatch(iCard -> {
-                    HungarianCard hungarianCard = (HungarianCard) iCard;
+                    HungarianCard hungarianCard = iCard;
                     return hungarianCard.getSuit().isTrump();
                 });
         return !hasTrump || card.getSuit().isTrump();
@@ -57,18 +59,15 @@ public class PlayCardOperator extends Operator {
         }
         if (player.isSaid20()) {
             if (card.getRank() == HungarianCardRank.KIRALY) {
-                if (player.getCards().stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
-                        && item.getRank() == HungarianCardRank.FELSO)) {
-                    return true;
-                }
+                return player.getCards().stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
+                        && item.getRank() == HungarianCardRank.FELSO);
             }
             if (card.getRank() == HungarianCardRank.FELSO) {
-                if (player.getCards().stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
-                        && item.getRank() == HungarianCardRank.KIRALY)) {
-                    return true;
-                }
+                return player.getCards().stream().anyMatch((ICard item) -> card.getSuit() == item.getSuit()
+                        && item.getRank() == HungarianCardRank.KIRALY);
             }
         }
+
         return player.isSaid40() && card.getSuit() == suit
                 && (card.getRank() == HungarianCardRank.FELSO
                 || card.getRank() == HungarianCardRank.KIRALY);

@@ -52,6 +52,16 @@ public class GameMatch {
         return trumpCard.get();
     }
 
+    public HungarianCardSuit getTrumpSuit()
+    {
+        for (HungarianCardSuit suit :
+                HungarianCardSuit.values()) {
+            if (suit.isTrump())
+                return suit;
+        }
+        return null;
+    }
+
     public ObservableList<HungarianCard> getCardsOnTable() {
         return cardsOnTable;
     }
