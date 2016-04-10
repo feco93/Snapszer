@@ -162,12 +162,8 @@
     <sect1>
         <title>Végállapotok</title>
         <para>Végállapotok halmaza: { (s, a, c, x) ∈ All |
-            ∀<subscript>k</subscript>∀<subscript>l</subscript>( s
-            <subscript>k,l</subscript>
-            = 6 ) ∨
-            x
-            <subscript>6</subscript>
-            = i}
+            ∀<subscript>k</subscript>∀<subscript>l</subscript>( s<subscript>k,l</subscript> = 6 ) ∨
+            c<subscript>6</subscript> = i, c nyer}
         </para>
     </sect1>
 
@@ -284,8 +280,7 @@
         <title>Operátorok</title>
         <itemizedlist>
             <listitem>
-                <para>Lapot hív: Hív
-                    <subscript>i,j</subscript>
+                <para>Lapot hív: Hív<subscript>i,j</subscript>
                     <itemizedlist>
                         <listitem>
                             <para>Alkalmazási előfeltétel:
@@ -371,8 +366,7 @@
                 </para>
             </listitem>
             <listitem>
-                <para>Lapot húz: Húz
-                    <subscript>i,j</subscript>
+                <para>Lapot húz: Húz<subscript>i,j</subscript>
                     <itemizedlist>
                         <listitem>
                             <para>Alkalmazási előfeltétel: dom(Húz<subscript>i,j</subscript>) = { (s, a, c, x) ∈ All |
@@ -437,8 +431,7 @@
                 </para>
             </listitem>
             <listitem>
-                <para>Takar: Mond
-                    <subscript>Takar</subscript>
+                <para>Takar: Mond<subscript>Takar</subscript>
                     <itemizedlist>
                         <listitem>
                             <para>Alkalmazási előfeltétel: dom(Mond<subscript>Takar</subscript>) = { (s, a, c, x) ∈ All
@@ -483,8 +476,7 @@
                 </para>
             </listitem>
             <listitem>
-                <para>Snapszert mond: Mond
-                    <subscript>Snapszer</subscript>
+                <para>Snapszert mond: Mond<subscript>Snapszer</subscript>
                     <itemizedlist>
                         <listitem>
                             <para>Alkalmazási előfeltétel: dom(Mond<subscript>Snapszer</subscript>) = { (s, a, c, x) ∈
@@ -535,8 +527,7 @@
                 </para>
             </listitem>
             <listitem>
-                <para>20-t mond: Mond
-                    <subscript>20</subscript>
+                <para>20-t mond: Mond<subscript>20</subscript>
                     <itemizedlist>
                         <listitem>
                             <para>Alkalmazási előfeltétel: dom(Mond<subscript>20</subscript>) = { (s, a, c, x) ∈ All |
@@ -588,8 +579,7 @@
                 </para>
             </listitem>
             <listitem>
-                <para>40-t mond: Mond
-                    <subscript>40</subscript>
+                <para>40-t mond: Mond<subscript>40</subscript>
                     <itemizedlist>
                         <listitem>
                             <para>Alkalmazási előfeltétel: dom(Mond<subscript>40</subscript>) = { (s, a, c, x) ∈ All |
@@ -696,7 +686,6 @@
             </listitem>
             <listitem>
                 <para>Lapot üt: Üt
-                    <subscript>Elég</subscript>
                     <itemizedlist>
                         <listitem>
                             <para>Alkalmazási előfeltétel: dom(Üt) = { (s, a, c, x) ∈ All |
@@ -763,8 +752,7 @@
                 </para>
             </listitem>
             <listitem>
-                <para>Elég bemondása: Mond
-                    <subscript>Elég</subscript>
+                <para>Elég bemondása: Mond<subscript>Elég</subscript>
                     <itemizedlist>
                         <listitem>
                             <para>Alkalmazási előfeltétel: dom(Mond<subscript>Elég</subscript>) = { (s, a, c, x) ∈ All |

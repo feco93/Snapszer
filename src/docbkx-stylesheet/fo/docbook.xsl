@@ -7,6 +7,7 @@
     <xsl:import href="urn:docbkx:stylesheet"/>
     <xsl:import href="mytitlepage.xsl"/>
 
+    <xsl:param name="paper.type">A4</xsl:param>
 
     <!--
     *************************************************************
@@ -47,6 +48,11 @@
     <xsl:param name="body.font.family">TimesNewRoman</xsl:param>
     <xsl:param name="title.font.family">TimesNewRoman</xsl:param>
     <xsl:param name="body.font.master">12</xsl:param>
+
+    <xsl:attribute-set name="section.title.level1.properties">
+        <xsl:attribute name="font-size">14
+        </xsl:attribute>
+    </xsl:attribute-set>
 
 
     <!--
