@@ -18,9 +18,9 @@ import static org.mockito.Mockito.when;
  */
 public class Say20OperatorTest {
 
-    private final ObservableList<ICard> deckContains20;
-    private final ObservableList<ICard> deckNotContains20;
-    private final ObservableList<ICard> deckContains20_2;
+    private final ObservableList<HungarianCard> deckContains20;
+    private final ObservableList<HungarianCard> deckNotContains20;
+    private final ObservableList<HungarianCard> deckContains20_2;
     private Player currentPlayer;
     private GameMatch gameMatchMock;
     private Player nextPlayer;

@@ -18,10 +18,10 @@ import static org.mockito.Mockito.*;
  */
 public class Say40OperatorTest {
 
-    private final ObservableList<ICard> deckContains40;
-    private final ObservableList<ICard> deckContains40_2;
-    private final ObservableList<ICard> deckNotContains40;
-    private final ObservableList<ICard> deckNotContains40_2;
+    private final ObservableList<HungarianCard> deckContains40;
+    private final ObservableList<HungarianCard> deckContains40_2;
+    private final ObservableList<HungarianCard> deckNotContains40;
+    private final ObservableList<HungarianCard> deckNotContains40_2;
     private Player currentPlayer;
     private GameMatch gameMatchMock;
     private Player nextPlayer;
