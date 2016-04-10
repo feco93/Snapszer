@@ -168,8 +168,44 @@ public void applyTest() {
             a 40 bemondását) setSaid40 metódusa a logikai igaz (true) paraméterrel, illetve az addScore
             metódus a 40 paraméterrel lett meghívva.
         </para>
-        <para>
-            <emphasis role="bold">Jelentések készítése</emphasis>
-        </para>
     </sect1>
+
+    <sect1>
+        <title>Jelentések készítése</title>
+        <para>Különböző maven bővítményekkel jelentéseket tudunk készíteni a teszt eredményekről. Ezek a jelentések
+            különböző információkat szolgáltatnak a tesztekről:
+            <itemizedlist>
+                <listitem>
+                    <para>Sikeres/sikertelen tesztek száma, százalékos aránya</para>
+                </listitem>
+                <listitem>
+                    <para>Tesztek futási ideje</para>
+                </listitem>
+                <listitem>
+                    <para>Tesztlefedettség: sorokra és elágazásokra értelmezve</para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>A "maven-surefire-report-plugin" bővítmény segítségével könnyen tudunk jelentéseket készíteni a tesztek
+            sikerességéről, sikertelenségéről. Ha a bővítményt felvesszük a reporting elemben, akkor a site maven
+            életciklus során automatikusan generálásra kerül egy jelentés, amit böngészőben meg tudunk tekinteni.
+        </para>
+        <para>Példa jelentésre:</para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="images/surefirereport.png"  width="100%" scalefit="1"/>
+            </imageobject>
+        </mediaobject>
+        <para>Az előző bővítményt a cobertura-maven-plugin remekül kiegészíti. A cobertura segítségével áttekintést
+            kapunk a tesztlefedettségre vonatkozóan. Százalékos formában jeleníti meg, hogy az adott osztály utasításait
+            és elágazásait milyen mértékben érintették a tesztek a futás során.
+        </para>
+        <para>Példa jelentésre:</para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="images/coberturareport.png" width="100%" scalefit="1"/>
+            </imageobject>
+        </mediaobject>
+    </sect1>
+
 </chapter>
