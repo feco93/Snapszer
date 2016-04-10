@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="implementation"
+         version="5.1"
+         xml:lang="hu"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xsi:schemaLocation="
+           http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd
+           http://www.w3.org/1999/xlink http://www.docbook.org/xml/5.0/xsd/xlink.xsd
+        ">
+    <title>Implementáció</title>
+    <sect1>
+        <title>Operátorok megvalósítása</title>
+        <para>Az operátorok megvalósítását végző osztályok a model csomagon belül és azon belül is az operators
+            csomagban kaptak helyet. Minden operátor osztály az absztrakt operator ősből van származtatva. A
+            származtatott osztálynak tudnia kell, hogy melyik játékos alkalmazta vagy próbálta alkalmazni az adott
+            operátort, az operator osztály egyetlen konstruktort tartalmaz, ami egy Player típusú objektumot vár. Ezen
+            felül két absztrakt metódust tartalmaz, melyet a származtatott osztályok implementálnak a játékszabályoknak
+            megfelelően.
+            <programlisting language="java">
+                <![CDATA[
+    abstract public boolean isApplicable(GameMatch game);
+
+    abstract protected void onApply(GameMatch game);
+]]>
+            </programlisting>
+            Az isApplicable metódus célja az alkalmazási előfeltételek megvalósítása, míg az onApply metódus az operátor
+            hatását valósítja meg. Ezen absztrakt metódusokon kívül még lehetőség van feliratkozni az operátorok
+            alkalmazására. Az eseményvezérelt megközelítés lehetővé teszi, hogy egy a megjelnítésért felelős osztály
+            a játék során értesüljön, hogy melyik operátort alkalmazták sikerrel.
+        </para>
+        <para>Példa operátor megvalósítására: Mond
+            <subscript>40</subscript>
+            operátor
+        </para>
+        <para>Alkalmazási előfeltételek:</para>
+        <programlisting>
+<![CDATA[
+@Override
+public boolean isApplicable(GameMatch game) {
+    return player.equals(game.getCurrentPlayer()) &&
+    canSay40(game.getTrumpCard().getSuit());
+}
+
+private boolean canSay40(HungarianCardSuit suit) {
+    return !(player.isSaid40() || player.isSaid20()) &&
+    player.getCards().stream().anyMatch(
+        card -> card.getSuit() == suit &&
+        card.getRank() == HungarianCardRank.FELSO) &&
+    player.getCards().stream().anyMatch(
+        card -> card.getSuit() == suit &&
+        card.getRank() == HungarianCardRank.KIRALY);
+}
+]]>
+        </programlisting>
+        <para>Operátor hatása:</para>
+        <programlisting>
+            <![CDATA[
+    @Override
+    public void onApply(GameMatch game) {
+        player.addScore(40);
+        player.setSaid40(true);
+    }
+]]>
+        </programlisting>
+    </sect1>
+    <sect1>
+        <title>Számítógép stratégiák</title>
+        <para></para>
+    </sect1>
+</chapter>

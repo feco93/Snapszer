@@ -25,6 +25,13 @@
             </para>
         </xi:fallback>
     </xi:include>
+    <xi:include href="implementation.xml">
+        <xi:fallback>
+            <para>
+                <emphasis>XInclude: hiányzik a implementation.xml állomány!</emphasis>
+            </para>
+        </xi:fallback>
+    </xi:include>
     <xi:include href="javafx.xml">
         <xi:fallback>
             <para>
