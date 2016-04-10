@@ -8,398 +8,809 @@
         sztochasztikus, nem teljes információjú játék.
     </para>
 
-    <para>Először is össze kell gyűjteni a játék szempontjából fontos jellemzőket. A kártyalapok legfontosabb jellemzői:
-    </para>
-    <itemizedlist>
-        <listitem>
-            <para>A kártyalap színe</para>
-        </listitem>
-        <listitem>
-            <para>A kártyalap rangja</para>
-        </listitem>
-        <listitem>
-            <para>A kártyalap helyzete</para>
-        </listitem>
-        <listitem>
-            <para>A kártyalap színe adu-e</para>
-        </listitem>
-    </itemizedlist>
+    <sect1>
+        <title>Fontos jellemzők</title>
+        <para>Először is össze kell gyűjteni a játék szempontjából fontos jellemzőket. A kártyalapok legfontosabb
+            jellemzői:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>A kártyalap színe</para>
+            </listitem>
+            <listitem>
+                <para>A kártyalap rangja</para>
+            </listitem>
+            <listitem>
+                <para>A kártyalap helyzete</para>
+            </listitem>
+            <listitem>
+                <para>A kártyalap színe adu-e</para>
+            </listitem>
+        </itemizedlist>
+        <para>Lehetséges színek: {TÖK, PIROS, ZÖLD, MAKK}</para>
+        <para>Lehetséges rangok: {ALSÓ, FELSŐ, KIRÁLY, TÍZ, ÁSZ}</para>
+        <para>Lehetséges helyzetek:</para>
+        <itemizedlist>
+            <listitem>
+                <para>A talonban van: 0</para>
+            </listitem>
+            <listitem>
+                <para>Az A játékos kezében van: 1</para>
+            </listitem>
+            <listitem>
+                <para>A B játékos kezében van: 2</para>
+            </listitem>
+            <listitem>
+                <para>Adu lap: 3</para>
+            </listitem>
+            <listitem>
+                <para>Az asztalon az 1. lap: 4</para>
+            </listitem>
+            <listitem>
+                <para>Az asztalon a 2. lap: 5</para>
+            </listitem>
+            <listitem>
+                <para>Elütötték: 6</para>
+            </listitem>
+        </itemizedlist>
 
-    <para>A játékos fontos jellemzői:</para>
-    <itemizedlist>
-        <listitem>
-            <para>Hány pontja van a játékosnak</para>
-        </listitem>
-        <listitem>
-            <para>Mondott-e 20-at az adott körben</para>
-        </listitem>
-        <listitem>
-            <para>Mondott-e 40-et az adott körben</para>
-        </listitem>
-        <listitem>
-            <para>Takart-e</para>
-        </listitem>
-        <listitem>
-            <para>Mondott-e snapszert</para>
-        </listitem>
-        <listitem>
-            <para>Mondta-e, hogy "elég"</para>
-        </listitem>
-    </itemizedlist>
-    <para>Lehetséges színek: {TÖK, PIROS, ZÖLD, MAKK}</para>
-    <para>Lehetséges rangok: {ALSÓ, FELSŐ, KIRÁLY, TÍZ, ÁSZ}</para>
-    <para>Lehetséges helyzetek:</para>
-    <itemizedlist>
-        <listitem>
-            <para>A talonban van: 0</para>
-        </listitem>
-        <listitem>
-            <para>Az A játékos kezében van: 1</para>
-        </listitem>
-        <listitem>
-            <para>A B játékos kezében van: 2</para>
-        </listitem>
-        <listitem>
-            <para>Adu lap: 3</para>
-        </listitem>
-        <listitem>
-            <para>Az asztalon az 1. lap: 4</para>
-        </listitem>
-        <listitem>
-            <para>Az asztalon a 2. lap: 5</para>
-        </listitem>
-        <listitem>
-            <para>Elütötték: 6</para>
-        </listitem>
-    </itemizedlist>
+        <para>A játékos fontos jellemzői:</para>
+        <itemizedlist>
+            <listitem>
+                <para>Hány pontja van a játékosnak</para>
+            </listitem>
+            <listitem>
+                <para>Mondott-e 20-at az adott körben</para>
+            </listitem>
+            <listitem>
+                <para>Mondott-e 40-et az adott körben</para>
+            </listitem>
+            <listitem>
+                <para>Takart-e</para>
+            </listitem>
+            <listitem>
+                <para>Mondott-e snapszert</para>
+            </listitem>
+            <listitem>
+                <para>Mondta-e, hogy "elég"</para>
+            </listitem>
+        </itemizedlist>
+    </sect1>
 
-    <para>Egy játékos állapotát a (h<subscript>1</subscript>, h<subscript>2</subscript>, h<subscript>3</subscript>, h
-        <subscript>4</subscript>, h<subscript>5</subscript>) értékekkel írjuk le.
-    </para>
-    <itemizedlist>
-        <listitem>
-            <para>h
-                <subscript>1</subscript>
-                &#x2208; N &#x222A; 0
-            </para>
-        </listitem>
-        <listitem>
-            <para>h
-                <subscript>2</subscript>
-                ... h
-                <subscript>5</subscript>
-                &#x2208; {I, H}
-            </para>
-        </listitem>
-    </itemizedlist>
+    <sect1>
+        <title>Állapottér</title>
+        <para>Egy játékos állapotát a (h<subscript>1</subscript>, h<subscript>2</subscript>, ... h<subscript>
+            6</subscript>) értékekkel írjuk le.
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>h
+                    <subscript>1</subscript>
+                    ∈ N ∪ 0
+                </para>
+            </listitem>
+            <listitem>
+                <para>h
+                    <subscript>2</subscript>
+                    ... h
+                    <subscript>6</subscript>
+                    ∈ {I, H}
+                </para>
+            </listitem>
+        </itemizedlist>
 
-    <para>Egy játék állást a (h<subscript>11</subscript>, ..., h<subscript>15</subscript>, h
-        <subscript>21</subscript>
-        ...,
-        h<subscript>45</subscript>) mátrix segítségével reprezentálunk. h
-        <subscript>i,j</subscript>
-        &#x2208; {0, 1, 2, 3, 4, 5}. A sorok és az oszlopok meghatározzák az egyes kárták színét, rangját, illetve az
-        adott pozíción található érték írja le a lap helyzetét. A színek a következő sorrendben értelmezendők: MAKK,
-        PIROS, TÖK, ZÖLD. A rangok a következő sorrendben következnek egymás után: ALSÓ, FELSŐ, KIRÁLY, TÍZ, ÁSZ. Így
-        például a h
-        <subscript>11</subscript>
-        jelenti a MAKK ALSÓ-t.
-    </para>
+        <para>Egy játék állást az (s<subscript>11</subscript>, ..., s<subscript>15</subscript>, s
+            <subscript>21</subscript>
+            ...,
+            s<subscript>45</subscript>) mátrix segítségével reprezentálunk. h
+            <subscript>i,j</subscript>
+            &#x2208; {0, 1, 2, 3, 4, 5, 6}. A sorok és az oszlopok meghatározzák az egyes kárták színét, rangját,
+            illetve az
+            adott pozíción található érték írja le a lap helyzetét. A színek a következő sorrendben értelmezendők: MAKK,
+            PIROS, TÖK, ZÖLD. A rangok a következő sorrendben következnek egymás után: ALSÓ, FELSŐ, KIRÁLY, TÍZ, ÁSZ.
+            Így
+            például a h
+            <subscript>11</subscript>
+            jelenti a MAKK ALSÓ-t.
+        </para>
 
-    <para>
-        S legyen a játék állásainak a halmaza, {A, B} a két játékos.
-    </para>
-    <para>
-        All = { (s, a, c, x) | s &#x2208; S, a &#x2208; {1, 2, 3 ,4}, c &#x2208; {A, B} }, x &#x2208; {A, B} }
-    </para>
-    <para>Ahol:</para>
-    <itemizedlist>
-        <listitem>
-            <para>s: a jelenlegi játék állás</para>
-        </listitem>
-        <listitem>
-            <para>a: az adu szín</para>
-        </listitem>
-        <listitem>
-            <para>c: a hívó játékos</para>
-        </listitem>
-        <listitem>
-            <para>x: a jelenlegi játékos</para>
-        </listitem>
-    </itemizedlist>
+        <para>
+            S legyen a játék állásainak a halmaza, {A, B} a két játékos.
+        </para>
+        <para>
+            All = { (s, a, c, x) | s ∈ S, a ∈ {1, 2, 3 ,4}, c ∈ {A, B} }, x ∈ {A, B} }
+        </para>
+        <para>Ahol:</para>
+        <itemizedlist>
+            <listitem>
+                <para>s: a jelenlegi játék állás</para>
+            </listitem>
+            <listitem>
+                <para>a: az adu szín</para>
+            </listitem>
+            <listitem>
+                <para>c: a hívó játékos</para>
+            </listitem>
+            <listitem>
+                <para>x: a jelenlegi játékos</para>
+            </listitem>
+        </itemizedlist>
+    </sect1>
 
-    <para>Kezdő játék állás: (0, 0, 0 ... 0) - 32 db 0, mivel kezdetben az összes lap a talonban található.</para>
-    <para>Kezdő játékos állapot: (0, h, h, h, h, h).</para>
-    <para>Kezdőállapot: (s, a, c, x)</para>
-    <para>Ahol:</para>
-    <itemizedlist>
-        <listitem>
-            <para>s: a kezdő játék állás</para>
-        </listitem>
-        <listitem>
-            <para>a: az adu szín</para>
-        </listitem>
-        <listitem>
-            <para>c: a kezdő játékos</para>
-        </listitem>
-        <listitem>
-            <para>x: a jelenlegi játékos, megegyezik a kezdő játékossal</para>
-        </listitem>
-    </itemizedlist>
-    <para>Végállapotok halmaza: { (s, a, c, x) | &#x2200; a
-        <subscript>i</subscript>
-        = 5 &#x2228; }
-    </para>
-    <para>
-        <emphasis role="bold">Függvények:</emphasis>
-    </para>
+    <sect1>
+        <title>Kezdőállapot</title>
+        <para>Kezdő játék állás: (0, 0, 0 ... 0) - 32 db 0, mivel kezdetben az összes lap a talonban található.</para>
+        <para>Kezdő játékos állapot: (0, h, h, h, h, h, h).</para>
+        <para>Kezdőállapot: (s, a, c, x)</para>
+        <para>Ahol:</para>
+        <itemizedlist>
+            <listitem>
+                <para>s: a kezdő játék állás</para>
+            </listitem>
+            <listitem>
+                <para>a: az adu szín</para>
+            </listitem>
+            <listitem>
+                <para>c: a kezdő játékos</para>
+            </listitem>
+            <listitem>
+                <para>x: a jelenlegi játékos, megegyezik a kezdő játékossal</para>
+            </listitem>
+        </itemizedlist>
+    </sect1>
 
-    <para>A könnyebb reprezentálás érdekében vezessük be a következő függvényeket:</para>
-    <itemizedlist>
-        <listitem>
-            <para>Üres a talon: Üres(s) : {s} -> {i, h}</para>
-            <itemizedlist>
-                <listitem>
-                    <para>i, ha &#x00AC;&#x2203;<subscript>i</subscript>&#x00AC;&#x2203;<subscript>j</subscript>(
-                        s
-                        <subscript>ij</subscript>
-                        = 0)
-                    </para>
-                </listitem>
-                <listitem>
-                    <para>h, egyébként</para>
-                </listitem>
-            </itemizedlist>
-        </listitem>
-        <listitem>
-            <para>Mondott-e 20-t a játékos: Mondott<subscript>20</subscript>(x) : {x} -> {i, h}
+    <sect1>
+        <title>Végállapotok</title>
+        <para>Végállapotok halmaza: { (s, a, c, x) ∈ All |
+            ∀<subscript>k</subscript>∀<subscript>l</subscript>( s
+            <subscript>k,l</subscript>
+            = 6 ) ∨
+            x
+            <subscript>6</subscript>
+            = i}
+        </para>
+    </sect1>
+
+    <sect1>
+        <title>Függvények</title>
+        <para>A könnyebb reprezentálás érdekében vezessük be a következő függvényeket:</para>
+        <itemizedlist>
+            <listitem>
+                <para>Üres a talon: Üres(s) : {s} -> {i, h}</para>
                 <itemizedlist>
                     <listitem>
-                        <para>i, ha x
-                            <subscript>2</subscript>
-                            = i
+                        <para>i, ha &#x00AC;&#x2203;<subscript>i</subscript>&#x00AC;&#x2203;<subscript>j</subscript>(
+                            s
+                            <subscript>ij</subscript>
+                            = 0)
                         </para>
                     </listitem>
                     <listitem>
                         <para>h, egyébként</para>
                     </listitem>
                 </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>Mondott-e 40-t a játékos: Mondott<subscript>40</subscript>(x) : {x} -> {i, h}
-                <itemizedlist>
-                    <listitem>
-                        <para>i, ha x
-                            <subscript>3</subscript>
-                            = i
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>h, egyébként</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>Mondott-e takarást a játékos: Mondott<subscript>Takarás</subscript>(x): {x} -> {i, h}
-                <itemizedlist>
-                    <listitem>
-                        <para>i, ha x
-                            <subscript>4</subscript>
-                            = i
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>h, egyébként</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>Mondott-e snapszert a játékos: Mondott<subscript>Snapszer</subscript>(x): {x} -> {i, h}
-                <itemizedlist>
-                    <listitem>
-                        <para>i, ha x
-                            <subscript>5</subscript>
-                            = i
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>h, egyébként</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>Játékos(x) : {x} -> {1, 2}, 1 ha x = A, 2 ha x = B</para>
-        </listitem>
-        <listitem>
-            <para>Snapszer : {A, B} -> {i, h}
-                <itemizedlist>
-                    <listitem>
-                        <para>i, ha Mondott<subscript>Snapszer</subscript>(A) &#x2228;
-                            Mondott<subscript>Snapszer</subscript>(B)
-                        </para>
-                        <para>h, egyébként</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>Takarás : {A, B} -> {i, h}
-                <itemizedlist>
-                    <listitem>
-                        <para>i, ha Mondott<subscript>Takarás</subscript>(A) &#x2228;
-                            Mondott<subscript>Takarás</subscript>(B)
-                        </para>
-                        <para>h, egyébként</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-    </itemizedlist>
+            </listitem>
+            <listitem>
+                <para>Mondott-e 20-t a játékos: Mondott<subscript>20</subscript>(x) : {x} -> {i, h}
+                    <itemizedlist>
+                        <listitem>
+                            <para>i, ha x
+                                <subscript>2</subscript>
+                                = i
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>h, egyébként</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Mondott-e 40-t a játékos: Mondott<subscript>40</subscript>(x) : {x} -> {i, h}
+                    <itemizedlist>
+                        <listitem>
+                            <para>i, ha x
+                                <subscript>3</subscript>
+                                = i
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>h, egyébként</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Mondott-e takarást a játékos: Mondott<subscript>Takarás</subscript>(x): {x} -> {i, h}
+                    <itemizedlist>
+                        <listitem>
+                            <para>i, ha x
+                                <subscript>4</subscript>
+                                = i
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>h, egyébként</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Mondott-e snapszert a játékos: Mondott<subscript>Snapszer</subscript>(x): {x} -> {i, h}
+                    <itemizedlist>
+                        <listitem>
+                            <para>i, ha x
+                                <subscript>5</subscript>
+                                = i
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>h, egyébként</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Játékos(x) : {x} -> {1, 2}, 1 ha x = A, 2 ha x = B</para>
+            </listitem>
+            <listitem>
+                <para>Snapszer : {A, B} -> {i, h}
+                    <itemizedlist>
+                        <listitem>
+                            <para>i, ha Mondott<subscript>Snapszer</subscript>(A) &#x2228;
+                                Mondott<subscript>Snapszer</subscript>(B)
+                            </para>
+                            <para>h, egyébként</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Takarás : {A, B} -> {i, h}
+                    <itemizedlist>
+                        <listitem>
+                            <para>i, ha Mondott<subscript>Takarás</subscript>(A) &#x2228;
+                                Mondott<subscript>Takarás</subscript>(B)
+                            </para>
+                            <para>h, egyébként</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </sect1>
 
-    <para>
-        <emphasis role="bold">Operátorok:</emphasis>
-    </para>
-    <itemizedlist>
-        <listitem>
-            <para>Lapot hív: Hív
-                <subscript>i,j</subscript>
-                <itemizedlist>
-                    <listitem>
-                        <para>Alkalmazási előfeltétel:
-                            <![CDATA[
-dom(Hívi,j) = { (S, a, c, x) ∈ All |
-∃ i ∃ j(Si,j = Játékos(x) ) ∧
-( ¬(c = x) ∧ ( Snapszer ∨ Takarás ∨ Üres(S) ) ⊃
-∀ k ∀ l( Sk,l = 4 ∧ ∃ m ∃ n( Sm,n = Játékos(x) ∧ m = k ⊃ i = m )) ∧
-∀ k ∀ l( Sk,l = 4 ∧ ¬ ∃ m ¬ ∃ n( Sm,n = Játékos(x) ∧ m = k ⊃ i = a ))) ∧
-( ( ¬Mondott40 ∧ ¬Mondott20 ) ∨
-( Mondott20 ⊃ ∀ k ∀ l(Sk,l = Játékos(x) ∧ ∀ m ∀ n(Sm,n = Játékos(x) ∧ k = m ∧
-(( l = 2 ∧ n = 3 ) ∨ ( l = 3 ∧ n = 2 ) ⊃ i = k ∧ ( j = l ∨ j = n )))) ∨
-(Mondott20 ⊃ ∀ k ∀ l(Sk,l = Játékos(x) ∧ ∀ m ∀ n(Sm,n = Játékos(x) ∧ k = m ∧
-k = a ∧ (( l = 2 ∧ n = 3 ) ∨ ( l = 3 ∧ n = 2 ) ⊃ i = k ∧ ( j = l ∨ j = n ))))) }
-]]>
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>Hatása:</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>Lapot húz: Húz
-                <subscript>i,j</subscript>
-                <itemizedlist>
-                    <listitem>
-                        <para>Alkalmazási előfeltétel: dom(Húz<subscript>i,j</subscript>) = { (s, a, c, x) &#x2208; All
-                            |
-                            }
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>Hatása:</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>Takar: Mond
-                <subscript>Takar</subscript>
-                <itemizedlist>
-                    <listitem>
-                        <para>Alkalmazási előfeltétel: dom(Mond<subscript>Takar</subscript>) = { (s, a, c, x) &#x2208;
-                            All |
-                            }
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>Hatása:</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>Snapszert mond: Mond
-                <subscript>Snapszer</subscript>
-                <itemizedlist>
-                    <listitem>
-                        <para>Alkalmazási előfeltétel: dom(Mond<subscript>Snapszer</subscript>) = { (s, a, c, x)
-                            &#x2208; All |
-                            }
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>Hatása:</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>20-t mond: Mond
-                <subscript>20</subscript>
-                <itemizedlist>
-                    <listitem>
-                        <para>Alkalmazási előfeltétel: dom(Mond<subscript>20</subscript>) = { (s, a, c, x) &#x2208; All
-                            |
-                            }
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>Hatása:</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>40-t mond: Mond
-                <subscript>40</subscript>
-                <itemizedlist>
-                    <listitem>
-                        <para>Alkalmazási előfeltétel: dom(Mond<subscript>40</subscript>) = { (s, a, c, x) &#x2208; All
-                            |
-                            }
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>Hatása:</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>Adu lapot cserél: Aducsere
-                <itemizedlist>
-                    <listitem>
-                        <para>Alkalmazási előfeltétel: dom(Aducsere) = { (s, a, c, x) &#x2208; All |
-                            }
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>Hatása:</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-        <listitem>
-            <para>Elég bemondása: Mond
-                <subscript>Elég</subscript>
-                <itemizedlist>
-                    <listitem>
-                        <para>Alkalmazási előfeltétel: dom(Mond<subscript>Elég</subscript>) = { (s, a, c, x) &#x2208;
-                            All |
-                            }
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>Hatása:</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </listitem>
-    </itemizedlist>
+    <sect1>
+        <title>Operátorok</title>
+        <itemizedlist>
+            <listitem>
+                <para>Lapot hív: Hív
+                    <subscript>i,j</subscript>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Alkalmazási előfeltétel:
+                                dom(Hív<subscript>i</subscript>,<subscript>j</subscript>) = { (s, a, c, x) ∈ All |
+                                ∃<subscript>i</subscript>∃<subscript>j</subscript>(s
+                                <subscript>i,j</subscript>
+                                = Játékos(x) ) ∧
+                                ( c ≠ x ∧ ( Snapszer ∨ Takarás ∨ Üres(s) ) ⊃
+                                ∀<subscript>k</subscript>∀<subscript>l</subscript>( s
+                                <subscript>k,l</subscript>
+                                = 4 ∧ ∃<subscript>m</subscript>∃<subscript>n</subscript>( s
+                                <subscript>m,n</subscript>
+                                = Játékos(x) ∧ m = k ⊃ i = m )) ∨
+                                ∀<subscript>k</subscript>∀<subscript>l</subscript>( s
+                                <subscript>k,l</subscript>
+                                = 4 ∧ ∃<subscript>m</subscript>∃<subscript>n</subscript>( s
+                                <subscript>m,n</subscript>
+                                = Játékos(x) ∧ m = a ⊃ i = a ))) ∧
+                                ( ( ¬Mondott40(x) ∧ ¬Mondott20(x) ) ∨
+                                ( Mondott20(x) ⊃ ∀<subscript>k</subscript>∀<subscript>l</subscript>(s
+                                <subscript>k,l</subscript>
+                                = Játékos(x) ∧ ∀<subscript>m</subscript>∀<subscript>n</subscript>(s
+                                <subscript>m,n</subscript>
+                                = Játékos(x) ∧ k = m ∧
+                                (( l = 2 ∧ n = 3 ) ∨ ( l = 3 ∧ n = 2 ) ⊃ i = k ∧ ( j = l ∨ j = n )))) ∨
+                                (Mondott40(x) ⊃ ∀<subscript>k</subscript>∀<subscript>l</subscript>(s
+                                <subscript>k,l</subscript>
+                                = Játékos(x) ∧ ∀<subscript>m</subscript>∀<subscript>n</subscript>(s
+                                <subscript>m,n</subscript>
+                                = Játékos(x) ∧ k = m ∧
+                                k = a ∧ (( l = 2 ∧ n = 3 ) ∨ ( l = 3 ∧ n = 2 ) ⊃ i = k ∧ ( j = l ∨ j = n ))))) }
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Hatása:
+                                <itemizedlist>
+                                    <listitem>
+                                        <para>a' = a</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>c' = c</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>x' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>x, ha x ≠ c,</para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>x' ∈ {A, B} ∧ x' ≠ x, egyébként</para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>s' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>s'
+                                                        <subscript>k,l</subscript>
+                                                        = 4, ha x = c ∧ i = k ∧ j = l
+                                                    </para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>s'
+                                                        <subscript>k,l</subscript>
+                                                        = 5, ha i = k ∧ j = l
+                                                    </para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>s'
+                                                        <subscript>k,l</subscript>
+                                                        = s'<subscript>k,l</subscript>, egyébként
+                                                    </para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Lapot húz: Húz
+                    <subscript>i,j</subscript>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Alkalmazási előfeltétel: dom(Húz<subscript>i,j</subscript>) = { (s, a, c, x) ∈ All |
+                                ¬∃<subscript>k</subscript>¬∃<subscript>l</subscript>( s
+                                <subscript>k,l</subscript>
+                                = 4 ) ∧
+                                |{s
+                                <subscript>k,l</subscript>
+                                ∈ s | s
+                                <subscript>k,l</subscript>
+                                = Játékos(x)}| &lt; 5 ∧
+                                ∃<subscript>k</subscript>∃<subscript>l</subscript>( s
+                                <subscript>k,l</subscript>
+                                = 0 ∨ s
+                                <subscript>k,l</subscript>
+                                = 3 ) }
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Hatása:
+                                <itemizedlist>
+                                    <listitem>
+                                        <para>a' = a</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>c' = c</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>x' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>x, ha x ≠ c,</para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>x' ∈ {A, B} ∧ x' ≠ x, egyébként</para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>s' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>s'
+                                                        <subscript>k,l</subscript>
+                                                        = Játékos(x), i = k ∧ j = l
+                                                    </para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>s'
+                                                        <subscript>k,l</subscript>
+                                                        = s'<subscript>k,l</subscript>, egyébként
+                                                    </para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Takar: Mond
+                    <subscript>Takar</subscript>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Alkalmazási előfeltétel: dom(Mond<subscript>Takar</subscript>) = { (s, a, c, x) ∈ All
+                                |
+                                c = x ∧ ¬Snapszer ∧ ¬Takarás }
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Hatása:
+                                <itemizedlist>
+                                    <listitem>
+                                        <para>a' = a</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>c' = c</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>x' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>4</subscript>
+                                                        = i
+                                                    </para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>k</subscript>
+                                                        = x<subscript>k</subscript>, ha k ≠ 4
+                                                    </para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>s' = s</para>
+                                    </listitem>
+                                </itemizedlist>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Snapszert mond: Mond
+                    <subscript>Snapszer</subscript>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Alkalmazási előfeltétel: dom(Mond<subscript>Snapszer</subscript>) = { (s, a, c, x) ∈
+                                All |
+                                |{s
+                                <subscript>k,l</subscript>
+                                ∈ s | s
+                                <subscript>k,l</subscript>
+                                = 0)}| = 10 ∧
+                                ¬Snapszer ∧ ¬Takarás }
+                                }
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Hatása:
+                                <itemizedlist>
+                                    <listitem>
+                                        <para>a' = a</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>c' = c</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>x' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>5</subscript>
+                                                        = i
+                                                    </para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>k</subscript>
+                                                        = x<subscript>k</subscript>, ha k ≠ 4
+                                                    </para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>s' = s</para>
+                                    </listitem>
+                                </itemizedlist>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>20-t mond: Mond
+                    <subscript>20</subscript>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Alkalmazási előfeltétel: dom(Mond<subscript>20</subscript>) = { (s, a, c, x) ∈ All |
+                                c = x ∧ ¬Mondott<subscript>20</subscript>(x) ∧ ¬Mondott<subscript>40</subscript>(x) ∧
+                                ∃<subscript>k</subscript>∃<subscript>l</subscript>( s
+                                <subscript>k,l</subscript>
+                                = Játékos(x) ∧
+                                l = 2 ∧ ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript>)
+                                = Játékos(x) )
+                                ∧ j = 3 ∧ i = k ∧ i ≠ a ))}
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Hatása:
+                                <itemizedlist>
+                                    <listitem>
+                                        <para>a' = a</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>c' = c</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>x' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>1</subscript>
+                                                        = x
+                                                        <subscript>1</subscript>
+                                                        + 20
+                                                    </para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>k</subscript>
+                                                        = x<subscript>k</subscript>, ha k ≠ 1
+                                                    </para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>s' = s</para>
+                                    </listitem>
+                                </itemizedlist>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>40-t mond: Mond
+                    <subscript>40</subscript>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Alkalmazási előfeltétel: dom(Mond<subscript>40</subscript>) = { (s, a, c, x) ∈ All |
+                                c = x ∧ ¬Mondott<subscript>20</subscript>(x) ∧ ¬Mondott<subscript>40</subscript>(x) ∧
+                                ∃<subscript>k</subscript>∃<subscript>l</subscript>( s
+                                <subscript>k,l</subscript>
+                                = Játékos(x) ∧
+                                l = 2 ∧ ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript>)
+                                = Játékos(x) )
+                                ∧ j = 3 ∧ i = k ∧ i = a ))}
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Hatása:
+                                <itemizedlist>
+                                    <listitem>
+                                        <para>a' = a</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>c' = c</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>x' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>1</subscript>
+                                                        = x
+                                                        <subscript>1</subscript>
+                                                        + 40
+                                                    </para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>k</subscript>
+                                                        = x<subscript>k</subscript>, ha k ≠ 1
+                                                    </para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>s' = s</para>
+                                    </listitem>
+                                </itemizedlist>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Adu lapot cserél: Aducsere
+                    <itemizedlist>
+                        <listitem>
+                            <para>Alkalmazási előfeltétel: dom(Aducsere) = { (s, a, c, x) ∈ All |
+                                c = x ∧ |{s
+                                <subscript>k,l</subscript>
+                                ∈ s | s
+                                <subscript>k,l</subscript>
+                                = 0)}| ≥ 4 ∧
+                                ∃<subscript>i</subscript>∃<subscript>j</subscript>( s
+                                <subscript>i,j</subscript>
+                                = Játékos(x) ∧
+                                j = 1 ∧ i = a)}
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Hatása:
+                                <itemizedlist>
+                                    <listitem>
+                                        <para>a' = a</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>c' = c</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>x' = x</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>s' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>s'
+                                                        <subscript>k,l</subscript>
+                                                        = Játékos(x), ha s
+                                                        <subscript>k,l</subscript>
+                                                        = 3
+                                                    </para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>s'
+                                                        <subscript>k,l</subscript>
+                                                        = s<subscript>k,l</subscript>, egyébként
+                                                    </para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Lapot üt: Üt
+                    <subscript>Elég</subscript>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Alkalmazási előfeltétel: dom(Üt) = { (s, a, c, x) ∈ All |
+                                |{s
+                                <subscript>i,j</subscript>
+                                ∈ S | s
+                                <subscript>i,j</subscript>
+                                = 5 ∨
+                                s
+                                <subscript>i,j</subscript>
+                                = 5}| = 2 }
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Hatása:
+                                <itemizedlist>
+                                    <listitem>
+                                        <para>a' = a</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>c' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>1</subscript>
+                                                        = x
+                                                        <subscript>1</subscript>
+                                                        + 40
+                                                    </para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>c' = c, egyébként</para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>x' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>1</subscript>
+                                                        = x
+                                                        <subscript>1</subscript>
+                                                        + 40
+                                                    </para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>k</subscript>
+                                                        = x<subscript>k</subscript>, ha k ≠ 1
+                                                    </para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>s' = s</para>
+                                    </listitem>
+                                </itemizedlist>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Elég bemondása: Mond
+                    <subscript>Elég</subscript>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Alkalmazási előfeltétel: dom(Mond<subscript>Elég</subscript>) = { (s, a, c, x) ∈ All |
+                                c = x ∧ x
+                                <subscript>1</subscript>
+                                ≥ 66}
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Hatása:
+                                <itemizedlist>
+                                    <listitem>
+                                        <para>a' = a</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>a' = a</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>c' = c</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>x' =
+                                            <itemizedlist>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>6</subscript>
+                                                        = i
+                                                    </para>
+                                                </listitem>
+                                                <listitem>
+                                                    <para>x'
+                                                        <subscript>k</subscript>
+                                                        = x<subscript>k</subscript>, ha k ≠ 6
+                                                    </para>
+                                                </listitem>
+                                            </itemizedlist>
+                                        </para>
+                                    </listitem>
+                                </itemizedlist>
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </sect1>
+
 
 </chapter>
