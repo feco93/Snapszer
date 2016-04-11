@@ -31,9 +31,7 @@
             alkalmazására. Az eseményvezérelt megközelítés lehetővé teszi, hogy egy a megjelnítésért felelős osztály
             a játék során értesüljön, hogy melyik operátort alkalmazták sikerrel.
         </para>
-        <para>Példa operátor megvalósítására: Mond
-            <subscript>40</subscript>
-            operátor
+        <para>Példa operátor megvalósítására: Mond<subscript>40</subscript> operátor
         </para>
         <para>Alkalmazási előfeltételek:</para>
         <programlisting>
@@ -58,16 +56,130 @@ private boolean canSay40(HungarianCardSuit suit) {
         <para>Operátor hatása:</para>
         <programlisting>
             <![CDATA[
-    @Override
-    public void onApply(GameMatch game) {
-        player.addScore(40);
-        player.setSaid40(true);
-    }
+@Override
+public void onApply(GameMatch game) {
+    player.addScore(40);
+    player.setSaid40(true);
+}
+]]>
+        </programlisting>
+        <para>Egy másik operátor megvalósítása: Aducsere</para>
+        <para>Alkalmazási előfeltételek:</para>
+        <programlisting>
+        <![CDATA[
+@Override
+public boolean isApplicable(GameMatch game) {
+    return !(!player.equals(game.getCurrentPlayer()) ||
+    game.getDeck().size() < 4 || game.isCover()) &&
+    player.getCards().stream().anyMatch(iCard -> iCard.getSuit() ==
+        game.getTrumpCard().getSuit() &&
+        iCard.getRank() == HungarianCardRank.ALSO);
+}
+]]>
+        </programlisting>
+        <para>Operátor hatása:</para>
+        <programlisting>
+            <![CDATA[
+@Override
+public void onApply(GameMatch game) {
+    oldTrumpCard = game.getTrumpCard();
+    game.getDeck().cards.remove(oldTrumpCard);
+    newTrumpCard = player.getCards().stream().filter(iCard ->
+    iCard.getSuit() == game.getTrumpCard().getSuit() &&
+    iCard.getRank() == HungarianCardRank.ALSO).findFirst().get();
+    game.trumpCardProperty().setValue(newTrumpCard);
+    player.getCards().set(player.getCards().indexOf(newTrumpCard), oldTrumpCard);
+}
 ]]>
         </programlisting>
     </sect1>
     <sect1>
         <title>Számítógép stratégiák</title>
-        <para></para>
+        <para>A számítógép játékosokat megvalósító osztályok az absztrakt Computer osztályból származnak. A Computer
+        osztály két metódust tartalmaz, melynek segítségével össze lehet gyűjteni az alkalmazható operátorokat:</para>
+        <programlisting>
+<![CDATA[
+protected List<Operator> getAllOperators() {
+    List<Operator> allOperators = new ArrayList<>(11);
+    allOperators.addAll(Arrays.asList(new CoverOperator(this),
+        new Say20Operator(this),
+        new Say40Operator(this),
+        new SayEndOperator(this),
+        new SnapszerOperator(this),
+        new SwapTrumpOperator(this)));
+    for (HungarianCard card : getCards()) {
+        PlayCardOperator op = new PlayCardOperator(this, card);
+        allOperators.add(op);
+    }
+    return allOperators;
+}
+
+protected List<Operator> getAllApplicableOperators(GameMatch game) {
+    List<Operator> applicableOperators = getAllOperators().stream().
+        filter(op -> op.isApplicable(game)).
+        collect(Collectors.toList());
+    return applicableOperators;
+}
+]]>
+        </programlisting>
+        <para>A legegyszerűbb stratégia: Random operátor választása</para>
+        <programlisting>
+<![CDATA[
+private Operator chooseRandomOperator(GameMatch game) {
+    List<Operator> operators = getAllApplicableOperators(game);
+    Random randomGenerator = new Random();
+    int index = randomGenerator.nextInt(operators.size());
+    return operators.get(index);
+}
+]]>
+        </programlisting>
+        <para>A szabályos lépések közül véletlenszerűen választ egyet.</para>
+        <table frame='all'>
+            <title>Statisztika</title>
+            <tgroup cols="5">
+                <colspec colname='c1'  colwidth="1*"/>
+                <colspec colname='c2'  colwidth="1*"/>
+                <colspec colname='c3'  colwidth="1*"/>
+                <colspec colname='c4'  colwidth="1*"/>
+                <colspec colname='c5'  colwidth="1*"/>
+                <tbody>
+                    <row>
+                        <entry></entry>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                    </row>
+                    <row>
+                        <entry>a</entry>
+                        <entry>-</entry>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                    </row>
+                    <row>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                        <entry>-</entry>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                    </row>
+                    <row>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                        <entry>-</entry>
+                        <entry>a</entry>
+                    </row>
+                    <row>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                        <entry>a</entry>
+                        <entry>-</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
     </sect1>
 </chapter>

@@ -74,10 +74,22 @@
     <xsl:param name="body.start.indent">0pt</xsl:param>
     <xsl:param name="body.end.indent">0pt</xsl:param>
 
+    <!--
+    *************************************************************
+    Programcsipet megjelenítés beállítása
+    *************************************************************
+    -->
 
     <xsl:attribute-set name="monospace.verbatim.properties">
-        <xsl:attribute name="wrap-option">wrap</xsl:attribute>
+        <xsl:attribute name="wrap-option">no-wrap</xsl:attribute>
         <xsl:attribute name="font-size">10</xsl:attribute>
     </xsl:attribute-set>
+
+    <!--
+    *************************************************************
+    Sortávolság beállítása
+    *************************************************************
+    -->
+    <xsl:param name="line-height">normal</xsl:param>
 
 </xsl:stylesheet>
