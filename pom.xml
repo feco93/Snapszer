@@ -82,6 +82,7 @@
                     <includes>index.xml</includes>
                     <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
                     <paperType>A4</paperType>
+                    <fop1Extensions>true</fop1Extensions>
                     <fonts>
                         <font>
                             <name>TimesNewRoman</name>

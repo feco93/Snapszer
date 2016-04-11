@@ -63,6 +63,7 @@
             ezeket ne lehessen módosítani.
         </para>
         <programlisting language="java">
+            <?dbfo keep-together="auto" ?>
             <![CDATA[
 private final ObservableList<ICard> deckContains20;
 private final ObservableList<ICard> deckNotContains20;

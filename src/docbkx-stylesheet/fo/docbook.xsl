@@ -83,6 +83,13 @@
     <xsl:attribute-set name="monospace.verbatim.properties">
         <xsl:attribute name="wrap-option">no-wrap</xsl:attribute>
         <xsl:attribute name="font-size">10</xsl:attribute>
+        <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
+        <xsl:attribute name="space-before.minimum">0pt</xsl:attribute>
+        <xsl:attribute name="space-before.optimum">0pt</xsl:attribute>
+        <xsl:attribute name="space-before.maximum">0pt</xsl:attribute>
+        <xsl:attribute name="space-after.minimum">0pt</xsl:attribute>
+        <xsl:attribute name="space-after.optimum">0pt</xsl:attribute>
+        <xsl:attribute name="space-after.maximum">0pt</xsl:attribute>
     </xsl:attribute-set>
 
     <!--
@@ -91,5 +98,17 @@
     *************************************************************
     -->
     <xsl:param name="line-height">normal</xsl:param>
+
+    <!--
+    *************************************************************
+    Felsorolások testreszabása
+    *************************************************************
+    -->
+    <xsl:attribute-set name="list.item.spacing">
+        <xsl:attribute name="space-before.optimum">1.0em</xsl:attribute>
+        <xsl:attribute name="space-before.minimum">1.0em</xsl:attribute>
+        <xsl:attribute name="space-before.maximum">1.0em</xsl:attribute>
+    </xsl:attribute-set>
+
 
 </xsl:stylesheet>
