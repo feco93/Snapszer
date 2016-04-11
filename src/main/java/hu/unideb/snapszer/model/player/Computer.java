@@ -32,9 +32,9 @@ public abstract class Computer extends Player {
                 new SayEndOperator(this),
                 new SnapszerOperator(this),
                 new SwapTrumpOperator(this)));
-        for (ICard card :
+        for (HungarianCard card :
                 getCards()) {
-            PlayCardOperator op = new PlayCardOperator(this, (HungarianCard) card);
+            PlayCardOperator op = new PlayCardOperator(this, card);
             allOperators.add(op);
         }
         return allOperators;

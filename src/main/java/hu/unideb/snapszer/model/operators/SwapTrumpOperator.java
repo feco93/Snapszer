@@ -30,7 +30,8 @@ public class SwapTrumpOperator extends Operator {
     public boolean isApplicable(GameMatch game) {
         return !(!player.equals(game.getCurrentPlayer()) ||
                 game.getDeck().size() < 4 || game.isCover()) &&
-                player.getCards().stream().anyMatch(iCard -> iCard.getSuit() == game.getTrumpCard().getSuit() &&
+                player.getCards().stream().anyMatch(iCard -> iCard.getSuit() ==
+                        game.getTrumpCard().getSuit() &&
                         iCard.getRank() == HungarianCardRank.ALSO);
     }
 
