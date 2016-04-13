@@ -7,8 +7,8 @@
     <sect1>
         <title>A tesztelés szerepe a fejlesztési folyamatban</title>
         <para>Napjainban a programokkal szemben támasztott követelmények megnőttek. Ezek a követelmények lehetnek
-            funcionálisak és nem funkciónálisak is. Ahhoz, hogy ezeket a követelményeket teljesíteni tudják a programok,
-            megfelelő tesztelésre van szükség. Egy játék program esetén, mint a snapszer kártyajáték felveti a tesztelés
+            funkcionálisak és nem funkcionálisak is. Ahhoz, hogy ezeket a követelményeket teljesíteni tudják a programok,
+            megfelelő tesztelésre van szükség. Egy játék program esetén, mint a snapszer kártyajáték, felveti a tesztelés
             szükségességét. Ezek a tesztelések támogathatják a fejlesztés menetetét, javíthatják a kód minőségét. A
             fejlesztők első sorban egységtesztek segítségével szokták tesztelni a programot. Az egységtesztek
             készülhetnek párhuzamosan a programmal vagy akár a fejlesztés megkezdése előtt is elkészülhetnek. Az agilis

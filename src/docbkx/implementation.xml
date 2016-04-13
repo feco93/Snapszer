@@ -139,8 +139,9 @@ private Operator chooseRandomOperator(GameMatch game) {
 }
 ]]>
         </programlisting>
-        <para>Az előző stratégia továbbfejlesztése a <emphasis role="bold">Beginner computer</emphasis>, aki már valamilyen "jóság" alapján választja ki
-            az alkalmazandó operátort. Az őt megvalósító kódcsipet:
+        <para>Az előző stratégia továbbfejlesztése a
+            <emphasis role="bold">Beginner computer</emphasis>, aki már valamilyen "jóság" alapján választja ki az
+            alkalmazandó operátort. Az őt megvalósító kódcsipet:
         </para>
         <programlisting>
             <![CDATA[
@@ -173,8 +174,9 @@ private Integer getGoodness(Operator op, GameMatch game) {
         </programlisting>
         <para>A Beginner computer stratégia arra törekszik, hogy a lehető legtöbb pontot zsebelje be az adott körben.
         </para>
-        <para>A következő stratégia az <emphasis role="bold">Advanced Computer</emphasis>, amely már azt is számításba veszi, hogy mely lapok nincsenek
-            már játékban és próbál olyan lapot hívni, amitől az adott színben nincs "magasabb" lap. A vártnak
+        <para>A következő stratégia az
+            <emphasis role="bold">Advanced Computer</emphasis>, amely már azt is számításba veszi, hogy mely lapok
+            nincsenek már játékban és próbál olyan lapot hívni, amitől az adott színben nincs "magasabb" lap. A vártnak
             megfelelően ezen stratágia eredményesebben játszik, mint az előzőek.
         </para>
         <para>Az érdemi kódrészlet, aminek segítségével eldönti, hogy az adott laptól, az adott színben van-e "magasabb"
@@ -182,12 +184,12 @@ private Integer getGoodness(Operator op, GameMatch game) {
         </para>
         <programlisting>
             <![CDATA[
-private boolean higherCardInGame(HungarianCard card,
+protected boolean higherCardInGame(HungarianCard card,
         List<HungarianCard> knownCards) {
     return !knownCards.containsAll(higherCards(card));
 }
 
-private List<HungarianCard> higherCards(HungarianCard card) {
+protected List<HungarianCard> higherCards(HungarianCard card) {
     return SnapszerDeck.getSampleDeck().cards.stream().filter(
         otherCard -> card.getSuit() == otherCard.getSuit() &&
         otherCard.getRank().compareTo(card.getRank()) > 0).
@@ -195,6 +197,17 @@ private List<HungarianCard> higherCards(HungarianCard card) {
 }
 ]]>
         </programlisting>
+        <para>Az
+            <emphasis role="bold">Expert Computer</emphasis>
+            az utolsó a vizsgált stratégiák sorában. Ezen
+            stratégia elődeihez képest eltér, ő egy operátor "jóságát" az alapján határozza meg, hogy az alkalmazását
+            követően mennyire fog közelebb kerülni ahhoz, hogy nyerjen. Ezen kívül még a Snapszer operátort is
+            alkalmazza, ha nagy esély van rá, hogy ezt követően megnyeri a meccset. Ezen játékos implementációját külön
+            már nem tárgyaljuk, implementációja megtalálható a ComputerExpert osztályban.
+        </para>
+        <para>A következő táblázat statisztikai információkat szolgáltat arról, hogy 1000 játszmából melyik stratégia
+            hányszor nyert.
+        </para>
         <table frame='all'>
             <title>Statisztika</title>
             <tgroup cols="5">
@@ -216,27 +229,27 @@ private List<HungarianCard> higherCards(HungarianCard card) {
                         <entry>-</entry>
                         <entry>2/998</entry>
                         <entry>3/997</entry>
-                        <entry>a</entry>
+                        <entry>0/1000</entry>
                     </row>
                     <row>
                         <entry>Beginner</entry>
                         <entry>998/2</entry>
                         <entry>-</entry>
                         <entry>395/605</entry>
-                        <entry>a</entry>
+                        <entry>405/595</entry>
                     </row>
                     <row>
                         <entry>Advanced</entry>
                         <entry>997/3</entry>
                         <entry>605/395</entry>
                         <entry>-</entry>
-                        <entry>a</entry>
+                        <entry>443/557</entry>
                     </row>
                     <row>
                         <entry>Expert</entry>
-                        <entry>a</entry>
-                        <entry>a</entry>
-                        <entry>a</entry>
+                        <entry>1000/0</entry>
+                        <entry>595/405</entry>
+                        <entry>557/443</entry>
                         <entry>-</entry>
                     </row>
                 </tbody>
