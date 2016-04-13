@@ -31,11 +31,13 @@
             alkalmazására. Az eseményvezérelt megközelítés lehetővé teszi, hogy egy a megjelnítésért felelős osztály
             a játék során értesüljön, hogy melyik operátort alkalmazták sikerrel.
         </para>
-        <para>Példa operátor megvalósítására: Mond<subscript>40</subscript> operátor
+        <para>Példa operátor megvalósítására: Mond
+            <subscript>40</subscript>
+            operátor
         </para>
         <para>Alkalmazási előfeltételek:</para>
         <programlisting>
-<![CDATA[
+            <![CDATA[
 @Override
 public boolean isApplicable(GameMatch game) {
     return player.equals(game.getCurrentPlayer()) &&
@@ -66,7 +68,7 @@ public void onApply(GameMatch game) {
         <para>Egy másik operátor megvalósítása: Aducsere</para>
         <para>Alkalmazási előfeltételek:</para>
         <programlisting>
-        <![CDATA[
+            <![CDATA[
 @Override
 public boolean isApplicable(GameMatch game) {
     return !(!player.equals(game.getCurrentPlayer()) ||
@@ -88,7 +90,8 @@ public void onApply(GameMatch game) {
     iCard.getSuit() == game.getTrumpCard().getSuit() &&
     iCard.getRank() == HungarianCardRank.ALSO).findFirst().get();
     game.trumpCardProperty().setValue(newTrumpCard);
-    player.getCards().set(player.getCards().indexOf(newTrumpCard), oldTrumpCard);
+    player.getCards().set(player.getCards().
+        indexOf(newTrumpCard), oldTrumpCard);
 }
 ]]>
         </programlisting>
@@ -96,9 +99,10 @@ public void onApply(GameMatch game) {
     <sect1>
         <title>Számítógép stratégiák</title>
         <para>A számítógép játékosokat megvalósító osztályok az absztrakt Computer osztályból származnak. A Computer
-        osztály két metódust tartalmaz, melynek segítségével össze lehet gyűjteni az alkalmazható operátorokat:</para>
+            osztály két metódust tartalmaz, melynek segítségével össze lehet gyűjteni az alkalmazható operátorokat:
+        </para>
         <programlisting>
-<![CDATA[
+            <![CDATA[
 protected List<Operator> getAllOperators() {
     List<Operator> allOperators = new ArrayList<>(11);
     allOperators.addAll(Arrays.asList(new CoverOperator(this),
@@ -115,16 +119,18 @@ protected List<Operator> getAllOperators() {
 }
 
 protected List<Operator> getAllApplicableOperators(GameMatch game) {
-    List<Operator> applicableOperators = getAllOperators().stream().
-        filter(op -> op.isApplicable(game)).
-        collect(Collectors.toList());
-    return applicableOperators;
-}
+        return getAllOperators().stream().
+                filter(op -> op.isApplicable(game)).
+                collect(Collectors.toList());
+    }
 ]]>
         </programlisting>
-        <para>A legegyszerűbb stratégia: Random operátor választása</para>
+        <para>A legegyeszerűbb számítógép játékos megvalósítás:
+            <emphasis role="bold">Random computer</emphasis>
+            (A szabályos lépések közül véletlenszerűen választ egyet).
+        </para>
         <programlisting>
-<![CDATA[
+            <![CDATA[
 private Operator chooseRandomOperator(GameMatch game) {
     List<Operator> operators = getAllApplicableOperators(game);
     Random randomGenerator = new Random();
@@ -133,46 +139,101 @@ private Operator chooseRandomOperator(GameMatch game) {
 }
 ]]>
         </programlisting>
-        <para>A szabályos lépések közül véletlenszerűen választ egyet.</para>
+        <para>Az előző stratégia továbbfejlesztése a <emphasis role="bold">Beginner computer</emphasis>, aki már valamilyen "jóság" alapján választja ki
+            az alkalmazandó operátort. Az őt megvalósító kódcsipet:
+        </para>
+        <programlisting>
+            <![CDATA[
+private Integer getGoodness(Operator op, GameMatch game) {
+    if (op instanceof SayEndOperator)
+        return Integer.MAX_VALUE;
+    if (op instanceof SwapTrumpOperator)
+        return Integer.MAX_VALUE - 1;
+    if (op instanceof Say40Operator)
+        return 40;
+    if (op instanceof Say20Operator)
+        return 20;
+    if (op instanceof PlayCardOperator) {
+        PlayCardOperator playCardOperator = (PlayCardOperator) op;
+    if (!game.getCardsOnTable().isEmpty()) {
+        if (game.getCardsOnTable().get(0).
+            compareTo(playCardOperator.getCard()) < 0) {
+                return playCardOperator.getCard().getPoints();
+            } else {
+                return -1 * playCardOperator.getCard().getPoints();
+            }
+        } else {
+            return playCardOperator.getCard().getPoints();
+        }
+    }
+    return Integer.MIN_VALUE;
+    }
+}
+]]>
+        </programlisting>
+        <para>A Beginner computer stratégia arra törekszik, hogy a lehető legtöbb pontot zsebelje be az adott körben.
+        </para>
+        <para>A következő stratégia az <emphasis role="bold">Advanced Computer</emphasis>, amely már azt is számításba veszi, hogy mely lapok nincsenek
+            már játékban és próbál olyan lapot hívni, amitől az adott színben nincs "magasabb" lap. A vártnak
+            megfelelően ezen stratágia eredményesebben játszik, mint az előzőek.
+        </para>
+        <para>Az érdemi kódrészlet, aminek segítségével eldönti, hogy az adott laptól, az adott színben van-e "magasabb"
+            lap a játékban:
+        </para>
+        <programlisting>
+            <![CDATA[
+private boolean higherCardInGame(HungarianCard card,
+        List<HungarianCard> knownCards) {
+    return !knownCards.containsAll(higherCards(card));
+}
+
+private List<HungarianCard> higherCards(HungarianCard card) {
+    return SnapszerDeck.getSampleDeck().cards.stream().filter(
+        otherCard -> card.getSuit() == otherCard.getSuit() &&
+        otherCard.getRank().compareTo(card.getRank()) > 0).
+            collect(Collectors.toList());
+}
+]]>
+        </programlisting>
         <table frame='all'>
             <title>Statisztika</title>
             <tgroup cols="5">
-                <colspec colname='c1'  colwidth="1*"/>
-                <colspec colname='c2'  colwidth="1*"/>
-                <colspec colname='c3'  colwidth="1*"/>
-                <colspec colname='c4'  colwidth="1*"/>
-                <colspec colname='c5'  colwidth="1*"/>
+                <colspec colname='c1' colwidth="1*"/>
+                <colspec colname='c2' colwidth="1*"/>
+                <colspec colname='c3' colwidth="1*"/>
+                <colspec colname='c4' colwidth="1*"/>
+                <colspec colname='c5' colwidth="1*"/>
                 <tbody>
                     <row>
                         <entry></entry>
-                        <entry>a</entry>
-                        <entry>a</entry>
-                        <entry>a</entry>
+                        <entry>Random</entry>
+                        <entry>Beginner</entry>
+                        <entry>Advanced</entry>
+                        <entry>Expert</entry>
+                    </row>
+                    <row>
+                        <entry>Random</entry>
+                        <entry>-</entry>
+                        <entry>2/998</entry>
+                        <entry>3/997</entry>
                         <entry>a</entry>
                     </row>
                     <row>
+                        <entry>Beginner</entry>
+                        <entry>998/2</entry>
+                        <entry>-</entry>
+                        <entry>395/605</entry>
                         <entry>a</entry>
+                    </row>
+                    <row>
+                        <entry>Advanced</entry>
+                        <entry>997/3</entry>
+                        <entry>605/395</entry>
                         <entry>-</entry>
                         <entry>a</entry>
-                        <entry>a</entry>
-                        <entry>a</entry>
                     </row>
                     <row>
-                        <entry>a</entry>
-                        <entry>a</entry>
-                        <entry>-</entry>
-                        <entry>a</entry>
-                        <entry>a</entry>
-                    </row>
-                    <row>
-                        <entry>a</entry>
-                        <entry>a</entry>
-                        <entry>a</entry>
-                        <entry>-</entry>
-                        <entry>a</entry>
-                    </row>
-                    <row>
-                        <entry>a</entry>
+                        <entry>Expert</entry>
                         <entry>a</entry>
                         <entry>a</entry>
                         <entry>a</entry>
