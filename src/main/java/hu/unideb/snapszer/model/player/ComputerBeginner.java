@@ -35,12 +35,12 @@ public class ComputerBeginner extends Computer {
             PlayCardOperator playCardOperator = (PlayCardOperator) op;
             if (!game.getCardsOnTable().isEmpty()) {
                 if (game.getCardsOnTable().get(0).compareTo(playCardOperator.getCard()) < 0) {
-                    return playCardOperator.getCard().getPoints();
+                    return playCardOperator.getCard().getScore();
                 } else {
-                    return -1 * playCardOperator.getCard().getPoints();
+                    return -1 * playCardOperator.getCard().getScore();
                 }
             } else {
-                return playCardOperator.getCard().getPoints();
+                return playCardOperator.getCard().getScore();
             }
         }
         return Integer.MIN_VALUE;

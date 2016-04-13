@@ -143,7 +143,7 @@ public class GameMatch {
         }
         for (HungarianCard card :
                 cardsOnTable) {
-            getCurrentPlayer().addScore(card.getPoints());
+            getCurrentPlayer().addScore(card.getScore());
         }
         getCurrentPlayer().setBeatsCounter(getCurrentPlayer().getBeatsCounter() + 1);
         playedCards.addAll(cardsOnTable);

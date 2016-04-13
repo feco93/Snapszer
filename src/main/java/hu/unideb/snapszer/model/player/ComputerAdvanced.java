@@ -2,11 +2,9 @@ package hu.unideb.snapszer.model.player;
 
 import hu.unideb.snapszer.model.GameMatch;
 import hu.unideb.snapszer.model.HungarianCard;
-import hu.unideb.snapszer.model.SnapszerDeck;
 import hu.unideb.snapszer.model.operators.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by User on 2016. 04. 02..
@@ -45,29 +43,21 @@ public class ComputerAdvanced extends Computer {
             PlayCardOperator playCardOperator = (PlayCardOperator) op;
             if (!game.getCardsOnTable().isEmpty()) {
                 if (game.getCardsOnTable().get(0).compareTo(playCardOperator.getCard()) < 0) {
-                    return playCardOperator.getCard().getPoints();
+                    return playCardOperator.getCard().getScore();
                 } else {
-                    return -1 * playCardOperator.getCard().getPoints();
+                    return -1 * playCardOperator.getCard().getScore();
                 }
             } else {
                 List<HungarianCard> knownCards = game.getPlayedCards();
                 knownCards.addAll(cards);
                 if (higherCardInGame(playCardOperator.getCard(), knownCards)) {
-                    return -1 * playCardOperator.getCard().getPoints();
+                    return -1 * playCardOperator.getCard().getScore();
                 }
-                return playCardOperator.getCard().getPoints();
+                return playCardOperator.getCard().getScore();
             }
         }
         return Integer.MIN_VALUE;
     }
 
-    private boolean higherCardInGame(HungarianCard card, List<HungarianCard> knownCards) {
-        return !knownCards.containsAll(higherCards(card));
-    }
 
-    private List<HungarianCard> higherCards(HungarianCard card) {
-        return SnapszerDeck.getSampleDeck().cards.stream().filter(
-                otherCard -> card.getSuit() == otherCard.getSuit() &&
-                        otherCard.getRank().compareTo(card.getRank()) > 0).collect(Collectors.toList());
-    }
 }

@@ -20,7 +20,7 @@ public class HungarianCard implements ICard {
         this.suit = suit;
     }
 
-    public int getPoints() {
+    public int getScore() {
         return rank.getValue();
     }
 

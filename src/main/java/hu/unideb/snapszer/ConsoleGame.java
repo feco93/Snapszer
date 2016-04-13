@@ -22,8 +22,8 @@ public class ConsoleGame implements Game {
     private int numberOfGames;
 
     public ConsoleGame() {
-        playerOne = new ComputerAdvanced();
-        playerTwo = new ComputerRand();
+        playerOne = new ComputerRand();
+        playerTwo = new ComputerExpert();
         gameService = new Service<Player>() {
 
             @Override

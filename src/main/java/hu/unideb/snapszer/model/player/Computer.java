@@ -8,6 +8,7 @@ package hu.unideb.snapszer.model.player;
 import hu.unideb.snapszer.model.GameMatch;
 import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.ICard;
+import hu.unideb.snapszer.model.SnapszerDeck;
 import hu.unideb.snapszer.model.operators.*;
 
 import java.util.ArrayList;
@@ -44,5 +45,15 @@ public abstract class Computer extends Player {
         return getAllOperators().stream().
                 filter(op -> op.isApplicable(game)).
                 collect(Collectors.toList());
+    }
+
+    protected boolean higherCardInGame(HungarianCard card, List<HungarianCard> knownCards) {
+        return !knownCards.containsAll(higherCards(card));
+    }
+
+    protected List<HungarianCard> higherCards(HungarianCard card) {
+        return SnapszerDeck.getSampleDeck().cards.stream().filter(
+                otherCard -> card.getSuit() == otherCard.getSuit() &&
+                        otherCard.getRank().compareTo(card.getRank()) > 0).collect(Collectors.toList());
     }
 }
