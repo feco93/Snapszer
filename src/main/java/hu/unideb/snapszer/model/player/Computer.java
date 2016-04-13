@@ -41,9 +41,8 @@ public abstract class Computer extends Player {
     }
 
     protected List<Operator> getAllApplicableOperators(GameMatch game) {
-        List<Operator> applicableOperators = getAllOperators().stream().
+        return getAllOperators().stream().
                 filter(op -> op.isApplicable(game)).
                 collect(Collectors.toList());
-        return applicableOperators;
     }
 }
