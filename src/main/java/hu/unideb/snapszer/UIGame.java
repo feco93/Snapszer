@@ -4,7 +4,7 @@ import hu.unideb.snapszer.controller.GameController;
 import hu.unideb.snapszer.controller.HumanPlayerController;
 import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
 import hu.unideb.snapszer.model.player.Computer;
-import hu.unideb.snapszer.model.player.ComputerWorldChampion;
+import hu.unideb.snapszer.model.player.ComputerExpert;
 import hu.unideb.snapszer.model.player.Human;
 import hu.unideb.snapszer.view.SnapszerGameView;
 import hu.unideb.snapszer.view.TableView;
@@ -41,7 +41,7 @@ public class UIGame implements Game {
         root.getChildren().add(game3d);
 
         Human playerOne = new Human("Player");
-        Computer playerTwo = new ComputerWorldChampion();
+        Computer playerTwo = new ComputerExpert();
         initGameInfo(playerOne, playerTwo);
         SnapszerTwoPlayerGame game = new SnapszerTwoPlayerGame(playerOne, playerTwo);
 

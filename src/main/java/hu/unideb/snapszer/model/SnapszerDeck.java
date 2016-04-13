@@ -15,21 +15,10 @@ import java.util.List;
 public class SnapszerDeck {
 
     public static Deck<HungarianCard> getNewDeck() {
-        List<HungarianCard> cards = new ArrayList<>();
         for (HungarianCardSuit suit : HungarianCardSuit.values()) {
             suit.setTrump(false);
-            for (HungarianCardRank rank : HungarianCardRank.values()) {
-                if (rank == HungarianCardRank.KILENC
-                        || rank == HungarianCardRank.NYOLC
-                        || rank == HungarianCardRank.HET) {
-                    continue;
-                }
-                HungarianCard card = new HungarianCard(rank, suit);
-                cards.add(card);
-            }
         }
-        Deck<HungarianCard> deck = new Deck<>(cards);
-        return deck;
+        return getSampleDeck();
     }
 
     public static Deck<HungarianCard> getSampleDeck() {

@@ -1,9 +1,7 @@
 package hu.unideb.snapszer;
 
 import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
-import hu.unideb.snapszer.model.player.ComputerChampion;
-import hu.unideb.snapszer.model.player.ComputerWorldChampion;
-import hu.unideb.snapszer.model.player.Player;
+import hu.unideb.snapszer.model.player.*;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import org.apache.logging.log4j.LogManager;
@@ -24,8 +22,8 @@ public class ConsoleGame implements Game {
     private int numberOfGames;
 
     public ConsoleGame() {
-        playerOne = new ComputerWorldChampion();
-        playerTwo = new ComputerChampion();
+        playerOne = new ComputerAdvanced();
+        playerTwo = new ComputerRand();
         gameService = new Service<Player>() {
 
             @Override
