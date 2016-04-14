@@ -205,6 +205,43 @@ protected List<HungarianCard> higherCards(HungarianCard card) {
             alkalmazza, ha nagy esély van rá, hogy ezt követően megnyeri a meccset. Ezen játékos implementációját külön
             már nem tárgyaljuk, implementációja megtalálható a ComputerExpert osztályban.
         </para>
+        <para>
+            A játék biztosít egy olyan játékmódot, ahol egymás ellen játszhatnak a számítógép játékosok. Ebben a
+            játékmódban grafikus megjelenítés nélkül zajlanak a játszmák. Az eredményről, illetve a játék folyamatáról
+            egy log állomány keletkezik. Ezen állomány többek között az alábbi információkat tartalmazza:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>Melyik játékos melyik operátort/operátorokat alkalmazta</para>
+            </listitem>
+            <listitem>
+                <para>Az adott játszmát ki nyerte és hány pontot nyert</para>
+            </listitem>
+            <listitem>
+                <para>Ki nyerte a játékot</para>
+            </listitem>
+            <listitem>
+                <para>Végezetül egy összefoglalás, hogy x játékból hány játékot nyert az egyik, illetve másik játékos
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>Egy példa kimenet részlete:</para>
+        <programlisting>
+            <![CDATA[
+21:01:01 INFO SnapszerTwoPlayerGame The match is starting...
+21:01:01 TRACE GameMatch The Computer (Random operator) player apply: SnapszerOperator
+21:01:01 TRACE GameMatch The Computer (Random operator) player apply: PlayCardOperator
+21:01:01 TRACE GameMatch The Computer (Expert) player apply: PlayCardOperator
+21:01:01 INFO SnapszerTwoPlayerGame The match has been finished
+21:01:01 INFO SnapszerTwoPlayerGame The Computer (Expert) has won the match
+21:01:01 INFO SnapszerTwoPlayerGame Won points: 6
+21:01:01 INFO SnapszerTwoPlayerGame --------------------------------------------------------------
+21:01:01 INFO SnapszerTwoPlayerGame The Computer (Expert) has won the game
+21:01:01 INFO SnapszerTwoPlayerGame --------------------------------------------------------------
+21:01:01 INFO ConsoleGame The Computer (Random operator) has won 0 game.
+21:01:01 INFO ConsoleGame The Computer (Expert) has won 1000 game.
+]]>
+        </programlisting>
         <para>A következő táblázat statisztikai információkat szolgáltat arról, hogy 1000 játszmából melyik stratégia
             hányszor nyert.
         </para>

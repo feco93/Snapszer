@@ -15,6 +15,7 @@
     *************************************************************
     -->
     <xsl:param name="chapter.autolabel">0</xsl:param>
+    <xsl:param name="table.autolabel">0</xsl:param>
 
     <!--
     *************************************************************
@@ -81,7 +82,7 @@
     -->
 
     <xsl:attribute-set name="monospace.verbatim.properties">
-        <xsl:attribute name="wrap-option">no-wrap</xsl:attribute>
+        <xsl:attribute name="wrap-option">wrap</xsl:attribute>
         <xsl:attribute name="font-size">10</xsl:attribute>
         <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
         <xsl:attribute name="space-before.minimum">0pt</xsl:attribute>
@@ -109,6 +110,33 @@
         <xsl:attribute name="space-before.minimum">1.0em</xsl:attribute>
         <xsl:attribute name="space-before.maximum">1.0em</xsl:attribute>
     </xsl:attribute-set>
+
+    <!--
+    *************************************************************
+    Táblázat automatikus címkézésének eltávolítása
+    *************************************************************
+    -->
+
+    <xsl:param name="local.l10n.xml" select="document('')"/>
+    <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0">
+        <l:l10n language="hu">
+            <l:context name="title">
+                <l:template name="table" text="%t"/>
+            </l:context>
+            <l:context name="xref-number-and-title">
+                <l:template name="table" text="the table titled &#8220;%t&#8221;"/>
+            </l:context>
+        </l:l10n>
+    </l:i18n>
+
+    <xsl:template match="table" mode="label.markup"/>
+
+    <!--
+    *************************************************************
+    Csak könyv szintű tartalomjegyzék generálása
+    *************************************************************
+    -->
+    <xsl:param name="generate.toc" select="'book toc'"/>
 
 
 </xsl:stylesheet>

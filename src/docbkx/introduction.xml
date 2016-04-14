@@ -10,7 +10,7 @@
         választottam. A választásom legfőbb célja az volt, hogy olyan technológiát válasszak, amellyel könnyedén tudom
         követni az MVC tervezési mintát. Az MVC minta elengedhetetlen volt munkám során, mert olyan rendszert szerettem
         volna elkészíteni, mely könnyen karbantartható, módosítható és tesztelhető. Ezen elvek követése abban is
-        segített, hogy akár grafikus megjelenítés nélkül is össze tudjak vetni különböző heurisztikával rendelkező
+        segített, hogy akár grafikus megjelenítés nélkül is össze tudjak vetni különböző stratégiával rendelkező
         mesterséges intelligenciákat. A dokumentáció elkészítésénel fontosnak tartottam, hogy olyan eszközt használjak
         fel, ami lehetővé teszi a verziókezelést és a könnyű tetreszabhatóságat is, így választásom a DocBook eszközre
         esett. Mivel a projekt Maven projektkezelő eszközzel készült, így a dokumentáció legenárálását is automatizálni
