@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="MainMenu" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8">
+<VBox fx:id="MainMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Button mnemonicParsing="false" onMouseClicked="#onPlayBtnClicked" prefHeight="25.0" prefWidth="170.0"
-                style="-fx-background-radius: 15; -fx-font-weight: bold; -fx-font-size: 16;" text="Play game">
+        <Button mnemonicParsing="false" onMouseClicked="#onPlayBtnClicked" prefHeight="25.0" prefWidth="170.0" style="-fx-background-radius: 15; -fx-font-weight: bold; -fx-font-size: 16;" text="Play game">
             <cursor>
-                <Cursor fx:constant="HAND"/>
+                <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button mnemonicParsing="false" onMouseClicked="#onExitBtnClicked" prefHeight="25.0" prefWidth="170.0"
-                style="-fx-background-radius: 15; -fx-font-weight: bold; -fx-font-size: 16;" text="Exit">
+      <Button mnemonicParsing="false" onMouseClicked="#onOptionsBtnClicked" prefHeight="25.0" prefWidth="170.0" style="-fx-background-radius: 15; -fx-font-weight: bold; -fx-font-size: 16;" text="Options">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+        <Button mnemonicParsing="false" onMouseClicked="#onExitBtnClicked" prefHeight="25.0" prefWidth="170.0" style="-fx-background-radius: 15; -fx-font-weight: bold; -fx-font-size: 16;" text="Exit">
             <cursor>
-                <Cursor fx:constant="HAND"/>
+                <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
     </children>
     <padding>
-        <Insets bottom="10.0" top="10.0"/>
+        <Insets bottom="10.0" top="10.0" />
     </padding>
 </VBox>

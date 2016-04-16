@@ -27,6 +27,11 @@ public class GameMenuController {
     }
 
     @FXML
+    void onOptionsBtnClicked(MouseEvent event) {
+        menu.DisplayOptionsMenu();
+    }
+
+    @FXML
     void onExitBtnClicked(MouseEvent event) {
         Platform.exit();
     }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="170.0" style="-fx-font-size: 18; -fx-font-weight: bold;" text="Computer difficulty">
+            <font>
+                <Font name="Times New Roman Bold" size="18.0" />
+            </font>
+        </Label>
+        <ChoiceBox fx:id="difficultyCb" prefHeight="25.0" prefWidth="170.0" style="-fx-font-size: 16; -fx-background-radius: 15;" value="Advanced">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Random" />
+                    <String fx:value="Beginner" />
+                    <String fx:value="Advanced" />
+                    <String fx:value="Expert" />
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+      <Button mnemonicParsing="false" onMouseClicked="#onBackBtnClicked" prefHeight="25.0" prefWidth="170.0" style="-fx-font-size: 16; -fx-background-radius: 15; -fx-font-weight: bold;" text="Back">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+    </children>
+   <padding>
+      <Insets bottom="10.0" top="10.0" />
+   </padding>
+</VBox>

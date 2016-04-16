@@ -4,6 +4,7 @@ import hu.unideb.snapszer.controller.GameController;
 import hu.unideb.snapszer.controller.HumanPlayerController;
 import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
 import hu.unideb.snapszer.model.player.Computer;
+import hu.unideb.snapszer.model.player.ComputerAdvanced;
 import hu.unideb.snapszer.model.player.ComputerExpert;
 import hu.unideb.snapszer.model.player.Human;
 import hu.unideb.snapszer.view.SnapszerGameView;
@@ -20,8 +21,11 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.scene.transform.Rotate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 
 /**
  * Created by Fecó Sipos on 2016. 01. 31..
@@ -30,6 +34,8 @@ public class UIGame implements Game {
 
     private StackPane root;
     private Task<Void> gameTask;
+    public static Type computerType = ComputerAdvanced.class;
+    private static final Logger logger = LogManager.getLogger(UIGame.class);
 
     public UIGame(double width, double height) {
         root = new StackPane();
@@ -41,7 +47,13 @@ public class UIGame implements Game {
         root.getChildren().add(game3d);
 
         Human playerOne = new Human("Player");
-        Computer playerTwo = new ComputerExpert();
+        Computer playerTwo = null;
+        try {
+            playerTwo = (Computer) Class.forName(computerType.getTypeName()).newInstance();
+        } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            logger.error(e.getMessage());
+        }
+        logger.info(computerType.getTypeName());
         initGameInfo(playerOne, playerTwo);
         SnapszerTwoPlayerGame game = new SnapszerTwoPlayerGame(playerOne, playerTwo);
 

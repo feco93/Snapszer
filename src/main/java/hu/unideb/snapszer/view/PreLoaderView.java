@@ -2,6 +2,7 @@ package hu.unideb.snapszer.view;
 
 import hu.unideb.snapszer.UIGame;
 import hu.unideb.snapszer.controller.GameMenuController;
+import hu.unideb.snapszer.controller.OptionsMenuController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -12,6 +13,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -23,6 +26,7 @@ public class PreLoaderView {
     private StackPane root;
     private SubScene backGroundScene;
     private Stage primaryStage;
+    private static final Logger logger = LogManager.getLogger(PreLoaderView.class);
 
     public PreLoaderView() {
         primaryStage = new Stage();
@@ -39,13 +43,30 @@ public class PreLoaderView {
                 Platform.exit();
             }
         });
+        DisplayMenu();
+    }
 
+    public void DisplayMenu() {
+        root.getChildren().clear();
         FXMLLoader loader = new FXMLLoader(PreLoaderView.class.getResource("/fxml/gameMenu.fxml"));
         loader.setController(new GameMenuController(this));
         try {
             loader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
+        }
+        Node mainMenu = loader.getRoot();
+        root.getChildren().addAll(backGroundScene, mainMenu);
+    }
+
+    public void DisplayOptionsMenu() {
+        root.getChildren().clear();
+        FXMLLoader loader = new FXMLLoader(PreLoaderView.class.getResource("/fxml/optionsMenu.fxml"));
+        loader.setController(new OptionsMenuController(this));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            logger.error(e.getMessage());
         }
         Node mainMenu = loader.getRoot();
         root.getChildren().addAll(backGroundScene, mainMenu);
@@ -54,16 +75,7 @@ public class PreLoaderView {
     public void StartGame() {
         UIGame game = new UIGame(scene.getWidth(), scene.getHeight());
         game.getGameTask().setOnSucceeded(event1 -> Platform.runLater(() -> {
-            root.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(PreLoaderView.class.getResource("/fxml/gameMenu.fxml"));
-            loader.setController(new GameMenuController(this));
-            try {
-                loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Node mainMenu = loader.getRoot();
-            root.getChildren().addAll(backGroundScene, mainMenu);
+            DisplayMenu();
         }));
         root.getChildren().clear();
         root.getChildren().addAll(game.getRoot().getChildren());
