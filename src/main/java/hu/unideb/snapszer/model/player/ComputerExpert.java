@@ -5,6 +5,7 @@ import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.HungarianCardRank;
 import hu.unideb.snapszer.model.operators.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,7 +72,7 @@ public class ComputerExpert extends Computer {
                 return getRemainingScore() + playCardOperator.getCard().getScore();
             }
         } else {
-            List<HungarianCard> knownCards = game.getPlayedCards();
+            List<HungarianCard> knownCards = new ArrayList<>(game.getPlayedCards());
             knownCards.addAll(cards);
             if (higherCardInGame(playCardOperator.getCard(), knownCards)) {
                 return getRemainingScore() + playCardOperator.getCard().getScore();

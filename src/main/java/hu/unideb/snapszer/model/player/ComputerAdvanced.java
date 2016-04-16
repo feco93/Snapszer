@@ -4,6 +4,7 @@ import hu.unideb.snapszer.model.GameMatch;
 import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.operators.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +49,7 @@ public class ComputerAdvanced extends Computer {
                     return -1 * playCardOperator.getCard().getScore();
                 }
             } else {
-                List<HungarianCard> knownCards = game.getPlayedCards();
+                List<HungarianCard> knownCards = new ArrayList<>(game.getPlayedCards());
                 knownCards.addAll(cards);
                 if (higherCardInGame(playCardOperator.getCard(), knownCards)) {
                     return -1 * playCardOperator.getCard().getScore();
