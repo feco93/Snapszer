@@ -55,6 +55,10 @@
         </xsl:attribute>
     </xsl:attribute-set>
 
+    <xsl:attribute-set name="section.title.level2.properties">
+        <xsl:attribute name="font-size">12
+        </xsl:attribute>
+    </xsl:attribute-set>
 
     <!--
     *************************************************************

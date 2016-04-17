@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter
+        xml:id="javafx.xml"
+        xmlns="http://docbook.org/ns/docbook" version="5.1" xml:lang="hu"
+>
+    <title>Felhasználói felület JavaFX tecnológiával</title>
+    <sect1>
+        <title>Áttekintés</title>
+        <para>A JavaFX olyan grafikai és média osztályok összessége, amelyek lehetővé teszik vastag kliens alkalmazások
+            tervezését, implementálását, tesztelését. A JavaFX API támogatja 2D-s, illetve 3D-s alkalmazások
+            fejlesztését
+            is. Legújabb verziója a JavaFX8, mely része a JDK 8-nak.
+        </para>
+        <para>
+            Legnagyobb ereje a közvetlen MVC (Model-View-Controller) támogatásban nyílvánul meg. Az MVC minta a
+            következő
+            módon valósul meg JavaFX-ben:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Model:</emphasis>
+                    A model tartalmazza az üzleti logika megvalósításához szükséges csomagokat, osztályokat.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">View:</emphasis>
+                    A view a megjelenítésért felelős. A megjelenítést több módon is implementálhatjuk. Az ajánlott
+                    módszer
+                    szerint létre kell hozni egy állományt, melyben FXML (XML alapú dekleratív leíró nyelv) segítségével
+                    definiálni lehet a felhasználói felületet. A másik módszerrel olyan osztályokat kell létrehozni,
+                    amelyek
+                    leírják a megjelenítést.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Controller:</emphasis>
+                    A controller kapcsolja össze a modelt a megjelenítéssel. Itt célszerű implementálni az eseménykezelő
+                    metódusokat (pl: nyomógomb megnyomása). Szem előtt kell tartani, hogy üzleti logikát lehetőleg ne
+                    tartalmazzon a controller, azért a model felel.
+                </para>
+            </listitem>
+        </itemizedlist>
+
+
+    </sect1>
+
+    <sect1>
+        <title>MVC minta alkalmazása a projektben</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Model:</emphasis>
+                    A modelt leíró osztályok a model csomagban kaptak helyet. Ide
+                    tartoznak az operátorok, a játékosokat leíró, a játék logikáját megvalósító osztályok.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">View:</emphasis>
+                    A view két módon valósul meg a projektben. A lapok, az asztal dinamikusan kerül feldolgozásra futási
+                    időben. Az asztal 3ds formátumban van eltárolva, melyet az Interactivemesh API dolgoz fel. Az
+                    Interactivemesh egy Node típusú objektumot állít elő, melyet egyszerűen meg tudunk jeleníteni a
+                    felhasználói felületen. A lapokat hasábok reprezentálják, melyek textúrával vannak ellátva (elő és
+                    hátlap textúra). A menük és a felhasználói interakcióhoz szükséges nyomógombok tervezése a JavaFX
+                    Scene Builder segítségével történt. A JavaFX Scene Builder egy felhasználói felület tervezésére
+                    alkalmas program, amely fxml állományt állít elő.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Controller:</emphasis>
+                    A contoller osztályok a contoller csomagban találhatóak. Ide tartoznak a menük kezeléséért felelős
+                    osztályok, illetve a játékban szereplő felhasználói felület kezeléséhez szükséges osztályok.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </sect1>
+
+    <sect1>
+        <title>3D objektumok megjelenítése</title>
+        <sect2>
+            <title>Asztal</title>
+            <para>Az asztal feldolgozásához az InteractiveMesh API-t, abból is a TdsModelImporter osztályt
+                használtam, mely lehetővé teszi 3ds formátumú fájlok feldolgozását.
+            </para>
+            <orderedlist>
+                <para>
+                    <emphasis role="bold">A feldolgozás főbb lépései:</emphasis>
+                </para>
+                <listitem>
+                    <para>Egy TdsModelImporter példány létrehozása:
+                        <programlisting>
+                            <![CDATA[
+TdsModelImporter importer = new TdsModelImporter();
+]]>
+                        </programlisting>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>Az erőforrásokat tartalmazó mappa elérésének megadása:</para>
+                    <programlisting>
+                        <![CDATA[
+private static final String directory = "/3ds";
+...
+
+importer.setResourceBaseUrl(getClass().getResource(directory));
+]]>
+                    </programlisting>
+                </listitem>
+                <listitem>
+                    <para>Az objektumot tartalmazó fájl elérésének megadása és annak beolvasása:</para>
+                    <programlisting>
+                        <![CDATA[
+private static final String tableResource = "/3ds/POKER+TABLE.3ds";
+...
+
+importer.read(getClass().getResource(tableResource));
+]]>
+                    </programlisting>
+                </listitem>
+                <listitem>
+                    <para>A beolvasott objektumok lekérdezése:</para>
+                    <programlisting>
+                        <![CDATA[
+Node[] nodes = importer.getImport();
+]]>
+                    </programlisting>
+                </listitem>
+            </orderedlist>
+        </sect2>
+
+
+        <sect2>
+            <title>Kártyalapok</title>
+            <para>A lapok megjelenítéséhez a JavaFX eszköztárán kívül nem használtam más programkönytárat. A
+                kártyalapokat egy-egy hasáb reprezentálja, melyek elő és hátlap textúrával vannak ellátva.
+            </para>
+            <orderedlist>
+                <para>
+                    <emphasis role="bold">Kártyalap előállítása:</emphasis>
+                </para>
+                <listitem>
+                    <para>Először is példányosítani kell egy TriangleMesh típusú objektumot. Ezen objektum felülete
+                        háromszögekből épül fel, melyre a típus neve is utal.
+                    </para>
+                    <programlisting>
+                        <![CDATA[
+cardMesh = new TriangleMesh();
+]]>
+                    </programlisting>
+                </listitem>
+                <listitem>
+                    <para>Meg kell adni az objektum pontjait, a pontokat egy tömb szolgáltatja, ahol a pontok
+                        koordinátáit úgy kell értelmezni, hogy például a 0-2 indexeken lévő értékek reprezentálnak egy
+                        pontot. A magasság(HEIGHT), szélesség(WIDTH), mélység(DEPTH) konstansokat el kell osztani 2-vel,
+                        mivel az objektum középpontja az origóba esik és a pozitív és negatív irányokba vett távolságok
+                        összege adja a megfelelő értékeket.
+                    </para>
+                    <programlisting>
+                        <![CDATA[
+float hw = WIDTH / 2f;
+float hh = HEIGHT / 2f;
+float hd = DEPTH / 2f;
+
+float points[] = {
+    hw, hh, hd,
+    hw, hh, -hd,
+    hw, -hh, hd,
+    hw, -hh, -hd,
+    -hw, hh, hd,
+    -hw, hh, -hd,
+    -hw, -hh, hd,
+    -hw, -hh, -hd
+};
+
+cardMesh.getPoints().setAll(points);
+]]>
+                    </programlisting>
+                </listitem>
+                <listitem>
+                    <para>A következő lépésben meg kell adni a textúra koordinátákat, amelyek egy-egy 2 dimenziós
+                        koordináta
+                        párból (u, v) állnak.
+                    </para>
+                    <programlisting>
+                        <![CDATA[
+float texCoords[] = {
+    0.0f, 0.0f,
+    0.5f, 0.0f,
+    1.0f, 0.0f,
+    0.0f, 1.0f,
+    0.5f, 1.0f,
+    1.0f, 1.0f
+};
+
+cardMesh.getTexCoords().setAll(texCoords);
+]]>
+                    </programlisting>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="images/texCoords.png"/>
+                        </imageobject>
+                    </mediaobject>
+                </listitem>
+                <listitem>
+                    <para>Végül egy egészekből álló tömb segítségével kell reprezentálni az objektum felületét.
+                    </para>
+                    <programlisting>
+                        <![CDATA[
+int faces[] = {
+    0, 0, 2, 0, 1, 0,
+    2, 0, 3, 0, 1, 0,
+    4, 0, 5, 0, 6, 0,
+    6, 0, 5, 0, 7, 0,
+    0, 0, 1, 0, 4, 0,
+    4, 0, 1, 0, 5, 0,
+    2, 0, 6, 0, 3, 0,
+    3, 0, 6, 0, 7, 0,
+    0, 4, 4, 5, 2, 1,
+    2, 1, 4, 5, 6, 2,
+    1, 4, 3, 1, 5, 3,
+    5, 3, 3, 1, 7, 0
+};
+cardMesh.getFaces().setAll(faces);
+]]>
+                    </programlisting>
+                    <para>
+                        A tömbben elhelyezkedő adatok értelmezése a következő:
+                        <literallayout>
+p<subscript>0</subscript>, t<subscript>0</subscript>, p<subscript>1</subscript>, t<subscript>1</subscript>,  p<subscript>2</subscript>, t<subscript>2</subscript>, // a textúrával ellátott sokszög első háromszöge
+p<subscript>1</subscript>, t<subscript>1</subscript>, p<subscript>2</subscript>, t<subscript>2</subscript>,  p<subscript>3</subscript>, t<subscript>3</subscript> // a textúrával ellátott sokszög második háromszöge
+...
+                        </literallayout>
+                        Ahol p<subscript>0</subscript> a háromszög egyik pontja, t<subscript>0</subscript>
+                        a p<subscript>0</subscript> ponthoz tartozó textúra koordináta.
+                    </para>
+                </listitem>
+            </orderedlist>
+        </sect2>
+
+    </sect1>
+
+    <sect1>
+        <title>Játékmenü</title>
+        <para>A játékmenü hátterében egy asztal jelenik meg, melynek megjelenítését az előző alfejezetben tárgyaltunk.
+            Az előtérben egy menüsor látható, melyek lehetőséget nyújt a felhasználónak egy új játék
+            elindításához, beállítások megadásához, illetve a kilépéshez. Ahhoz, hogy rétegeket tudjunk definiálni
+            szükség van a SubScene osztályra. A SubScene osztály lehetőséget ad a képernyőkép különböző részeinek
+            a kezeléséhez, különböző kamerát, élsimítást, stb. lehet beállítani.
+        <blockquote>
+            <attribution>JavaFX 8.0</attribution>
+            <para>
+            The SubScene class is the container for content in a scene graph.
+            SubScene provides separation of different parts of a scene, each
+            of which can be rendered with a different camera, depth buffer, or scene
+            anti-aliasing. A SubScene is embedded into the main scene or another
+            sub-scene.
+            </para>
+            <literallayout>
+Possible use cases are:
+Mixing 2D and 3D content
+Overlay for UI controls
+Underlay for background
+Heads-up display
+            </literallayout>
+        </blockquote>
+        </para>
+        <para>Ebben az esetben 2D és 3D tartalom keveredik, illetve egy hátteret szeretnénk megadni. A háttér
+            létrehozása a következő módon történik:</para>
+        <programlisting>
+<![CDATA[
+TableView tableView = new TableView();
+backGroundScene = new SubScene(tableView, 0, 0, true, SceneAntialiasing.BALANCED);
+]]>
+        </programlisting>
+        <para>A menüsort egy FXML fájl tartalmazza, melyet egy FXMLLoader típusú objektum segítségével olvasunk be.
+            A beolvasást végző kódcsipet:
+        </para>
+        <programlisting>
+<![CDATA[
+FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/gameMenu.fxml"));
+loader.setController(new GameMenuController(this));
+try {
+    loader.load();
+} catch (IOException e) {
+    logger.error(e.getMessage());
+}
+Node mainMenu = loader.getRoot();
+]]>
+        </programlisting>
+        <para>Végeredményben a menü kinézete:</para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="images/menu.png" width="100%" scalefit="1" />
+            </imageobject>
+        </mediaobject>
+    </sect1>
+
+</chapter>
