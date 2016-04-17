@@ -30,10 +30,8 @@ public class PreLoaderView {
 
     public PreLoaderView() {
         primaryStage = new Stage();
-        Group backGround = new Group();
         TableView tableView = new TableView();
-        backGround.getChildren().add(tableView);
-        backGroundScene = new SubScene(backGround, 0, 0, true, SceneAntialiasing.BALANCED);
+        backGroundScene = new SubScene(tableView, 0, 0, true, SceneAntialiasing.BALANCED);
 
         root = new StackPane();
         scene = new Scene(root, 0, 0, true, SceneAntialiasing.BALANCED);
@@ -47,8 +45,7 @@ public class PreLoaderView {
     }
 
     public void DisplayMenu() {
-        root.getChildren().clear();
-        FXMLLoader loader = new FXMLLoader(PreLoaderView.class.getResource("/fxml/gameMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/gameMenu.fxml"));
         loader.setController(new GameMenuController(this));
         try {
             loader.load();
@@ -56,12 +53,11 @@ public class PreLoaderView {
             logger.error(e.getMessage());
         }
         Node mainMenu = loader.getRoot();
-        root.getChildren().addAll(backGroundScene, mainMenu);
+        root.getChildren().setAll(backGroundScene, mainMenu);
     }
 
     public void DisplayOptionsMenu() {
-        root.getChildren().clear();
-        FXMLLoader loader = new FXMLLoader(PreLoaderView.class.getResource("/fxml/optionsMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/optionsMenu.fxml"));
         loader.setController(new OptionsMenuController(this));
         try {
             loader.load();
@@ -69,7 +65,7 @@ public class PreLoaderView {
             logger.error(e.getMessage());
         }
         Node mainMenu = loader.getRoot();
-        root.getChildren().addAll(backGroundScene, mainMenu);
+        root.getChildren().setAll(backGroundScene, mainMenu);
     }
 
     public void StartGame() {
@@ -77,8 +73,7 @@ public class PreLoaderView {
         game.getGameTask().setOnSucceeded(event1 -> Platform.runLater(() -> {
             DisplayMenu();
         }));
-        root.getChildren().clear();
-        root.getChildren().addAll(game.getRoot().getChildren());
+        root.getChildren().setAll(game.getRoot().getChildren());
         game.Start(1);
     }
 

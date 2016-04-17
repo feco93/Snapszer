@@ -22,14 +22,14 @@ public class TableView extends Group {
     private static final double MODEL_SCALE_FACTOR = 5;
     private static final String directory = "/3ds";
     private static final String tableResource = "/3ds/POKER+TABLE.3ds";
-    private final Node table;
 
     public TableView() {
         TdsModelImporter importer = new TdsModelImporter();
         importer.setResourceBaseUrl(getClass().getResource(directory));
         importer.read(getClass().getResource(tableResource));
         Node[] nodes = importer.getImport();
-        table = nodes[0];
+        importer.close();
+        Node table = nodes[0];
         double x = (table.getBoundsInLocal().getMaxX() + table.getBoundsInLocal().getMinX()) / 2;
         double y = (table.getBoundsInLocal().getMaxY() + table.getBoundsInLocal().getMinY()) / 2;
         double z = (table.getBoundsInLocal().getMaxZ() + table.getBoundsInLocal().getMinZ()) / 2;

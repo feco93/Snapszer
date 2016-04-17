@@ -28,7 +28,6 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- *
  * @author Fecó
  */
 public class HungarianCardView extends MeshView {
@@ -48,7 +47,6 @@ public class HungarianCardView extends MeshView {
     public HungarianCardView(HungarianCard card, Point3D startPosition) {
         this.card = card;
         initCardMesh();
-        setMesh(cardMesh);
         initMaterial();
 
         rotateX = new Rotate(90, Rotate.X_AXIS);
@@ -155,48 +153,53 @@ public class HungarianCardView extends MeshView {
         float hd = DEPTH / 2f;
 
         float points[] = {
-            hw, hh, hd,
-            hw, hh, -hd,
-            hw, -hh, hd,
-            hw, -hh, -hd,
-            -hw, hh, hd,
-            -hw, hh, -hd,
-            -hw, -hh, hd,
-            -hw, -hh, -hd
+                hw, hh, hd,
+                hw, hh, -hd,
+                hw, -hh, hd,
+                hw, -hh, -hd,
+                -hw, hh, hd,
+                -hw, hh, -hd,
+                -hw, -hh, hd,
+                -hw, -hh, -hd
         };
-
-        float texCoords[] = {
-            0.0f, 0.0f,
-            0.5f, 0.0f,
-            1.0f, 0.0f,
-            0.0f, 1.0f,
-            0.5f, 1.0f,
-            1.0f, 1.0f
-        };
-
-        int faces[] = {
-            0, 0, 2, 0, 1, 0,
-            2, 0, 3, 0, 1, 0,
-            4, 0, 5, 0, 6, 0,
-            6, 0, 5, 0, 7, 0,
-            0, 0, 1, 0, 4, 0,
-            4, 0, 1, 0, 5, 0,
-            2, 0, 6, 0, 3, 0,
-            3, 0, 6, 0, 7, 0,
-            0, 4, 4, 5, 2, 1,
-            2, 1, 4, 5, 6, 2,
-            1, 4, 3, 1, 5, 3,
-            5, 3, 3, 1, 7, 0};
 
         cardMesh.getPoints().setAll(points);
+
+        float texCoords[] = {
+                0.0f, 0.0f,
+                0.5f, 0.0f,
+                1.0f, 0.0f,
+                0.0f, 1.0f,
+                0.5f, 1.0f,
+                1.0f, 1.0f
+        };
+
         cardMesh.getTexCoords().setAll(texCoords);
+
+        int faces[] = {
+                0, 0, 2, 0, 1, 0,
+                2, 0, 3, 0, 1, 0,
+                4, 0, 5, 0, 6, 0,
+                6, 0, 5, 0, 7, 0,
+                0, 0, 1, 0, 4, 0,
+                4, 0, 1, 0, 5, 0,
+                2, 0, 6, 0, 3, 0,
+                3, 0, 6, 0, 7, 0,
+                0, 4, 4, 5, 2, 1,
+                2, 1, 4, 5, 6, 2,
+                1, 4, 3, 1, 5, 3,
+                5, 3, 3, 1, 7, 0
+        };
+
         cardMesh.getFaces().setAll(faces);
+
+        setMesh(cardMesh);
     }
 
     private void initMaterial() {
         Image frontImage
                 = new Image(
-                        this.getClass().getResourceAsStream("/images/" + card + ".jpg"));
+                this.getClass().getResourceAsStream("/images/" + card + ".jpg"));
         WritableImage cardImage = new WritableImage(
                 (int) (frontImage.getWidth() + backImage.getWidth()),
                 (int) frontImage.getHeight());
