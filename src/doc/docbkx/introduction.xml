@@ -4,17 +4,22 @@
         xmlns="http://docbook.org/ns/docbook" version="5.1" xml:lang="hu"
 >
     <title>Bevezetés</title>
-    <para>Szakdolgozatom fő célja, hogy olyan technológiákat és megközelítéseket alkalmazzak, amiket később is
+    <para>A Snapszer kártyajáték program írása több szempontból is érdekes lehet. Egyrészt kérdéseket vet fel a játék
+        tervezése, architektúrája, implementálása, tesztelése. Másrészt a grafikus megjelenítés, animációk is egy
+        nagyobb részfeladatot alkotnak. Témaválasztás szempontjából a Snapszer kártyajáték program írása egy jó
+        választásnak tűnhet, mert általa több területről is tudásra és tapasztalatra lehet szert tenni.
+    </para>
+    <para>Olyan technológiákat és megközelítéseket szeretnék alkalmazni a szakdolgozat során, amiket később is
         hasznosítani tudok. Nagy hangsúlyt szeretnék fektetni tesztelésére is, mely remek lehetőségnek
         kínálkozik a tesztelői technológiák megismerésére. A játék implementációjához a JavaFX technológiát
-        választottam. A választásom legfőbb célja az volt, hogy olyan technológiát válasszak, amellyel könnyedén tudom
-        követni az MVC tervezési mintát. Az MVC minta elengedhetetlen volt munkám során, mert olyan rendszert szerettem
-        volna elkészíteni, mely könnyen karbantartható, módosítható és tesztelhető. Ezen elvek követése abban is
-        segített, hogy akár grafikus megjelenítés nélkül is össze tudjak vetni különböző stratégiával rendelkező
-        mesterséges intelligenciákat. A dokumentáció elkészítésénel fontosnak tartottam, hogy olyan eszközt használjak
-        fel, ami lehetővé teszi a verziókezelést és a könnyű tetreszabhatóságat is, így választásom a DocBook eszközre
-        esett. Mivel a projekt Maven projektkezelő eszközzel készült, így a dokumentáció legenárálását is automatizálni
-        tudtam egy Maven bővítmény segítségével.
+        választottam. Választásom fő szempontja volt, hogy olyan technológiát válasszak, amellyel könnyedén tudom
+        követni az MVC tervezési mintát. Az MVC minta segítségével olyan rendszert lehet felépíteni, mely könnyen
+        karbantartható, módosítható és tesztelhető. Ezen tervezési minta követése abban is segített, hogy akár grafikus
+        megjelenítés nélkül is össze tudjak vetni különböző stratégiával rendelkező mesterséges intelligenciákat. A
+        dokumentáció elkészítésénel fontosnak tartottam, hogy olyan eszközt használjak, ami lehetővé teszi a
+        verziókezelést és a könnyű tetreszabhatóságat is, így választásom a DocBook eszközre esett. Mivel a projekt
+        Maven projektkezelő eszközzel készült, így a dokumentáció legenárálását is automatizálni tudtam egy Maven
+        bővítmény segítségével.
     </para>
     <para>A játéknak két különböző játékmódot kell megvalósítania, az egyik módban grafikus felületen
         keresztül lehet játszani egy mesterséges intelligenciával szemben, míg a másik játékmódban két mesterséges

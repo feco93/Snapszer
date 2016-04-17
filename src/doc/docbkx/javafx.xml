@@ -299,4 +299,21 @@ Node mainMenu = loader.getRoot();
         </mediaobject>
     </sect1>
 
+    <sect1>
+        <title>Játékmenet</title>
+        <para>A játékmenüben a Play game nyomógombra kattintva elindul egy játszma. A szabályoknak megfelelően 5-5 lap
+            kerül kiosztásra a játékosoknak és egy lap a pakli aljára kerül felfordítva (adu lap). A játék automatikusan
+            kezdetét veszi. A kártyalapra kattintva az adott lap kijátszásra kerül, ha a szabályok ezt megengedik. A
+            képernyő jobb oldalán nyomógombok lettek elhelyezve, melyek segítségével a megfelelő játékállásban
+            a nyomógombnak megfelelő lépést tudjuk alkalmazni. Az adu lap kicserélését, ha a játékállás lehetővé teszi,
+            úgy lehet megtenni, ha az adu lapra kattintunk.
+        </para>
+        <para>Egy pillanatkép a játékból:</para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="images/gamePlay.png" width="100%" scalefit="1"/>
+            </imageobject>
+        </mediaobject>
+    </sect1>
+
 </chapter>

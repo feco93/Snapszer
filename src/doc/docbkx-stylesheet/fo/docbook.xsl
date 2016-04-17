@@ -116,10 +116,10 @@
     </xsl:attribute-set>
 
     <!--
-    *************************************************************
-    Táblázat automatikus címkézésének eltávolítása
-    *************************************************************
-    -->
+   *************************************************************
+   Táblázat automatikus címkézésének eltávolítása
+   *************************************************************
+   -->
 
     <xsl:param name="local.l10n.xml" select="document('')"/>
     <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0">
@@ -140,7 +140,7 @@
     Csak könyv szintű tartalomjegyzék generálása
     *************************************************************
     -->
-    <xsl:param name="generate.toc" select="'book toc'"/>
+    <xsl:param name="generate.toc" select="'book toc,title'"/>
 
 
 </xsl:stylesheet>

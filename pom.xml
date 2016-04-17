@@ -32,22 +32,6 @@
                 <configuration>
                     <mainClass>hu.unideb.snapszer.MainApp</mainClass>
                 </configuration>
-                <!-- <executions>
-                    <execution>
-                        <id>create-jfxjar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build-jar</goal>
-                        </goals>
-                    </execution>
-                     <execution>
-                        <id>run-jfxjar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions> -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -78,9 +62,10 @@
                 <configuration>
                     <hyphenate>false</hyphenate>
 
+                    <sourceDirectory>src/doc/docbkx</sourceDirectory>
                     <xincludeSupported>true</xincludeSupported>
                     <includes>index.xml</includes>
-                    <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
+                    <foCustomization>src/doc/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
                     <paperType>A4</paperType>
                     <fop1Extensions>true</fop1Extensions>
                     <fonts>
@@ -88,28 +73,28 @@
                             <name>TimesNewRoman</name>
                             <style>normal</style>
                             <weight>normal</weight>
-                            <embedFile>${basedir}/src/fonts/times.ttf</embedFile>
+                            <embedFile>${basedir}/src/doc/fonts/times.ttf</embedFile>
                             <metricsFile>${basedir}/target/fonts/times-metrics.xml</metricsFile>
                         </font>
                         <font>
                             <name>TimesNewRoman</name>
                             <style>italic</style>
                             <weight>normal</weight>
-                            <embedFile>${basedir}/src/fonts/timesi.ttf</embedFile>
+                            <embedFile>${basedir}/src/doc/fonts/timesi.ttf</embedFile>
                             <metricsFile>${basedir}/target/fonts/timesi-metrics.xml</metricsFile>
                         </font>
                         <font>
                             <name>TimesNewRoman</name>
                             <style>normal</style>
                             <weight>bold</weight>
-                            <embedFile>${basedir}/src/fonts/timesbd.ttf</embedFile>
+                            <embedFile>${basedir}/src/doc/fonts/timesbd.ttf</embedFile>
                             <metricsFile>${basedir}/target/fonts/timesbd-metrics.xml</metricsFile>
                         </font>
                         <font>
                             <name>TimesNewRoman</name>
                             <style>italic</style>
                             <weight>bold</weight>
-                            <embedFile>${basedir}/src/fonts/timesbi.ttf</embedFile>
+                            <embedFile>${basedir}/src/doc/fonts/timesbi.ttf</embedFile>
                             <metricsFile>${basedir}/target/fonts/timesbi-metrics.xml</metricsFile>
                         </font>
                     </fonts>
@@ -143,6 +128,9 @@
                 <groupId>com.agilejava.docbkx</groupId>
                 <artifactId>docbkx-fop-support</artifactId>
                 <version>2.0.16</version>
+                <configuration>
+                    <sourceDirectory>src/doc/fonts</sourceDirectory>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>generate-resources</phase>
