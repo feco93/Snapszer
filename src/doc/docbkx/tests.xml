@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter
-        xml:id="tests.xml"
+        xml:id="tests"
         xmlns="http://docbook.org/ns/docbook" version="5.1" xml:lang="hu"
 >
     <title>Tesztelés</title>

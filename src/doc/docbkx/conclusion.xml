@@ -1,7 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter
-        xmlns="http://docbook.org/ns/docbook" version="5.1" xml:lang="hu"
+        xml:id="conclusion"
+        xmlns="http://docbook.org/ns/docbook"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="5.1" xml:lang="hu"
 >
     <title>Összefoglalás</title>
-    <para></para>
+    <para>A játék teljes mértékben teljesíti a
+        <link xlink:href="#rules">Játékszabályok</link>
+        fejezetben ismertetett játékszabályokat. A program lehetőséget ad,
+        hogy grafikus felületen tudjunk játszani egy számítógép játékos ellen, ahol a valósághoz hasonló 3D-s látvány
+        tárul elénk, melynek élményét az animációk tovább fokozzák. Ezen kívül a program segítségével össze tudunk vetni
+        különböző stratégiával rendelkező mesterséges intelligenciákat. A szoftver tartalmaz néhány számítógép játékos
+        megvalósítást, melyek ellen mi magunk is játszhatunk. Ezen játékosok megvalósításánál nem a bonyolúltság volt a
+        cél, hanem, hogy több megközelítést is össze tudjunk vetni, akár nagyszámú játszmák esetén is. A szoftver
+        lehetőséget ad arra, hogy ezeket a megvalósításokat továbbfejlesszük, vagy akár egy teljesen új stratégiával
+        rendelkező számítógép játékost hozzunk létre.
+    </para>
+    <para>A tesztelés nagyban hozzájárult a karbantarthatósághoz, a kód minőségének biztosításához. Az egységtesztek
+        fényt derítettek kisebb implementációs hibákra, melyek javításra kerültek. Ez is azt támasztja alá, hogy megéri
+        időt és energiát fektetni tesztelésre. Kellő tapasztalattal a tesztelésre fordított idő sok esetben csökkenteni
+        tudja az implementálásra és hibajavításra szánt időt. A tesztelés során új tudással és tapsztalattal
+        gyarapodtam,
+        megismertem többek között a Mockito keretrendszert is, melyről bővebben lehet olvasni a
+        <link xlink:href="#tests">Teszt</link>
+        fejezetben.
+    </para>
+    <para>Egy programot sosem lehet befejezettnek tekinteni. A játék program nagyon sok továbbfejlesztési lehetőséget
+        rejt magában modularitásának köszönhetően.
+    </para>
+    <para>
+        <emphasis role="bold">Néhány ezek közül:</emphasis>
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para>A játék könnyen továbbfejleszthető, hogy a Snapszer játékon felül Zsírozás játékot is tudjunk
+                játszani. Ebben az esetben sok osztály újrafelhasználható, többek között a paklit, kártyalapokat
+                megvalósító, az absztrakt ős operátor osztály.
+            </para>
+        </listitem>
+        <listitem>
+            <para>A játék tovább bővíthető, hogy ne csak kétszemélyes snapszer játék legyen játszható, hanem a
+                négyszemélyes verziója is.
+            </para>
+        </listitem>
+        <listitem>
+            <para>Egy jó továbbfejlesztési irányvonal lehet, ha lehetőséget nyújtunk olyan játékmódra, ahol két játékos
+                játszhat egymás ellen, hálózaton keresztül.
+            </para>
+        </listitem>
+        <listitem>
+            <para>Az MVC tervezési mintának köszönhetően a felhasználói felületet tudjuk módosítani, hogy az
+                bármi változást idézne elő a játék logikájában. Lehetőség van új animációk elkészítésére, új hátlapok
+                hozzáadására, megvilágítások módosítására, stb.
+            </para>
+        </listitem>
+        <listitem>
+            <para>Végül, de nem utolsó sorban új stratégiákkal rendelkező számítógép játékosokkal lehet bőveteni a
+                programot.
+            </para>
+        </listitem>
+    </itemizedlist>
 </chapter>

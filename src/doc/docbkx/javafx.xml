@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter
-        xml:id="javafx.xml"
+        xml:id="javafx"
         xmlns="http://docbook.org/ns/docbook" version="5.1" xml:lang="hu"
 >
     <title>Felhasználói felület JavaFX tecnológiával</title>
