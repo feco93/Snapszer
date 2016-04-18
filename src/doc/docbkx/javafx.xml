@@ -246,7 +246,7 @@ p<subscript>1</subscript>, t<subscript>1</subscript>, p<subscript>2</subscript>,
     <sect1>
         <title>Játékmenü</title>
         <para>A játékmenü hátterében egy asztal jelenik meg, melynek megjelenítését az előző alfejezetben tárgyaltunk.
-            Az előtérben egy menüsor látható, melyek lehetőséget nyújt a felhasználónak egy új játék
+            Az előtérben egy menüsor látható, mely lehetőséget nyújt a felhasználónak egy új játék
             elindításához, beállítások megadásához, illetve a kilépéshez. Ahhoz, hogy rétegeket tudjunk definiálni
             szükség van a SubScene osztályra. A SubScene osztály lehetőséget ad a képernyőkép különböző részeinek
             a kezeléséhez, különböző kamerát, élsimítást, stb. lehet beállítani.
