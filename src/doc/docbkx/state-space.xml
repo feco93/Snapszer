@@ -465,9 +465,20 @@
             <listitem>
                 <para>Snapszert mond: Mond<subscript>Snapszer</subscript>
                 </para>
-                <para>Alkalmazási előfeltétel: dom(Mond<subscript>Snapszer</subscript>) = { (s, a, c, x) ∈ All |
-                    |{s<subscript>k,l</subscript> ∈ s | s<subscript>k,l</subscript> = 0)}| = 10 ∧
-                    Snapszer ∧ ¬Takarás }
+                <para>Alkalmazási előfeltétel:
+                    <orderedlist>
+                        <listitem>
+                            <para>Az első kör van:
+                                |{s<subscript>k,l</subscript> ∈ s | s<subscript>k,l</subscript> = 0)}| = 10</para>
+                        </listitem>
+                        <listitem>
+                            <para>Nem takartak és nem mondtak snapszert:
+                                ¬Snapszer ∧ ¬Takarás
+                            </para>
+                        </listitem>
+                    </orderedlist>
+                    dom(Mond<subscript>Snapszer</subscript>) = { (s, a, c, x) ∈ All |
+                    (1) ∧ (2) }
                 </para>
                 <para>Hatása:
                     <itemizedlist>
@@ -500,12 +511,26 @@
             <listitem>
                 <para>20-t mond: Mond<subscript>20</subscript>
                 </para>
-                <para>Alkalmazási előfeltétel: dom(Mond<subscript>20</subscript>) = { (s, a, c, x) ∈ All |
-                    c = x ∧ ¬Mondott<subscript>20</subscript>(x) ∧ ¬Mondott<subscript>40</subscript>(x) ∧
-                    ∃<subscript>k</subscript>∃<subscript>l</subscript>( s<subscript>k,l</subscript> = Játékos(x) ∧
-                    l = 2 ∧ ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript>)
-                    = Játékos(x) ) ∧ j = 3 ∧ i = k ∧ i ≠ a ))}
+                <para>Alkalmazási előfeltétel:
+                    <orderedlist>
+                        <listitem>
+                            <para>A jelenlegi játékos a hívó játékos: c = x</para>
+                        </listitem>
+                        <listitem>
+                            <para>Nem mondott 20-t és nem mondott 40-t:
+                                ¬Mondott<subscript>20</subscript>(x) ∧ ¬Mondott<subscript>40</subscript>(x)</para>
+                        </listitem>
+                        <listitem>
+                            <para>A 20 bemondásához szükséges lapok a játékos kezében vannak:
+                                ∃<subscript>k</subscript>∃<subscript>l</subscript>( s<subscript>k,l</subscript> = Játékos(x)
+                                ∧ l = 2 ∧ ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript>)
+                                = Játékos(x) ) ∧ j = 3 ∧ i = k ∧ i ≠ a ))
+                            </para>
+                        </listitem>
+                    </orderedlist>
                 </para>
+                <para>dom(Mond<subscript>20</subscript>) = { (s, a, c, x) ∈ All |
+                    (1) ∧ (2) ∧ (3) }</para>
                 <para>Hatása:
                     <itemizedlist>
                         <listitem>
@@ -537,11 +562,27 @@
             <listitem>
                 <para>40-t mond: Mond<subscript>40</subscript>
                 </para>
-                <para>Alkalmazási előfeltétel: dom(Mond<subscript>40</subscript>) = { (s, a, c, x) ∈ All |
-                    c = x ∧ ¬Mondott<subscript>20</subscript>(x) ∧ ¬Mondott<subscript>40</subscript>(x) ∧
-                    ∃<subscript>k</subscript>∃<subscript>l</subscript>( s<subscript>k,l</subscript> = Játékos(x) ∧
-                    l = 2 ∧ ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript>)
-                    = Játékos(x) ) ∧ j = 3 ∧ i = k ∧ i = a ))}
+                <para>Alkalmazási előfeltétel:
+                    <orderedlist>
+                        <listitem>
+                            <para>A jelenlegi játékos a hívó játékos: c = x</para>
+                        </listitem>
+                        <listitem>
+                            <para>Nem mondott 20-t és nem mondott 40-t:
+                                ¬Mondott<subscript>20</subscript>(x) ∧ ¬Mondott<subscript>40</subscript>(x)</para>
+                        </listitem>
+                        <listitem>
+                            <para>A 20 bemondásához szükséges lapok a játékos kezében vannak:
+                                ∃<subscript>k</subscript>∃<subscript>l</subscript>( s<subscript>k,l</subscript> = Játékos(x) ∧
+                                l = 2 ∧ ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript>)
+                                = Játékos(x) ) ∧ j = 3 ∧ i = k ∧ i = a ))
+                            </para>
+                        </listitem>
+                    </orderedlist>
+
+                </para>
+                <para> dom(Mond<subscript>40</subscript>) = { (s, a, c, x) ∈ All |
+                    (1) ∧ (2) ∧ (3) }
                 </para>
                 <para>Hatása:
                     <itemizedlist>
@@ -573,11 +614,26 @@
             </listitem>
             <listitem>
                 <para>Adu lapot cserél: Aducsere</para>
-                <para>Alkalmazási előfeltétel: dom(Aducsere) = { (s, a, c, x) ∈ All |
-                    c = x ∧ |{s<subscript>k,l</subscript> ∈ s | s<subscript>k,l</subscript> = 0)}| ≥ 4 ∧
-                    ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript> = Játékos(x) ∧
-                    j = 1 ∧ i = a)}
+                <para>Alkalmazási előfeltétel:
+                    <orderedlist>
+                        <listitem>
+                            <para>A jelenlegi játékos a hívó játékos: c = x</para>
+                        </listitem>
+                        <listitem>
+                            <para>Még legalább 4 lap van a talonban:
+                                |{s<subscript>k,l</subscript> ∈ s | s<subscript>k,l</subscript> = 0)}| ≥ 4
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Az adu színű ALSÓ a hívó játékos kezében van:
+                                ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript> = Játékos(x) ∧
+                                j = 1 ∧ i = a)
+                            </para>
+                        </listitem>
+                    </orderedlist>
                 </para>
+                <para>dom(Aducsere) = { (s, a, c, x) ∈ All |
+                    (1) ∧ (2) ∧ (3) }</para>
                 <para>Hatása:
                     <itemizedlist>
                         <listitem>
@@ -609,8 +665,8 @@
             <listitem>
                 <para>Lapot üt: Üt</para>
                 <para>Alkalmazási előfeltétel: dom(Üt) = { (s, a, c, x) ∈ All |
-                    |{s<subscript>i,j</subscript> ∈ S | s<subscript>i,j</subscript> = 4 ∨ s<subscript>i,j</subscript>
-                    = 5}| = 2 }
+                    |{s<subscript>i,j</subscript> ∈ S | s<subscript>i,j</subscript> = 4 ∨
+                    s<subscript>i,j</subscript> = 5}| = 2 }
                 </para>
                 <para>Hatása:
                     <itemizedlist>

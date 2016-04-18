@@ -199,11 +199,20 @@ float texCoords[] = {
 cardMesh.getTexCoords().setAll(texCoords);
 ]]>
                     </programlisting>
-                    <mediaobject>
-                        <imageobject>
-                            <imagedata fileref="images/texCoords.png"/>
-                        </imageobject>
-                    </mediaobject>
+                    <para>
+                        <mediaobject>
+                            <imageobject>
+                                <imagedata fileref="images/texCoords.png"/>
+                            </imageobject>
+                        </mediaobject>
+                    </para>
+                    <para>Ez a felosztás lehetővé teszi, hogy az elő és hátlap képet egymás mellé illesztve rá tudjuk
+                        illeszteni a hasáb felületére. Természetesen a képek összeillesztése dinamikusan történik, a
+                        hátlap és az elő lapok egy-egy fájlban vannak eltárolva és csak futási időben alkotnak egy kép
+                        objektumot. A két kép összeillesztéséhez kiváló lehetőségeket nyújtanak a JavaFX osztályai,
+                        ilyan osztály például a WritableImage, PixelWriter, PixelReader. A megvalósítás a
+                        HungarianCardView osztály initMaterial metódusában található.
+                    </para>
                 </listitem>
                 <listitem>
                     <para>Végül egy egészekből álló tömb segítségével kell reprezentálni az objektum felületét.
@@ -292,11 +301,13 @@ Node mainMenu = loader.getRoot();
 ]]>
         </programlisting>
         <para>Végeredményben a menü kinézete:</para>
-        <mediaobject>
-            <imageobject>
-                <imagedata fileref="images/menu.png" width="100%" scalefit="1" />
-            </imageobject>
-        </mediaobject>
+        <para>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="images/menu.png" width="100%" scalefit="1" />
+                </imageobject>
+            </mediaobject>
+        </para>
     </sect1>
 
     <sect1>
