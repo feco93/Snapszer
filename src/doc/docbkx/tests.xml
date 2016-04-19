@@ -7,44 +7,90 @@
     <sect1>
         <title>A tesztelés szerepe a fejlesztési folyamatban</title>
         <para>Napjainban a programokkal szemben támasztott követelmények megnőttek. Ezek a követelmények lehetnek
-            funkcionálisak és nem funkcionálisak is. Ahhoz, hogy ezeket a követelményeket teljesíteni tudják a programok,
-            megfelelő tesztelésre van szükség. Egy játék program esetén, mint a snapszer kártyajáték, felveti a tesztelés
-            szükségességét. Ezek a tesztelések támogathatják a fejlesztés menetetét, javíthatják a kód minőségét. A
-            fejlesztők első sorban egységtesztek segítségével szokták tesztelni a programot. Az egységtesztek
-            készülhetnek párhuzamosan a programmal vagy akár a fejlesztés megkezdése előtt is elkészülhetnek. Az agilis
-            szoftverfejlesztési módszertanok közül az XP (Extreme Programming) szorgalmazza a TDD (Test Driven
-            Development) alkalmazását, ahol is az egységtesztek hamarabb készülnek el, mint a program.
+            funkcionálisak és nem funkcionálisak is. Ahhoz, hogy ezeket a követelményeket teljesíteni tudják a
+            programok, megfelelő tesztelésre van szükség. Egy játék program esetén, mint a snapszer kártyajáték, felveti
+            a tesztelés szükségességét. Ezek a tesztelések támogathatják a fejlesztés menetetét, javíthatják a kód
+            minőségét is, de legfőbb céljuk az előforduló hibák csökkentése.
         </para>
     </sect1>
+
     <sect1>
         <title>Egységtesztelés</title>
-        <para>Az egységteszt olyan tesztelési szint, mely a program legkisebb, önállóan működő részét teszteli.</para>
+        <para>Az egységteszt olyan tesztelési szint, mely a program legkisebb, önállóan működő részét teszteli.
+            A fejlesztők első sorban egységtesztek segítségével szokták tesztelni a programot. Az
+            egységtesztek készülhetnek a program elkészülése után, párhuzamosan a programmal, vagy akár a fejlesztés
+            megkezdése előtt is elkészülhetnek. Az agilis szoftverfejlesztési módszertanok közül az XP (Extreme
+            Programming) szorgalmazza a TDD (Test Driven Development) alkalmazását.
+        </para>
+        <para>A TDD egy automatizált egységtesztelési technika, aminek a segítségével egy olyan széleskörű
+            tesztkészletre tehetünk szert, ami bárhol és bármikor visszajelzést adhat arról, hogy a szoftver továbbra is
+            működik. A teszt vezérelt fejlesztés mottója: "Red, Green, Refactor".
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>Red: csinálj egy tesztet, ami elbukik.</para>
+            </listitem>
+            <listitem>
+                <para>Green: kódolj addig, míg a teszt sikeres nem lesz.</para>
+            </listitem>
+            <listitem>
+                <para>Refactor: optimalizáld, szervezd át úgy a kódot, hogy a teszten továbbra is átmenjen.</para>
+            </listitem>
+        </itemizedlist>
+        <para>Ezeket a lépéseket ismételd addig, míg nem teljesül minden funkcionális is nem funkcionális követelmény.</para>
+        <para>
+            <emphasis role="bold">Az egységtesztek legfőbb jellemzői:</emphasis>
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>Gyors futás: Ha a tesztek lassan futnak le, akkor nem lehet őket gyakran ismételni.</para>
+            </listitem>
+            <listitem>
+                <para>Céljuk pontosan egy programegység tesztelése: Ha a tesztelendő programegységnek függőségei vannak,
+                    akkor a függőségek működését az egységteszt részeként kell szimulálni.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Függetlenség: Az egységteszteknek egymástól függetlennek kell lenniük. Egy teszt végrehajtása nem
+                    függhet egy másik teszt végrehajtásától.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Ismételt végrehajtás: Az egységteszteknek megismételhetőnek kell lenniük. Az egységteszek ereje
+                    a regressziós végrehajtásban rejlik.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Futtató környezettől való függetlenség: Ezen kritérium lehetővé teszi, hogy a tesztek könnyen
+                    végrehajthatók legyenek bárhol, bármikor. Ilyen függőség lehet például egy adatbázis. Nem alapozhat
+                    arra
+                    egy teszteset, hogy az adatbázis mindig rendelkezésre fog állni.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Mellekhatástól mentesek: Nem módosítják a futtató környezetet, hogy az hatással legyen más
+                    tesztek végrehajtására.
+                </para>
+            </listitem>
+        </itemizedlist>
         <para>
             <emphasis role="bold">Tesztelő környezet kialakítása</emphasis>
         </para>
         <para>A játék program teszteléséhez a JUnit tesztelő keretrendszert használtam. Maven projekt esetén, a JUnit
             könnyen használatba vehető. Először is a projekt függőségek közzé fel kell venni a következő függőséget:
         </para>
-        <programlisting language="xml">
-            <![CDATA[
-<dependency>
+        <programlisting language="xml"><![CDATA[<dependency>
     <groupId>junit</groupId>
     <artifactId>junit</artifactId>
     <version>4.10</version>
     <scope>test</scope>
-</dependency>
-]]>
-        </programlisting>
+</dependency>]]></programlisting>
         <para>Ezen kívül még szükség van a mockito keretrendszerre, melyet a következő módon lehet megadni:</para>
-        <programlisting language="xml">
-            <![CDATA[
-<dependency>
+        <programlisting language="xml"><![CDATA[<dependency>
     <groupId>org.mockito</groupId>
     <artifactId>mockito-all</artifactId>
     <version>1.10.19</version>
-</dependency>
-]]>
-        </programlisting>
+</dependency>]]></programlisting>
         <para>Ha ez kész van, akkor létre kell hozni a megfelelő könyvtár struktúrát. A következő struktúrát kell
             követni: src/test/java. Ebben a könyvtárban lehet elhelyezni a kívánt teszt osztályokat, és a további
             könyvtárakat struktúrálás céljából.
@@ -62,10 +108,7 @@
             Ezek a listákat a konstruktorban példányosítjuk és final módosítóval látjuk el őket, hogy a későbbiekben
             ezeket ne lehessen módosítani.
         </para>
-        <programlisting language="java">
-            <?dbfo keep-together="auto" ?>
-            <![CDATA[
-private final ObservableList<ICard> deckContains20;
+        <programlisting language="java"><![CDATA[private final ObservableList<ICard> deckContains20;
 private final ObservableList<ICard> deckNotContains20;
 
 public Say20OperatorTest() {
@@ -92,9 +135,7 @@ public Say20OperatorTest() {
             HungarianCardRank.TIZ, HungarianCardSuit.MAKK),
         new HungarianCard(
             HungarianCardRank.ALSO, HungarianCardSuit.TOK));
-}
-]]>
-        </programlisting>
+}]]></programlisting>
         <para>Az alábbi példában, a setUp metódusban példányosításra kerül 3 db mock objektum. Ezen objektumok teszik
             lehetővé, hogy a tesztünk ne függjön más osztályoktól. Előre megadjuk az objektumok viselkedését, hogy
             bizonyos paraméterek esetén az egyes metódus hívások milyen értékeket szolgáltassanak. Az applicableTest
@@ -102,9 +143,7 @@ public Say20OperatorTest() {
             lehetősége van a 20 bemondására. A játék jelenlegi állapotát a mock objektumok szolgáltatják, így
             a teszt metódus csak a Say20Operator működésére fókuszál.
         </para>
-        <programlisting language="java">
-            <![CDATA[
-@Before
+        <programlisting language="java"><![CDATA[@Before
 public void setUp() {
     gameMatchMock = Mockito.mock(GameMatch.class);
     currentPlayer = Mockito.mock(Player.class);
@@ -117,26 +156,20 @@ public void applicableTest() {
     when(gameMatchMock.getCurrentPlayer()).thenReturn(currentPlayer);
     Say20Operator say20Operator = new Say20Operator(currentPlayer);
     assertTrue(say20Operator.isApplicable(gameMatchMock));
-}
-]]>
-        </programlisting>
+}]]></programlisting>
         <para>A következő példánkban egy ellenkező esetet vizsgálunk meg, azt teszteljük, hogy egy operátor a megadott
             játék állásban nem alkalmazható. A notApplicableTest metódus azt az esetet vizsgálja meg, amikor a soron
             következő játékos a hívó, de nincsenek a kezében a megfelelő lapok, hogy jogosult legyen a 20
             bemondására. Az assertFalse metódus abban az esetben bukik el, ha a paraméterben megadott kifejezés logikai
             értéke igaz.
         </para>
-        <programlisting language="java">
-            <![CDATA[
-@Test
+        <programlisting language="java"><![CDATA[@Test
 public void notApplicableTest() {
     when(currentPlayer.getCards()).thenReturn(deckNotContains20);
     when(gameMatchMock.getCurrentPlayer()).thenReturn(currentPlayer);
     Say20Operator say20Operator = new Say20Operator(currentPlayer);
     assertFalse(say20Operator.isApplicable(gameMatchMock));
-}
-]]>
-        </programlisting>
+}]]></programlisting>
         <para>A mockito keretrendszer lehetővé teszi számunkra, hogy különböző viselkedéseket teszteljünk:</para>
         <itemizedlist>
             <listitem>
@@ -152,9 +185,7 @@ public void notApplicableTest() {
         <para>A következő példában a 40 bemondását reprezentáló operátort teszteljük, abból az aspektusból, hogy az
             operátor alkalmazása meghívta-e az általunk megadott metódusokat.
         </para>
-        <programlisting language="java">
-            <![CDATA[
-@Test
+        <programlisting language="java"><![CDATA[@Test
 public void applyTest() {
     when(currentPlayer.getCards()).thenReturn(deckContains40);
     when(gameMatchMock.getCurrentPlayer()).thenReturn(currentPlayer);
@@ -162,9 +193,7 @@ public void applyTest() {
     say40Operator.apply(gameMatchMock);
     verify(currentPlayer).setSaid40(eq(true));
     verify(currentPlayer).addScore(eq(40));
-}
-]]>
-        </programlisting>
+}]]></programlisting>
         <para>A verify metódus segítségével teszteljük azt a viselkedést, miszerint a jelenlegi játékos (aki alkalmazta
             a 40 bemondását) setSaid40 metódusa a logikai igaz (true) paraméterrel, illetve az addScore
             metódus a 40 paraméterrel lett meghívva.
@@ -187,14 +216,14 @@ public void applyTest() {
                 </listitem>
             </itemizedlist>
         </para>
-        <para>A "maven-surefire-report-plugin" bővítmény segítségével könnyen tudunk jelentéseket készíteni a tesztek
+        <para>A maven-surefire-report-plugin bővítmény segítségével könnyen tudunk jelentéseket készíteni a tesztek
             sikerességéről, sikertelenségéről. Ha a bővítményt felvesszük a reporting elemben, akkor a site maven
             életciklus során automatikusan generálásra kerül egy jelentés, amit böngészőben meg tudunk tekinteni.
         </para>
         <para>Példa jelentésre:</para>
         <mediaobject>
             <imageobject>
-                <imagedata fileref="images/surefirereport.png"  width="100%" scalefit="1"/>
+                <imagedata fileref="images/surefirereport.png" width="100%" scalefit="1"/>
             </imageobject>
         </mediaobject>
         <para>Az előző bővítményt a cobertura-maven-plugin remekül kiegészíti. A cobertura segítségével áttekintést
