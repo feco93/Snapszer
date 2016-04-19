@@ -89,43 +89,103 @@ public void onApply(GameMatch game) {
 ]]>
         </programlisting>
     </sect1>
+
     <sect1>
-        <title>Számítógép stratégiák</title>
-        <para>A számítógép játékosokat megvalósító osztályok az absztrakt Computer osztályból származnak. A Computer
-            osztály két metódust tartalmaz, melynek segítségével össze lehet gyűjteni az alkalmazható operátorokat:
+        <title>Egy játszma párhuzamosítása</title>
+        <para>A program két szálon fut, az egyik szál a grafikus megjelenítésért, a másik szál pedig a játék logikájának
+            a megvalósításáért felel. A párhuzamos programozásnak köszönhetően egy számítás igényes művelet esetén, amit
+            például egy számítógép játékos végezhet, a felhasználói felület továbbra is képes feldolgozni a felhasználói
+            interakciókat, mivel az egy külön szálon fut.
         </para>
+        <para>Egy játék lebonyolítását a SnapszerTwoPlayerGame osztály végzi, ami a Task&lt;Void&gt; absztrakt
+            osztályból származik, aminek van egy call absztrakt metódusa, amit implementálni kell. A call metódusban
+            kerül elindításra a játszma és itt inicializálódik a talon is. A játszmát követően a nyert pontokat
+            hozzáadja a nyertes játékos pontjaihoz és ha még nincs vége a játéknak, akkor egy új játszmát indít el.
+        </para>
+        <para>A játszma megvalósítását a GameMatch osztály végzi. Ez az osztály felel:</para>
+        <itemizedlist>
+            <listitem>
+                <para>A játszma elindításáért, a játékosok véletlenszerű kezdéséért.</para>
+            </listitem>
+            <listitem>
+                <para>A végállás figyeléséért.</para>
+            </listitem>
+            <listitem>
+                <para>Az operátorok validálásáért, alkalmazásáért.</para>
+            </listitem>
+            <listitem>
+                <para>A játék körök kezeléséért.</para>
+            </listitem>
+            <listitem>
+                <para>A lapok húzásáért.</para>
+            </listitem>
+            <listitem>
+                <para>A nyertes játékos és a nyert pontok meghatározásáért.</para>
+            </listitem>
+        </itemizedlist>
+        <para>A GameMatch biztosítja, hogy a játékosok csak azokról az információkról tudjanak, amiket a szabályok
+            egyébként is megengednek, ehhez a GameState segéd osztályt használja fel. Ennek a megoldásnak köszönhetően
+            a számítógép játékosok nem ismerik a talon tartalmát és nincs információjuk, hogy az ellenfél játékosnál
+            milyen kártyalapok találhatóak.
+        </para>
+        <para>A játszma fő részét a következő kódcsipet valósítja meg:</para>
         <programlisting>
             <![CDATA[
-protected List<Operator> getAllOperators() {
-    List<Operator> allOperators = new ArrayList<>(11);
-    allOperators.addAll(Arrays.asList(new CoverOperator(this),
-        new Say20Operator(this),
-        new Say40Operator(this),
-        new SayEndOperator(this),
-        new SnapszerOperator(this),
-        new SwapTrumpOperator(this)));
-    for (HungarianCard card : getCards()) {
-        PlayCardOperator op = new PlayCardOperator(this, card);
-        allOperators.add(op);
+public void play() {
+    initGame();
+    while (true) {
+        if (isMatchOver())
+            return;
+        for (Player player :
+            getPlayers()) {
+            while (true) {
+                Operator op = player.chooseOperator(
+                    getAllApplicableOperators(player),
+                    new GameState(
+                        getTrumpCard(),
+                        new ArrayList<>(getCardsOnTable()),
+                        new ArrayList<>(getPlayedCards())));
+                if (op.isApplicable(this)) {
+                    op.apply(this);
+                    logger.trace(String.format(
+                        "The %s player apply: %s",
+                        player.getName(),
+                        op.toString()));
+                    if (op instanceof PlayCardOperator) {
+                        break;
+                    }
+                    if (op instanceof SayEndOperator) {
+                        return;
+                    }
+                }
+            }
+        }
+        beatPhase();
+        drawPhase(1);
     }
-    return allOperators;
 }
-
-protected List<Operator> getAllApplicableOperators(GameMatch game) {
-        return getAllOperators().stream().
-                filter(op -> op.isApplicable(game)).
-                collect(Collectors.toList());
-    }
 ]]>
         </programlisting>
+        <para>A játszma addig tart míg a végállapot feltételei nem teljesülnek. A játékosok egymás után felváltva
+            következnek. Ha a játékos hívott egy lapot, akkor a következő játékos következik, illetve ha azt mondta
+            sikeresen, hogy "elég", akkor vége van a játszmának. A kör végén meghatározásra kerül, hogy ki üti el a
+            lapokat, majd lapot húznak a játékosok.
+        </para>
+    </sect1>
+
+    <sect1>
+        <title>Számítógép stratégiák</title>
+        <para>A számítógép játékosokat megvalósító osztályok az absztrakt Computer osztályból származnak, ami pedig
+            az absztrakt Player osztályból származik.
+        </para>
         <para>A legegyeszerűbb számítógép játékos megvalósítás:
             <emphasis role="bold">Random computer</emphasis>
             (A szabályos lépések közül véletlenszerűen választ egyet).
         </para>
         <programlisting>
             <![CDATA[
-private Operator chooseRandomOperator(GameMatch game) {
-    List<Operator> operators = getAllApplicableOperators(game);
+@Override
+public Operator chooseOperator(List<Operator> operators, GameState gameState) {
     Random randomGenerator = new Random();
     int index = randomGenerator.nextInt(operators.size());
     return operators.get(index);
@@ -138,7 +198,7 @@ private Operator chooseRandomOperator(GameMatch game) {
         </para>
         <programlisting>
             <![CDATA[
-private Integer getGoodness(Operator op, GameMatch game) {
+private Integer getGoodness(Operator op, GameState gameState) {
     if (op instanceof SayEndOperator)
         return Integer.MAX_VALUE;
     if (op instanceof SwapTrumpOperator)
@@ -149,19 +209,18 @@ private Integer getGoodness(Operator op, GameMatch game) {
         return 20;
     if (op instanceof PlayCardOperator) {
         PlayCardOperator playCardOperator = (PlayCardOperator) op;
-    if (!game.getCardsOnTable().isEmpty()) {
-        if (game.getCardsOnTable().get(0).
-            compareTo(playCardOperator.getCard()) < 0) {
-                return playCardOperator.getCard().getPoints();
+        if (!gameState.tableIsEmpty()) {
+            if (gameState.getCardsOnTable().get(0).
+                compareTo(playCardOperator.getCard()) < 0) {
+                    return playCardOperator.getCard().getScore();
             } else {
-                return -1 * playCardOperator.getCard().getPoints();
+                return -1 * playCardOperator.getCard().getScore();
             }
         } else {
-            return playCardOperator.getCard().getPoints();
+            return playCardOperator.getCard().getScore();
         }
     }
     return Integer.MIN_VALUE;
-    }
 }
 ]]>
         </programlisting>
@@ -198,12 +257,20 @@ protected List<HungarianCard> higherCards(HungarianCard card) {
             alkalmazza, ha nagy esély van rá, hogy ezt követően megnyeri a meccset. Ezen játékos implementációját külön
             már nem tárgyaljuk, implementációja megtalálható a ComputerExpert osztályban.
         </para>
+    </sect1>
+
+
+    <sect1>
+        <title>Stratégiák összehasonlítása</title>
         <para>
             A játék biztosít egy olyan játékmódot, ahol egymás ellen játszhatnak a számítógép játékosok. Ebben a
             játékmódban grafikus megjelenítés nélkül zajlanak a játszmák. Az eredményről, illetve a játék folyamatáról
             egy log állomány keletkezik. Ezen állomány többek között az alábbi információkat tartalmazza:
         </para>
         <itemizedlist>
+            <listitem>
+                <para>A játszma kezdetét/végét</para>
+            </listitem>
             <listitem>
                 <para>Melyik játékos melyik operátort/operátorokat alkalmazta</para>
             </listitem>
@@ -218,9 +285,9 @@ protected List<HungarianCard> higherCards(HungarianCard card) {
                 </para>
             </listitem>
         </itemizedlist>
-        <para>Egy példa kimenet részlete:</para>
-        <programlisting>
-            <![CDATA[
+        <para>Egy példa kimenet részlete:
+            <programlisting>
+                <![CDATA[
 21:01:01 INFO SnapszerTwoPlayerGame The match is starting...
 21:01:01 TRACE GameMatch The Computer (Random operator) player apply: SnapszerOperator
 21:01:01 TRACE GameMatch The Computer (Random operator) player apply: PlayCardOperator
@@ -234,7 +301,8 @@ protected List<HungarianCard> higherCards(HungarianCard card) {
 21:01:01 INFO ConsoleGame The Computer (Random operator) has won 0 game.
 21:01:01 INFO ConsoleGame The Computer (Expert) has won 1000 game.
 ]]>
-        </programlisting>
+            </programlisting>
+        </para>
         <para>A következő táblázat statisztikai információkat szolgáltat arról, hogy 1000 játszmából melyik stratégia
             hányszor nyert.
         </para>

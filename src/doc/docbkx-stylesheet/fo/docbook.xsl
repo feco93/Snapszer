@@ -89,12 +89,12 @@
         <xsl:attribute name="wrap-option">wrap</xsl:attribute>
         <xsl:attribute name="font-size">10</xsl:attribute>
         <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
-        <xsl:attribute name="space-before.minimum">0pt</xsl:attribute>
-        <xsl:attribute name="space-before.optimum">0pt</xsl:attribute>
-        <xsl:attribute name="space-before.maximum">0pt</xsl:attribute>
-        <xsl:attribute name="space-after.minimum">0pt</xsl:attribute>
-        <xsl:attribute name="space-after.optimum">0pt</xsl:attribute>
-        <xsl:attribute name="space-after.maximum">0pt</xsl:attribute>
+        <xsl:attribute name="space-before.minimum">1.0em</xsl:attribute>
+        <xsl:attribute name="space-before.optimum">1.2em</xsl:attribute>
+        <xsl:attribute name="space-before.maximum">1.4em</xsl:attribute>
+        <xsl:attribute name="space-after.minimum">1.0em</xsl:attribute>
+        <xsl:attribute name="space-after.optimum">1.2em</xsl:attribute>
+        <xsl:attribute name="space-after.maximum">1.4em</xsl:attribute>
     </xsl:attribute-set>
 
     <!--
