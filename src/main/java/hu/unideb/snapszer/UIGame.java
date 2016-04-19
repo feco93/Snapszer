@@ -5,7 +5,6 @@ import hu.unideb.snapszer.controller.HumanPlayerController;
 import hu.unideb.snapszer.model.SnapszerTwoPlayerGame;
 import hu.unideb.snapszer.model.player.Computer;
 import hu.unideb.snapszer.model.player.ComputerAdvanced;
-import hu.unideb.snapszer.model.player.ComputerExpert;
 import hu.unideb.snapszer.model.player.Human;
 import hu.unideb.snapszer.view.SnapszerGameView;
 import hu.unideb.snapszer.view.TableView;
@@ -33,7 +32,7 @@ import java.lang.reflect.Type;
 public class UIGame implements Game {
 
     private StackPane root;
-    private Task<Void> gameTask;
+    private SnapszerTwoPlayerGame game;
     public static Type computerType = ComputerAdvanced.class;
     private static final Logger logger = LogManager.getLogger(UIGame.class);
 
@@ -55,7 +54,7 @@ public class UIGame implements Game {
         }
         logger.info(computerType.getTypeName());
         initGameInfo(playerOne, playerTwo);
-        SnapszerTwoPlayerGame game = new SnapszerTwoPlayerGame(playerOne, playerTwo);
+        game = new SnapszerTwoPlayerGame(playerOne, playerTwo);
 
         game.gameMatchProperty().addListener((event) ->
         {
@@ -70,14 +69,6 @@ public class UIGame implements Game {
             });
 
         });
-
-        gameTask = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                game.run();
-                return null;
-            }
-        };
     }
 
     public StackPane getRoot() {
@@ -86,13 +77,13 @@ public class UIGame implements Game {
 
     @Override
     public void Start(int numberOfGame) {
-        Thread gameThread = new Thread(gameTask);
+        Thread gameThread = new Thread(game);
         gameThread.setDaemon(true);
         gameThread.start();
     }
 
-    public Task getGameTask() {
-        return gameTask;
+    public Task getGame() {
+        return game;
     }
 
     private PerspectiveCamera addCamera(SubScene scene) {
@@ -137,17 +128,17 @@ public class UIGame implements Game {
         AnchorPane.setLeftAnchor(pointsContainer, 10.0);
         AnchorPane.setBottomAnchor(pointsContainer, 10.0);
 
+        Node controlPanel = null;
         FXMLLoader loader =
                 new FXMLLoader(HumanPlayerController.class.getResource("/fxml/controlPanel.fxml"));
         try {
-            loader.load();
+            controlPanel = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         HumanPlayerController controller = loader.getController();
         controller.setPlayer(playerOne);
-        Node controlPanel = controller.getControlPanel();
         AnchorPane.setBottomAnchor(controlPanel, 70.0);
         AnchorPane.setRightAnchor(controlPanel, 50.0);
 

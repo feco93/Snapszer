@@ -70,9 +70,7 @@ public class PreLoaderView {
 
     public void StartGame() {
         UIGame game = new UIGame(scene.getWidth(), scene.getHeight());
-        game.getGameTask().setOnSucceeded(event1 -> Platform.runLater(() -> {
-            DisplayMenu();
-        }));
+        game.getGame().setOnSucceeded(event1 -> Platform.runLater(() -> DisplayMenu()));
         root.getChildren().setAll(game.getRoot().getChildren());
         game.Start(1);
     }

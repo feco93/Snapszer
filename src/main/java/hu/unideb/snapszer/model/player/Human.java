@@ -5,9 +5,11 @@
  */
 package hu.unideb.snapszer.model.player;
 
-import hu.unideb.snapszer.model.GameMatch;
+import hu.unideb.snapszer.model.GameState;
 import hu.unideb.snapszer.model.operators.Operator;
 import org.apache.logging.log4j.Level;
+
+import java.util.List;
 
 /**
  * @author Fecó
@@ -26,7 +28,7 @@ public class Human extends Player {
     }
 
     @Override
-    public synchronized Operator chooseOperator(GameMatch game) {
+    public synchronized Operator chooseOperator(List<Operator> operators, GameState gameState) {
         try {
             wait();
             return chosenOperator;

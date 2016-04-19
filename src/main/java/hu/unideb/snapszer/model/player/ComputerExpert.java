@@ -1,6 +1,7 @@
 package hu.unideb.snapszer.model.player;
 
 import hu.unideb.snapszer.model.GameMatch;
+import hu.unideb.snapszer.model.GameState;
 import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.HungarianCardRank;
 import hu.unideb.snapszer.model.operators.*;
@@ -22,17 +23,17 @@ public class ComputerExpert extends Computer {
     }
 
     @Override
-    public Operator chooseOperator(GameMatch game) {
-        return getAllApplicableOperators(game).stream().min(
-                (o1, o2) -> getGoodness(o1, game).compareTo(getGoodness(o2, game))).get();
+    public Operator chooseOperator(List<Operator> operators, GameState gameState) {
+        return operators.stream().min(
+                (o1, o2) -> getGoodness(o1, gameState, operators).compareTo
+                        (getGoodness(o2, gameState, operators))).get();
     }
 
-    private int getRemainingScore()
-    {
+    private int getRemainingScore() {
         return 66 - getScore();
     }
 
-    private Integer getGoodness(Operator op, GameMatch game) {
+    private Integer getGoodness(Operator op, GameState gameState, List<Operator> applicableOperators) {
         if (op instanceof SayEndOperator)
             return Integer.MIN_VALUE;
         if (op instanceof SwapTrumpOperator)
@@ -43,11 +44,10 @@ public class ComputerExpert extends Computer {
             return getRemainingScore() - 20;
         if (op instanceof PlayCardOperator) {
             PlayCardOperator playCardOperator = (PlayCardOperator) op;
-            return getGoodness(playCardOperator, game);
+            return getGoodness(playCardOperator, gameState);
         }
         if (op instanceof SnapszerOperator) {
-            Say40Operator say40Operator = new Say40Operator(this);
-            if (say40Operator.isApplicable(game) &&
+            if (applicableOperators.stream().anyMatch(operator -> operator instanceof Say40Operator) &&
                     cards.stream().anyMatch(iCard -> {
                         HungarianCard card = iCard;
                         return card.getRank() == HungarianCardRank.ASZ &&
@@ -63,16 +63,16 @@ public class ComputerExpert extends Computer {
         return Integer.MAX_VALUE;
     }
 
-    private Integer getGoodness(PlayCardOperator playCardOperator, GameMatch game) {
-        if (!game.getCardsOnTable().isEmpty()) {
-            HungarianCard firstCard = game.getCardsOnTable().get(0);
+    private Integer getGoodness(PlayCardOperator playCardOperator, GameState gameState) {
+        if (!gameState.tableIsEmpty()) {
+            HungarianCard firstCard = gameState.getCardsOnTable().get(0);
             if (firstCard.compareTo(playCardOperator.getCard()) < 0) {
                 return getRemainingScore() - firstCard.getScore() - playCardOperator.getCard().getScore();
             } else {
                 return getRemainingScore() + playCardOperator.getCard().getScore();
             }
         } else {
-            List<HungarianCard> knownCards = new ArrayList<>(game.getPlayedCards());
+            List<HungarianCard> knownCards = new ArrayList<>(gameState.getPlayedCards());
             knownCards.addAll(cards);
             if (higherCardInGame(playCardOperator.getCard(), knownCards)) {
                 return getRemainingScore() + playCardOperator.getCard().getScore();

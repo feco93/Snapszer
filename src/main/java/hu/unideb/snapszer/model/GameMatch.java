@@ -1,9 +1,6 @@
 package hu.unideb.snapszer.model;
 
-import hu.unideb.snapszer.model.operators.DrawOperator;
-import hu.unideb.snapszer.model.operators.Operator;
-import hu.unideb.snapszer.model.operators.PlayCardOperator;
-import hu.unideb.snapszer.model.operators.SayEndOperator;
+import hu.unideb.snapszer.model.operators.*;
 import hu.unideb.snapszer.model.player.Player;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -12,13 +9,12 @@ import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * Created by Fecó Sipos on 2016. 01. 31..
- */
 public class GameMatch {
 
     private static final Logger logger = LogManager.getLogger(GameMatch.class);
@@ -52,8 +48,7 @@ public class GameMatch {
         return trumpCard.get();
     }
 
-    public HungarianCardSuit getTrumpSuit()
-    {
+    public HungarianCardSuit getTrumpSuit() {
         for (HungarianCardSuit suit :
                 HungarianCardSuit.values()) {
             if (suit.isTrump())
@@ -181,7 +176,11 @@ public class GameMatch {
             for (Player player :
                     getPlayers()) {
                 while (true) {
-                    Operator op = player.chooseOperator(this);
+                    Operator op = player.chooseOperator(getAllApplicableOperators(player),
+                            new GameState(
+                                    getTrumpCard(),
+                                    new ArrayList<>(getCardsOnTable()),
+                                    new ArrayList<>(getPlayedCards())));
                     if (op.isApplicable(this)) {
                         op.apply(this);
                         logger.trace(String.format(
@@ -200,6 +199,28 @@ public class GameMatch {
             beatPhase();
             drawPhase(1);
         }
+    }
+
+    protected List<Operator> getAllOperators(Player currentPlayer) {
+        List<Operator> allOperators = new ArrayList<>(11);
+        allOperators.addAll(Arrays.asList(new CoverOperator(currentPlayer),
+                new Say20Operator(currentPlayer),
+                new Say40Operator(currentPlayer),
+                new SayEndOperator(currentPlayer),
+                new SnapszerOperator(currentPlayer),
+                new SwapTrumpOperator(currentPlayer)));
+        for (HungarianCard card :
+                currentPlayer.getCards()) {
+            PlayCardOperator op = new PlayCardOperator(currentPlayer, card);
+            allOperators.add(op);
+        }
+        return allOperators;
+    }
+
+    protected List<Operator> getAllApplicableOperators(Player currentPlayer) {
+        return getAllOperators(currentPlayer).stream().
+                filter(op -> op.isApplicable(this)).
+                collect(Collectors.toList());
     }
 
     public Player getWinnerPlayer() {

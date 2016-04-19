@@ -1,6 +1,7 @@
 package hu.unideb.snapszer.model.player;
 
 import hu.unideb.snapszer.model.GameMatch;
+import hu.unideb.snapszer.model.GameState;
 import hu.unideb.snapszer.model.operators.Operator;
 
 import java.util.List;
@@ -20,12 +21,7 @@ public class ComputerRand extends Computer {
     }
 
     @Override
-    public Operator chooseOperator(GameMatch game) {
-        return chooseRandomOperator(game);
-    }
-
-    private Operator chooseRandomOperator(GameMatch game) {
-        List<Operator> operators = getAllApplicableOperators(game);
+    public Operator chooseOperator(List<Operator> operators, GameState gameState) {
         Random randomGenerator = new Random();
         int index = randomGenerator.nextInt(operators.size());
         return operators.get(index);

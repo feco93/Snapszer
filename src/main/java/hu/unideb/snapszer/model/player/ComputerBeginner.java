@@ -1,7 +1,9 @@
 package hu.unideb.snapszer.model.player;
 
-import hu.unideb.snapszer.model.GameMatch;
+import hu.unideb.snapszer.model.GameState;
 import hu.unideb.snapszer.model.operators.*;
+
+import java.util.List;
 
 /**
  * Created by Fecó Sipos on 2016. 02. 22..
@@ -17,12 +19,12 @@ public class ComputerBeginner extends Computer {
     }
 
     @Override
-    public Operator chooseOperator(GameMatch game) {
-        return getAllApplicableOperators(game).stream().max(
-                (o1, o2) -> getGoodness(o1, game).compareTo(getGoodness(o2, game))).get();
+    public Operator chooseOperator(List<Operator> operators, GameState gameState) {
+        return operators.stream().max(
+                (o1, o2) -> getGoodness(o1, gameState).compareTo(getGoodness(o2, gameState))).get();
     }
 
-    private Integer getGoodness(Operator op, GameMatch game) {
+    private Integer getGoodness(Operator op, GameState gameState) {
         if (op instanceof SayEndOperator)
             return Integer.MAX_VALUE;
         if (op instanceof SwapTrumpOperator)
@@ -33,8 +35,8 @@ public class ComputerBeginner extends Computer {
             return 20;
         if (op instanceof PlayCardOperator) {
             PlayCardOperator playCardOperator = (PlayCardOperator) op;
-            if (!game.getCardsOnTable().isEmpty()) {
-                if (game.getCardsOnTable().get(0).compareTo(playCardOperator.getCard()) < 0) {
+            if (!gameState.tableIsEmpty()) {
+                if (gameState.getCardsOnTable().get(0).compareTo(playCardOperator.getCard()) < 0) {
                     return playCardOperator.getCard().getScore();
                 } else {
                     return -1 * playCardOperator.getCard().getScore();

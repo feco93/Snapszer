@@ -66,8 +66,5 @@ public class HumanPlayerController {
         player.setChosenOperator(new Say40Operator(player));
     }
 
-    public Node getControlPanel() {
-        return controlPanel;
-    }
 
 }

@@ -17,6 +17,7 @@
 package hu.unideb.snapszer.model.player;
 
 import hu.unideb.snapszer.model.GameMatch;
+import hu.unideb.snapszer.model.GameState;
 import hu.unideb.snapszer.model.HungarianCard;
 import hu.unideb.snapszer.model.ICard;
 import hu.unideb.snapszer.model.operators.Operator;
@@ -116,7 +117,7 @@ public abstract class Player {
         saidSnapszer = false;
     }
 
-    public abstract Operator chooseOperator(GameMatch game);
+    public abstract Operator chooseOperator(List<Operator> operators, GameState gameState);
 
     /**
      * Add the specified score to the score of this player.
