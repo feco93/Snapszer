@@ -17,16 +17,12 @@ public class Say40Operator extends Operator {
     @Override
     public boolean isApplicable(GameMatch game) {
         return player.equals(game.getCurrentPlayer()) &&
-                canSay40(game.getTrumpCard().getSuit());
-    }
-
-    private boolean canSay40(HungarianCardSuit suit) {
-        return !(player.isSaid40() || player.isSaid20()) &&
+                !player.isSaid40() && !player.isSaid20() &&
                 player.getCards().stream().anyMatch(
-                        card -> card.getSuit() == suit &&
+                        card -> card.getSuit() == game.getTrumpSuit() &&
                                 card.getRank() == HungarianCardRank.FELSO) &&
                 player.getCards().stream().anyMatch(
-                        card -> card.getSuit() == suit &&
+                        card -> card.getSuit() == game.getTrumpSuit() &&
                                 card.getRank() == HungarianCardRank.KIRALY);
     }
 

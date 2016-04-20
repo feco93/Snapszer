@@ -57,8 +57,7 @@ public class Say40OperatorTest {
     @Before
     public void setUp() {
         gameMatchMock = Mockito.mock(GameMatch.class);
-        when(gameMatchMock.getTrumpCard()).thenReturn(
-                new HungarianCard(HungarianCardRank.KIRALY, HungarianCardSuit.PIROS));
+        when(gameMatchMock.getTrumpSuit()).thenReturn(HungarianCardSuit.PIROS);
         currentPlayer = Mockito.mock(Player.class);
         nextPlayer = Mockito.mock(Player.class);
     }

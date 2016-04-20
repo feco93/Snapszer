@@ -55,11 +55,11 @@ public class PlayCardOperatorTest {
         HungarianCardSuit.PIROS.setTrump(true);
         when(gameMatchMock.getTrumpSuit()).thenReturn(HungarianCardSuit.PIROS);
         when(gameMatchMock.getDeck()).thenReturn(sampleDeck);
+        when(currentPlayer.getCards()).thenReturn(cards);
     }
 
     @Test
     public void notApplicableTest() {
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.emptyObservableList());
         PlayCardOperator playCardOperator = new PlayCardOperator(
                 currentPlayer,
@@ -69,7 +69,6 @@ public class PlayCardOperatorTest {
 
     @Test
     public void notApplicableTest2() {
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(gameMatchMock.isCover()).thenReturn(true);
         when(gameMatchMock.getCardsOnTable()).thenReturn(
                 FXCollections.observableArrayList(
@@ -82,7 +81,6 @@ public class PlayCardOperatorTest {
 
     @Test
     public void notApplicableTest3() {
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(gameMatchMock.isSnapszer()).thenReturn(true);
         when(gameMatchMock.getCardsOnTable()).thenReturn(
                 FXCollections.observableArrayList(
@@ -96,7 +94,6 @@ public class PlayCardOperatorTest {
     @Test
     public void notApplicableTest4() {
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.emptyObservableList());
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(currentPlayer.isSaid20()).thenReturn(true);
         when(currentPlayer.isSaid40()).thenReturn(false);
         PlayCardOperator playCardOperator = new PlayCardOperator(
@@ -108,7 +105,6 @@ public class PlayCardOperatorTest {
     @Test
     public void notApplicableTest5() {
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.emptyObservableList());
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(currentPlayer.isSaid20()).thenReturn(true);
         when(currentPlayer.isSaid40()).thenReturn(false);
         PlayCardOperator playCardOperator = new PlayCardOperator(
@@ -120,7 +116,6 @@ public class PlayCardOperatorTest {
     @Test
     public void notApplicableTest6() {
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.emptyObservableList());
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(currentPlayer.isSaid40()).thenReturn(true);
         when(currentPlayer.isSaid20()).thenReturn(false);
         PlayCardOperator playCardOperator = new PlayCardOperator(
@@ -132,7 +127,6 @@ public class PlayCardOperatorTest {
     @Test
     public void notApplicableTest7() {
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.emptyObservableList());
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(currentPlayer.isSaid40()).thenReturn(true);
         when(currentPlayer.isSaid20()).thenReturn(false);
         PlayCardOperator playCardOperator = new PlayCardOperator(
@@ -143,7 +137,6 @@ public class PlayCardOperatorTest {
 
     @Test
     public void notApplicableTest8() {
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(gameMatchMock.getDeck()).thenReturn(new Deck<>(Arrays.asList()));
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.observableArrayList(
                 new HungarianCard(HungarianCardRank.TIZ, HungarianCardSuit.MAKK)));
@@ -156,7 +149,6 @@ public class PlayCardOperatorTest {
 
     @Test
     public void applicableTest() {
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(currentPlayer.isSaid40()).thenReturn(false);
         when(currentPlayer.isSaid20()).thenReturn(false);
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.emptyObservableList());
@@ -168,7 +160,6 @@ public class PlayCardOperatorTest {
 
     @Test
     public void applicableTest2() {
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(gameMatchMock.getCardsOnTable()).thenReturn(
                 FXCollections.observableArrayList(
                         new HungarianCard(HungarianCardRank.KIRALY, HungarianCardSuit.ZOLD)));
@@ -180,7 +171,6 @@ public class PlayCardOperatorTest {
 
     @Test
     public void applicableTest3() {
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(currentPlayer.isSaid20()).thenReturn(false);
         when(currentPlayer.isSaid40()).thenReturn(true);
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.emptyObservableList());
@@ -192,7 +182,6 @@ public class PlayCardOperatorTest {
 
     @Test
     public void applicableTest4() {
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(currentPlayer.isSaid20()).thenReturn(false);
         when(currentPlayer.isSaid40()).thenReturn(true);
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.emptyObservableList());
@@ -206,7 +195,6 @@ public class PlayCardOperatorTest {
     public void applicableTest5() {
         HungarianCardSuit.PIROS.setTrump(false);
         when(gameMatchMock.getTrumpSuit()).thenReturn(HungarianCardSuit.ZOLD);
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(currentPlayer.isSaid20()).thenReturn(true);
         when(currentPlayer.isSaid40()).thenReturn(false);
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.emptyObservableList());
@@ -220,7 +208,6 @@ public class PlayCardOperatorTest {
     public void applicableTest6() {
         HungarianCardSuit.PIROS.setTrump(false);
         when(gameMatchMock.getTrumpSuit()).thenReturn(HungarianCardSuit.ZOLD);
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(currentPlayer.isSaid20()).thenReturn(true);
         when(currentPlayer.isSaid40()).thenReturn(false);
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.emptyObservableList());
@@ -232,7 +219,6 @@ public class PlayCardOperatorTest {
 
     @Test
     public void applicableTest7() {
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(currentPlayer.isSaid40()).thenReturn(false);
         when(currentPlayer.isSaid20()).thenReturn(false);
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.observableArrayList(
@@ -245,7 +231,6 @@ public class PlayCardOperatorTest {
 
     @Test
     public void applicableTest8() {
-        when(currentPlayer.getCards()).thenReturn(cards);
         when(gameMatchMock.getDeck()).thenReturn(new Deck<>(Arrays.asList()));
         when(gameMatchMock.getCardsOnTable()).thenReturn(FXCollections.observableArrayList(
                 new HungarianCard(HungarianCardRank.TIZ, HungarianCardSuit.MAKK)));
