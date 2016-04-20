@@ -1,6 +1,7 @@
 ﻿<xsl:stylesheet
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
         version="1.0"
+        xmlns:fo="http://www.w3.org/1999/XSL/Format"
 >
 
     <!-- imports the original docbook stylesheet  -->
@@ -86,15 +87,17 @@
     -->
 
     <xsl:attribute-set name="monospace.verbatim.properties">
+        <xsl:attribute name="line-height">normal</xsl:attribute>
         <xsl:attribute name="wrap-option">wrap</xsl:attribute>
         <xsl:attribute name="font-size">10</xsl:attribute>
         <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
-        <xsl:attribute name="space-before.minimum">1.0em</xsl:attribute>
-        <xsl:attribute name="space-before.optimum">1.2em</xsl:attribute>
-        <xsl:attribute name="space-before.maximum">1.4em</xsl:attribute>
-        <xsl:attribute name="space-after.minimum">1.0em</xsl:attribute>
-        <xsl:attribute name="space-after.optimum">1.2em</xsl:attribute>
-        <xsl:attribute name="space-after.maximum">1.4em</xsl:attribute>
+        <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
+        <xsl:attribute name="space-before.optimum">1.0em</xsl:attribute>
+        <xsl:attribute name="space-before.maximum">1.2em</xsl:attribute>
+        <xsl:attribute name="space-after.minimum">0.8em</xsl:attribute>
+        <xsl:attribute name="space-after.optimum">1.0em</xsl:attribute>
+        <xsl:attribute name="space-after.maximum">1.2em</xsl:attribute>
+
     </xsl:attribute-set>
 
     <!--
@@ -102,7 +105,14 @@
     Sortávolság beállítása
     *************************************************************
     -->
-    <xsl:param name="line-height">normal</xsl:param>
+    <xsl:attribute-set name="para.properties">
+        <xsl:attribute name="line-height">1.8</xsl:attribute>
+    </xsl:attribute-set>
+
+    <xsl:attribute-set name="toc.line.properties">
+        <xsl:attribute name="line-height">1.6</xsl:attribute>
+    </xsl:attribute-set>
+
 
     <!--
     *************************************************************
@@ -110,9 +120,10 @@
     *************************************************************
     -->
     <xsl:attribute-set name="list.item.spacing">
-        <xsl:attribute name="space-before.optimum">1.0em</xsl:attribute>
-        <xsl:attribute name="space-before.minimum">1.0em</xsl:attribute>
-        <xsl:attribute name="space-before.maximum">1.0em</xsl:attribute>
+        <xsl:attribute name="line-height">1.8</xsl:attribute>
+        <xsl:attribute name="space-before.minimum">0.6em</xsl:attribute>
+        <xsl:attribute name="space-before.optimum">0.6em</xsl:attribute>
+        <xsl:attribute name="space-before.maximum">0.6em</xsl:attribute>
     </xsl:attribute-set>
 
     <!--

@@ -55,6 +55,13 @@
             </para>
         </xi:fallback>
     </xi:include>
+    <xi:include href="thanksgiving.xml">
+        <xi:fallback>
+            <para>
+                <emphasis>XInclude: hiányzik a thanksgiving.xml állomány!</emphasis>
+            </para>
+        </xi:fallback>
+    </xi:include>
     <xi:include href="bibliography.xml">
         <xi:fallback>
             <para>

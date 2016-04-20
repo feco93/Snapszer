@@ -6,9 +6,9 @@
     <title>Tesztelés</title>
     <sect1>
         <title>A tesztelés szerepe a fejlesztési folyamatban</title>
-        <para>Napjainban a programokkal szemben támasztott követelmények megnőttek. Ezek a követelmények lehetnek
+        <para>Napjainkban a programokkal szemben támasztott követelmények megnőttek. Ezek a követelmények lehetnek
             funkcionálisak és nem funkcionálisak is. Ahhoz, hogy ezeket a követelményeket teljesíteni tudják a
-            programok, megfelelő tesztelésre van szükség. Egy játék program esetén, mint a snapszer kártyajáték, felveti
+            programok, megfelelő tesztelésre van szükség. Egy játék program esetén, mint a Snapszer kártyajáték, felveti
             a tesztelés szükségességét. Ezek a tesztelések támogathatják a fejlesztés menetetét, javíthatják a kód
             minőségét is, de legfőbb céljuk az előforduló hibák csökkentése.
         </para>
@@ -100,13 +100,11 @@
         </para>
         <para>A következő példákban megvizsgáljuk, hogy miként lehet teszteket végrehajtani a Say20Operator osztályon.
             A Say20Operator feladata a 20 bemondását kezelni. Mint minden operátor, a vizsgált operátorunk is függ a
-            játék állásától. Az egység teszteket izoláltan kell elvégezni, más osztályok és a futtató környezet nem
-            lehetnek hatással a tesztekre. Az egység tesztjeinket úgy tudjuk végrehajtani a tesztelendő osztályon, hogy
+            játék állásától. Az egységteszteket izoláltan kell elvégezni, más osztályok és a futtató környezet nem
+            lehetnek hatással a tesztekre. Az egységtesztjeinket úgy tudjuk végrehajtani a tesztelendő osztályon, hogy
             a függőségeit helyettesítjük úgynevezett ál implementációkkal. A tesztek végrehajtásához olyan játék
             állásokat kell kialakítanunk, amely jó lefedettséget biztosít számunkra. Először is létre kell hoznunk 2
             darab kártya listát. Az egyik lista tartalmazza a 20 bemondásához szükséges lapokat, viszont a másik nem.
-            Ezek a listákat a konstruktorban példányosítjuk és final módosítóval látjuk el őket, hogy a későbbiekben
-            ezeket ne lehessen módosítani.
         </para>
         <programlisting language="java"><![CDATA[private final ObservableList<ICard> deckContains20;
 private final ObservableList<ICard> deckNotContains20;

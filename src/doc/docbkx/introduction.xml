@@ -14,12 +14,10 @@
         kínálkozik a tesztelői technológiák megismerésére. A játék implementációjához a JavaFX technológiát
         választottam. Választásom fő szempontja volt, hogy olyan technológiát válasszak, amellyel könnyedén tudom
         követni az MVC tervezési mintát. Az MVC minta segítségével olyan rendszert lehet felépíteni, mely könnyen
-        karbantartható, módosítható és tesztelhető. Ezen tervezési minta követése abban is segített, hogy akár grafikus
+        karbantartható, módosítható és tesztelhető. Ezen tervezési minta követése lehetővé teszi, hogy akár grafikus
         megjelenítés nélkül is össze tudjak vetni különböző stratégiával rendelkező mesterséges intelligenciákat. A
-        dokumentáció elkészítésénel fontosnak tartottam, hogy olyan eszközt használjak, ami lehetővé teszi a
-        verziókezelést és a könnyű tetreszabhatóságat is, így választásom a DocBook eszközre esett. Mivel a projekt
-        Maven projektkezelő eszközzel készült, így a dokumentáció legenárálását is automatizálni tudtam egy Maven
-        bővítmény segítségével.
+        dokumentáció elkészítésénel fontosnak tartom, hogy olyan eszközt használjak, ami lehetővé teszi a
+        verziókezelést és a könnyű tetreszabhatóságat is, így választásom a DocBook eszközre esett.
     </para>
     <para>A játéknak két különböző játékmódot kell megvalósítania, az egyik módban grafikus felületen
         keresztül lehet játszani egy mesterséges intelligenciával szemben, míg a másik játékmódban két mesterséges

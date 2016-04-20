@@ -6,76 +6,52 @@
     <title>Implementáció</title>
     <sect1>
         <title>Operátorok megvalósítása</title>
-        <para>Az operátorok megvalósítását végző osztályok a model csomagon belül és azon belül is az operators
+        <para>Az operátorok megvalósítását végző osztályok a model csomagban és azon belül is az operators
             csomagban kaptak helyet. Minden operátor osztály az absztrakt operator ősből van származtatva. A
             származtatott osztálynak tudnia kell, hogy melyik játékos alkalmazta vagy próbálta alkalmazni az adott
             operátort, az operator osztály egyetlen konstruktort tartalmaz, ami egy Player típusú objektumot vár. Ezen
             felül két absztrakt metódust tartalmaz, melyet a származtatott osztályok implementálnak a játékszabályoknak
             megfelelően.
-            <programlisting language="java">
-                <![CDATA[
-    abstract public boolean isApplicable(GameMatch game);
+            <programlisting language="java"><![CDATA[abstract public boolean isApplicable(GameMatch game);
 
-    abstract protected void onApply(GameMatch game);
-]]>
-            </programlisting>
+abstract protected void onApply(GameMatch game);]]></programlisting>
             Az isApplicable metódus célja az alkalmazási előfeltételek megvalósítása, míg az onApply metódus az operátor
             hatását valósítja meg. Ezen absztrakt metódusokon kívül még lehetőség van feliratkozni az operátorok
-            alkalmazására. Az eseményvezérelt megközelítés lehetővé teszi, hogy egy a megjelnítésért felelős osztály
+            alkalmazására. Az eseményvezérelt megközelítés lehetővé teszi, hogy egy a megjelenítésért felelős osztály
             a játék során értesüljön, hogy melyik operátort alkalmazták sikerrel.
         </para>
-        <para>Példa operátor megvalósítására: Mond
-            <subscript>40</subscript>
-            operátor
+        <para>Példa operátor megvalósítására: Mond<subscript>40</subscript> operátor
         </para>
         <para>Alkalmazási előfeltételek:</para>
-        <programlisting>
-            <![CDATA[
-@Override
+        <programlisting><![CDATA[@Override
 public boolean isApplicable(GameMatch game) {
     return player.equals(game.getCurrentPlayer()) &&
-    canSay40(game.getTrumpCard().getSuit());
-}
-
-private boolean canSay40(HungarianCardSuit suit) {
-    return !(player.isSaid40() || player.isSaid20()) &&
-    player.getCards().stream().anyMatch(
-        card -> card.getSuit() == suit &&
-        card.getRank() == HungarianCardRank.FELSO) &&
-    player.getCards().stream().anyMatch(
-        card -> card.getSuit() == suit &&
-        card.getRank() == HungarianCardRank.KIRALY);
-}
-]]>
-        </programlisting>
+            !player.isSaid40() && !player.isSaid20() &&
+            player.getCards().stream().anyMatch(
+                card -> card.getSuit() == game.getTrumpSuit() &&
+                        card.getRank() == HungarianCardRank.FELSO) &&
+            player.getCards().stream().anyMatch(
+                card -> card.getSuit() == game.getTrumpSuit() &&
+                        card.getRank() == HungarianCardRank.KIRALY);
+}}]]></programlisting>
         <para>Operátor hatása:</para>
-        <programlisting>
-            <![CDATA[
-@Override
+        <programlisting><![CDATA[@Override
 public void onApply(GameMatch game) {
     player.addScore(40);
     player.setSaid40(true);
-}
-]]>
-        </programlisting>
+}]]></programlisting>
         <para>Egy másik operátor megvalósítása: Aducsere</para>
         <para>Alkalmazási előfeltételek:</para>
-        <programlisting>
-            <![CDATA[
-@Override
+        <programlisting><![CDATA[@Override
 public boolean isApplicable(GameMatch game) {
     return !(!player.equals(game.getCurrentPlayer()) ||
     game.getDeck().size() < 4 || game.isCover()) &&
     player.getCards().stream().anyMatch(iCard -> iCard.getSuit() ==
         game.getTrumpCard().getSuit() &&
         iCard.getRank() == HungarianCardRank.ALSO);
-}
-]]>
-        </programlisting>
+}]]></programlisting>
         <para>Operátor hatása:</para>
-        <programlisting>
-            <![CDATA[
-@Override
+        <programlisting><![CDATA[@Override
 public void onApply(GameMatch game) {
     oldTrumpCard = game.getTrumpCard();
     game.getDeck().cards.remove(oldTrumpCard);
@@ -85,9 +61,7 @@ public void onApply(GameMatch game) {
     game.trumpCardProperty().setValue(newTrumpCard);
     player.getCards().set(player.getCards().
         indexOf(newTrumpCard), oldTrumpCard);
-}
-]]>
-        </programlisting>
+}]]></programlisting>
     </sect1>
 
     <sect1>
@@ -129,9 +103,7 @@ public void onApply(GameMatch game) {
             milyen kártyalapok találhatóak.
         </para>
         <para>A játszma fő részét a következő kódcsipet valósítja meg:</para>
-        <programlisting>
-            <![CDATA[
-public void play() {
+        <programlisting><![CDATA[public void play() {
     initGame();
     while (true) {
         if (isMatchOver())
@@ -163,10 +135,8 @@ public void play() {
         beatPhase();
         drawPhase(1);
     }
-}
-]]>
-        </programlisting>
-        <para>A játszma addig tart míg a végállapot feltételei nem teljesülnek. A játékosok egymás után felváltva
+}]]></programlisting>
+        <para>A játszma addig tart, amíg a végállapot feltételei nem teljesülnek. A játékosok egymás után felváltva
             következnek. Ha a játékos hívott egy lapot, akkor a következő játékos következik, illetve ha azt mondta
             sikeresen, hogy "elég", akkor vége van a játszmának. A kör végén meghatározásra kerül, hogy ki üti el a
             lapokat, majd lapot húznak a játékosok.
@@ -178,27 +148,21 @@ public void play() {
         <para>A számítógép játékosokat megvalósító osztályok az absztrakt Computer osztályból származnak, ami pedig
             az absztrakt Player osztályból származik.
         </para>
-        <para>A legegyeszerűbb számítógép játékos megvalósítás:
+        <para>A legegyszerűbb számítógép játékos megvalósítás:
             <emphasis role="bold">Random computer</emphasis>
             (A szabályos lépések közül véletlenszerűen választ egyet).
         </para>
-        <programlisting>
-            <![CDATA[
-@Override
+        <programlisting><![CDATA[@Override
 public Operator chooseOperator(List<Operator> operators, GameState gameState) {
     Random randomGenerator = new Random();
     int index = randomGenerator.nextInt(operators.size());
     return operators.get(index);
-}
-]]>
-        </programlisting>
+}]]></programlisting>
         <para>Az előző stratégia továbbfejlesztése a
             <emphasis role="bold">Beginner computer</emphasis>, aki már valamilyen "jóság" alapján választja ki az
             alkalmazandó operátort. Az őt megvalósító kódcsipet:
         </para>
-        <programlisting>
-            <![CDATA[
-private Integer getGoodness(Operator op, GameState gameState) {
+        <programlisting><![CDATA[private Integer getGoodness(Operator op, GameState gameState) {
     if (op instanceof SayEndOperator)
         return Integer.MAX_VALUE;
     if (op instanceof SwapTrumpOperator)
@@ -221,9 +185,7 @@ private Integer getGoodness(Operator op, GameState gameState) {
         }
     }
     return Integer.MIN_VALUE;
-}
-]]>
-        </programlisting>
+}]]></programlisting>
         <para>A Beginner computer stratégia arra törekszik, hogy a lehető legtöbb pontot zsebelje be az adott körben.
         </para>
         <para>A következő stratégia az
@@ -234,9 +196,7 @@ private Integer getGoodness(Operator op, GameState gameState) {
         <para>Az érdemi kódrészlet, aminek segítségével eldönti, hogy az adott laptól, az adott színben van-e "magasabb"
             lap a játékban:
         </para>
-        <programlisting>
-            <![CDATA[
-protected boolean higherCardInGame(HungarianCard card,
+        <programlisting><![CDATA[protected boolean higherCardInGame(HungarianCard card,
         List<HungarianCard> knownCards) {
     return !knownCards.containsAll(higherCards(card));
 }
@@ -246,9 +206,7 @@ protected List<HungarianCard> higherCards(HungarianCard card) {
         otherCard -> card.getSuit() == otherCard.getSuit() &&
         otherCard.getRank().compareTo(card.getRank()) > 0).
             collect(Collectors.toList());
-}
-]]>
-        </programlisting>
+}]]></programlisting>
         <para>Az
             <emphasis role="bold">Expert Computer</emphasis>
             az utolsó a vizsgált stratégiák sorában. Ezen
@@ -286,9 +244,7 @@ protected List<HungarianCard> higherCards(HungarianCard card) {
             </listitem>
         </itemizedlist>
         <para>Egy példa kimenet részlete:
-            <programlisting>
-                <![CDATA[
-21:01:01 INFO SnapszerTwoPlayerGame The match is starting...
+            <programlisting><![CDATA[21:01:01 INFO SnapszerTwoPlayerGame The match is starting...
 21:01:01 TRACE GameMatch The Computer (Random operator) player apply: SnapszerOperator
 21:01:01 TRACE GameMatch The Computer (Random operator) player apply: PlayCardOperator
 21:01:01 TRACE GameMatch The Computer (Expert) player apply: PlayCardOperator
@@ -299,9 +255,7 @@ protected List<HungarianCard> higherCards(HungarianCard card) {
 21:01:01 INFO SnapszerTwoPlayerGame The Computer (Expert) has won the game
 21:01:01 INFO SnapszerTwoPlayerGame --------------------------------------------------------------
 21:01:01 INFO ConsoleGame The Computer (Random operator) has won 0 game.
-21:01:01 INFO ConsoleGame The Computer (Expert) has won 1000 game.
-]]>
-            </programlisting>
+21:01:01 INFO ConsoleGame The Computer (Expert) has won 1000 game.]]></programlisting>
         </para>
         <para>A következő táblázat statisztikai információkat szolgáltat arról, hogy 1000 játszmából melyik stratégia
             hányszor nyert.

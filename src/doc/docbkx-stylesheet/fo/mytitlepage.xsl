@@ -39,7 +39,7 @@
         </fo:block-container>
         <fo:block-container top="10cm" position="absolute">
             <fo:block font-size="16pt" text-align="center">
-                <xsl:text>Snapszer kártyajáték</xsl:text>
+                <xsl:text>Snapszer kártyajáték fejlesztése</xsl:text>
             </fo:block>
         </fo:block-container>
         <fo:block-container top="16cm" left="0cm" position="absolute">

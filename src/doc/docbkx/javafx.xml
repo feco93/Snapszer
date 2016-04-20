@@ -1,20 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter
         xml:id="javafx"
-        xmlns="http://docbook.org/ns/docbook" version="5.1" xml:lang="hu"
+        xmlns="http://docbook.org/ns/docbook"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="5.1" xml:lang="hu"
 >
-    <title>Felhasználói felület JavaFX tecnológiával</title>
+    <title>GUI JavaFX felhasználásával</title>
     <sect1>
         <title>Áttekintés</title>
         <para>A JavaFX olyan grafikai és média osztályok összessége, amelyek lehetővé teszik vastag kliens alkalmazások
             tervezését, implementálását, tesztelését. A JavaFX API támogatja 2D-s, illetve 3D-s alkalmazások
-            fejlesztését
-            is. Legújabb verziója a JavaFX8, mely része a JDK 8-nak.
+            fejlesztését is. Legújabb verziója a JavaFX8, mely része a JDK 8-nak.
         </para>
+        <itemizedlist>
+            <title>Főbb szolgáltatásai:</title>
+            <listitem>
+                <para>Swing kompatibilitás: A Swing alkalmazások egyszerűen frissíthetőek, hogy a JavaFX
+                    lehetőségeit használják.
+                </para>
+            </listitem>
+            <listitem>
+                <para>FXML: Az FXML egy XML alapú dekleratív leíró nyelv, amit a felhasználói felület leírására hoztak
+                    létre. Segítségével a felhasználói felület készítése teljesen elkülönül az üzleti logika
+                    megvalósításától.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Beépített komponensek: A JavaFX tartalmaz minden olyan komponenst, melynek segítségével teljes
+                    értékű vastag kliens alkalmazásokat tudunk létrehozni.
+                </para>
+            </listitem>
+            <listitem>
+                <para>CSS támogatás: A komponensek CSS segítségével testreszabhatóak.</para>
+            </listitem>
+            <listitem>
+                <para>Interakciók széles támogatása: A futtató platform által nyújtott lehetőségek támogatása.
+                    Ilyen lehet például az érintőképernyők támogatása is.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Web komponens: A JavaFX-ben rendelkezésre áll egy olyan komponens, melynek segítségével
+                    weboldalakat tudunk megjeleníteni az alkalmazásban.
+                </para>
+            </listitem>
+        </itemizedlist>
         <para>
             Legnagyobb ereje a közvetlen MVC (Model-View-Controller) támogatásban nyílvánul meg. Az MVC minta a
-            következő
-            módon valósul meg JavaFX-ben:
+            következő módon valósul meg JavaFX-ben:
         </para>
         <itemizedlist>
             <listitem>
@@ -27,11 +59,9 @@
                 <para>
                     <emphasis role="bold">View:</emphasis>
                     A view a megjelenítésért felelős. A megjelenítést több módon is implementálhatjuk. Az ajánlott
-                    módszer
-                    szerint létre kell hozni egy állományt, melyben FXML (XML alapú dekleratív leíró nyelv) segítségével
-                    definiálni lehet a felhasználói felületet. A másik módszerrel olyan osztályokat kell létrehozni,
-                    amelyek
-                    leírják a megjelenítést.
+                    módszer szerint létre kell hozni egy állományt, melyben FXML segítségével definiálni lehet a
+                    felhasználói felületet. A másik módszerrel olyan osztályokat kell létrehozni, amelyek leírják a
+                    megjelenítést.
                 </para>
             </listitem>
             <listitem>
@@ -66,7 +96,8 @@
                     felhasználói felületen. A lapokat hasábok reprezentálják, melyek textúrával vannak ellátva (elő és
                     hátlap textúra). A menük és a felhasználói interakcióhoz szükséges nyomógombok tervezése a JavaFX
                     Scene Builder segítségével történt. A JavaFX Scene Builder egy felhasználói felület tervezésére
-                    alkalmas program, amely fxml állományt állít elő.
+                    alkalmas program, amely olyan állományt állít elő, melyben a megjelenítés FXML segítségével van
+                    leírva.
                 </para>
             </listitem>
             <listitem>
@@ -137,7 +168,6 @@ importer.read(getClass().getResource(tableResource));]]></programlisting>
                 <programlisting><![CDATA[float hw = WIDTH / 2f;
 float hh = HEIGHT / 2f;
 float hd = DEPTH / 2f;
-
 float points[] = {
     hw, hh, hd,
     hw, hh, -hd,
@@ -148,7 +178,6 @@ float points[] = {
     -hw, -hh, hd,
     -hw, -hh, -hd
 };
-
 cardMesh.getPoints().setAll(points);]]></programlisting>
             </listitem>
             <listitem>
@@ -164,7 +193,6 @@ cardMesh.getPoints().setAll(points);]]></programlisting>
     0.5f, 1.0f,
     1.0f, 1.0f
 };
-
 cardMesh.getTexCoords().setAll(texCoords);]]></programlisting>
                 <para>
                     <mediaobject>
@@ -177,7 +205,7 @@ cardMesh.getTexCoords().setAll(texCoords);]]></programlisting>
                     illeszteni a hasáb felületére. Természetesen a képek összeillesztése dinamikusan történik, a
                     hátlap és az elő lapok egy-egy fájlban vannak eltárolva és csak futási időben alkotnak egy kép
                     objektumot. A két kép összeillesztéséhez kiváló lehetőségeket nyújtanak a JavaFX osztályai,
-                    ilyan osztály például a WritableImage, PixelWriter, PixelReader. A megvalósítás a
+                    ilyen osztály például a WritableImage, PixelWriter, PixelReader. A megvalósítás a
                     HungarianCardView osztály initMaterial metódusában található.
                 </para>
             </listitem>
@@ -198,27 +226,17 @@ cardMesh.getTexCoords().setAll(texCoords);]]></programlisting>
     1, 4, 3, 1, 5, 3,
     5, 3, 3, 1, 7, 0
 };
-
 cardMesh.getFaces().setAll(faces);]]></programlisting>
                 <para>
                     A tömbben elhelyezkedő adatok értelmezése a következő:
-                    <literallayout>
-                        p<subscript>0</subscript>, t<subscript>0</subscript>, p<subscript>1</subscript>, t
-                        <subscript>1</subscript>, p<subscript>2</subscript>, t<subscript>2</subscript>, // a
-                        textúrával ellátott sokszög első háromszöge
-                        p<subscript>1</subscript>, t<subscript>1</subscript>, p<subscript>2</subscript>, t
-                        <subscript>2</subscript>, p<subscript>3</subscript>, t
-                        <subscript>3</subscript>
-                        // a textúrával ellátott sokszög második háromszöge
+                    <literallayout>p<subscript>0</subscript>, t<subscript>0</subscript>, p<subscript>1</subscript>, t<subscript>1</subscript>, p<subscript>2</subscript>, t<subscript>2</subscript>, // a textúrával ellátott sokszög első háromszöge
+                        p<subscript>1</subscript>, t<subscript>1</subscript>, p<subscript>2</subscript>, t<subscript>2</subscript>, p<subscript>3</subscript>, t<subscript>3</subscript> // a textúrával ellátott sokszög második háromszöge
                         ...
                     </literallayout>
-                    Ahol p
-                    <subscript>0</subscript>
-                    a háromszög egyik pontja, t
-                    <subscript>0</subscript>
-                    a p
-                    <subscript>0</subscript>
-                    ponthoz tartozó textúra koordináta.
+                    Ahol p<subscript>0</subscript> a háromszög egyik pontja, t<subscript>0</subscript>
+                    a p<subscript>0</subscript> ponthoz tartozó textúra koordináta. p<subscript>0</subscript> a points
+                    tömb egy indexének a segítségével címezi meg a reprezentált pontot, ugyanígy a
+                    t<subscript>0</subscript> pedig a texCoords tömb egy indexére hivatkozik.
                 </para>
             </listitem>
         </orderedlist>
