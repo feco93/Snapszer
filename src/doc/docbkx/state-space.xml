@@ -79,19 +79,6 @@
 
     <sect1>
         <title>Állapottér</title>
-        <para>Egy játékos állapotát a (h<subscript>1</subscript>, h<subscript>2</subscript>, ... h<subscript>
-            6</subscript>) értékekkel írjuk le.
-        </para>
-        <itemizedlist>
-            <listitem>
-                <para>h<subscript>1</subscript> ∈ N ∪ 0
-                </para>
-            </listitem>
-            <listitem>
-                <para>h<subscript>2</subscript>... h<subscript>6</subscript> ∈ {I, H}
-                </para>
-            </listitem>
-        </itemizedlist>
 
         <para>Egy játék állást az (s<subscript>11</subscript>, ..., s<subscript>15</subscript>, s<subscript>21</subscript>
             ..., s<subscript>45</subscript>) mátrix segítségével reprezentálunk, s<subscript>i,j</subscript>
@@ -99,14 +86,45 @@
             illetve az adott pozíción található érték írja le a lap helyzetét. A színek a következő sorrendben
             értelmezendők: MAKK, PIROS, TÖK, ZÖLD. A rangok a következő sorrendben következnek egymás után:
             ALSÓ, FELSŐ, KIRÁLY, TÍZ, ÁSZ.
-            Így például a h<subscript>11</subscript> jelenti a MAKK ALSÓ-t.
+            Így például az s<subscript>11</subscript> reprezentálja a MAKK ALSÓ helyzetét.
         </para>
+
+        <para>Egy játékos állapotát a (h<subscript>1</subscript>, h<subscript>2</subscript>, ... h<subscript>
+            6</subscript>) értékekkel írjuk le.
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>h<subscript>1</subscript> ∈ N ∪ 0, a játékos pontszáma
+                </para>
+            </listitem>
+            <listitem>
+                <para>h<subscript>2</subscript>... h<subscript>6</subscript> ∈ {I, H}, jelentésük a következő
+                    <itemizedlist>
+                        <listitem>
+                            <para>h<subscript>2</subscript>: mondott-e 20-at az adott körben</para>
+                        </listitem>
+                        <listitem>
+                            <para>h<subscript>3</subscript>: mondott-e 40-et az adott körben</para>
+                        </listitem>
+                        <listitem>
+                            <para>h<subscript>4</subscript>: takart-e</para>
+                        </listitem>
+                        <listitem>
+                            <para>h<subscript>5</subscript>: mondott-e snapszert</para>
+                        </listitem>
+                        <listitem>
+                            <para>h<subscript>6</subscript>: mondta-e, hogy "elég"</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+        </itemizedlist>
 
         <para>
             S legyen a játék állásainak a halmaza, {A, B} a két játékos.
         </para>
         <para>
-            All = { (s, a, c, x) | s ∈ S, a ∈ {1, 2, 3 ,4}, c ∈ {A, B} }, x ∈ {A, B} }
+            All = { (s, a, c, x) | s ∈ S, a ∈ {1, 2, 3 ,4}, c ∈ {A, B}, x ∈ {A, B} }
         </para>
         <para>Ahol:</para>
         <itemizedlist>
@@ -173,8 +191,8 @@
                 <para>Üres a talon: Üres(s) : {s} -> {i, h}</para>
                 <itemizedlist>
                     <listitem>
-                        <para>i, ha ¬∃<subscript>i</subscript>¬∃<subscript>j</subscript>(
-                            s<subscript>ij</subscript> = 0 ∨ s<subscript>ij</subscript> = 3 )
+                        <para>i, ha ∀<subscript>i</subscript>∀<subscript>j</subscript>(
+                            s<subscript>ij</subscript> ≠ 0 ∧ s<subscript>ij</subscript> ≠ 3 )
                         </para>
                     </listitem>
                     <listitem>

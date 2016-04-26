@@ -110,7 +110,7 @@
     </xsl:attribute-set>
 
     <xsl:attribute-set name="toc.line.properties">
-        <xsl:attribute name="line-height">1.6</xsl:attribute>
+        <xsl:attribute name="line-height">1.8</xsl:attribute>
     </xsl:attribute-set>
 
 
@@ -152,6 +152,10 @@
     *************************************************************
     -->
     <xsl:param name="generate.toc" select="'book toc,title'"/>
+
+    <xsl:template match="processing-instruction('linebreak')">
+        <fo:block/>
+    </xsl:template>
 
 
 </xsl:stylesheet>

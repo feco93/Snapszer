@@ -17,7 +17,7 @@
         karbantartható, módosítható és tesztelhető. Ezen tervezési minta követése lehetővé teszi, hogy akár grafikus
         megjelenítés nélkül is össze tudjak vetni különböző stratégiával rendelkező mesterséges intelligenciákat. A
         dokumentáció elkészítésénel fontosnak tartom, hogy olyan eszközt használjak, ami lehetővé teszi a
-        verziókezelést és a könnyű tetreszabhatóságat is, így választásom a DocBook eszközre esett.
+        verziókezelést és a könnyű testreszabhatóságat is, így választásom a DocBook eszközre esett.
     </para>
     <para>A játéknak két különböző játékmódot kell megvalósítania, az egyik módban grafikus felületen
         keresztül lehet játszani egy mesterséges intelligenciával szemben, míg a másik játékmódban két mesterséges

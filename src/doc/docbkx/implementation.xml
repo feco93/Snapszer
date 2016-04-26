@@ -33,7 +33,7 @@ public boolean isApplicable(GameMatch game) {
             player.getCards().stream().anyMatch(
                 card -> card.getSuit() == game.getTrumpSuit() &&
                         card.getRank() == HungarianCardRank.KIRALY);
-}}]]></programlisting>
+}]]></programlisting>
         <para>Operátor hatása:</para>
         <programlisting><![CDATA[@Override
 public void onApply(GameMatch game) {

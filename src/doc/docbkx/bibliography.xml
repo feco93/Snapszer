@@ -65,4 +65,30 @@
             <personname>Dr. Várterész Magdolna</personname>
         </author>
     </biblioentry>
+
+    <biblioentry xml:id="bib.snapszer_rule">
+        <abbrev xml:id="bib.snapszer_rule.abbrev">MI</abbrev>
+        <title>
+            <link xlink:href="http://www.snapszer.hu/jatekszabalyok/kettes-snapszer/">
+                Kettes snapszer játékszabályok
+            </link>
+        </title>
+        <author>
+            <orgname>Magyar Snapszer Szövetség</orgname>
+        </author>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.snapszer_rule_wiki">
+        <abbrev xml:id="bib.snapszer_rule_wiki.abbrev">MI</abbrev>
+        <title>
+            <link xlink:href="http://www.snapszer.hu/jatekszabalyok/kettes-snapszer/">
+                Snapszer játékszabályok
+            </link>
+        </title>
+        <author>
+            <orgname>Wikipédia</orgname>
+        </author>
+    </biblioentry>
+
+
 </bibliography>
