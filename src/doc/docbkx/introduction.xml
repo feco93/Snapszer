@@ -19,7 +19,7 @@
         dokumentáció elkészítésénel fontosnak tartom, hogy olyan eszközt használjak, ami lehetővé teszi a
         verziókezelést és a könnyű testreszabhatóságat is, így választásom a DocBook eszközre esett.
     </para>
-    <para>A játéknak két különböző játékmódot kell megvalósítania, az egyik módban grafikus felületen
+    <para>A programnak két különböző játékmódot kell megvalósítania, az egyik módban grafikus felületen
         keresztül lehet játszani egy mesterséges intelligenciával szemben, míg a másik játékmódban két mesterséges
         intelligencia játszik egymás ellen és ebben a módban csak egy log fájl eredményt kapunk, mely statisztikai
         adatokat szolgáltat.

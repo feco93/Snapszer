@@ -112,6 +112,9 @@
 
     <sect1>
         <title>3D objektumok megjelenítése</title>
+        <para>A JavaFX technológia lehetőségeit a <citation>JavaFX</citation> forrás segítségével ismertem meg, majd
+            alkalmaztam a felhasználói felület kialakításánál.
+        </para>
         <para>Az
             <emphasis>asztal</emphasis>
             feldolgozásához az InteractiveMesh API-t, abból is a TdsModelImporter osztályt

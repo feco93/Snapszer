@@ -4,8 +4,31 @@
         xmlns="http://docbook.org/ns/docbook" version="5.1" xml:lang="hu"
 >
     <title>Állapottér-reprezentáció</title>
-    <para>Az általunk vizsgált snapszer kártyajáték osztályozás szerint stratégiai, 2 személyes, nem zérusösszegű,
-        sztochasztikus, nem teljes információjú játék.
+    <para>Az állapottér-reprezentáció elkészítéséhez a <citation>MI</citation>,
+        <citation>ARTIFICIAL INTELLIGENCE</citation> forrásokat használtam fel.</para>
+    <para>Az általunk vizsgált snapszer kártyajáték osztályozás szerint:
+        <itemizedlist>
+            <listitem>
+                <para>stratégiai, mivel a játékosok befolyásolják a játék kimenetét</para>
+            </listitem>
+            <listitem>
+                <para>résztvevők száma alapján 2 személyes</para>
+            </listitem>
+            <listitem>
+                <para>véges, mivel minden állásban véges sok
+                    szabályos lépés közül lehet választani, s véges sok lépés után véget ér egy játszma</para>
+            </listitem>
+            <listitem>
+                <para>nem zérusösszegű, ha a játszmák során szerzett pontokat nyereménynek tekintjük</para>
+            </listitem>
+            <listitem>
+                <para>sztochasztikus, mivel a véletlennek nagy szerepe van a játék során</para>
+            </listitem>
+            <listitem>
+                <para>nem teljes információjú játék, mivel a játékosok nem ismerik, hogy milyen lapok találhatóak
+                a talonban, illetve egymás kezében</para>
+            </listitem>
+        </itemizedlist>
     </para>
 
     <sect1>
@@ -80,8 +103,9 @@
     <sect1>
         <title>Állapottér</title>
 
-        <para>Egy játék állást az (s<subscript>11</subscript>, ..., s<subscript>15</subscript>, s<subscript>21</subscript>
-            ..., s<subscript>45</subscript>) mátrix segítségével reprezentálunk, s<subscript>i,j</subscript>
+        <para>Egy <emphasis role="bold">játék állást</emphasis> az
+            (s<subscript>11</subscript>, ..., s<subscript>15</subscript>, s<subscript>21</subscript> ...,
+            s<subscript>45</subscript>) mátrix segítségével reprezentálunk, s<subscript>i,j</subscript>
             ∈ {0, 1, 2, 3, 4, 5, 6}. A sorok és az oszlopok meghatározzák az egyes kártyák színét, rangját,
             illetve az adott pozíción található érték írja le a lap helyzetét. A színek a következő sorrendben
             értelmezendők: MAKK, PIROS, TÖK, ZÖLD. A rangok a következő sorrendben következnek egymás után:
@@ -89,7 +113,7 @@
             Így például az s<subscript>11</subscript> reprezentálja a MAKK ALSÓ helyzetét.
         </para>
 
-        <para>Egy játékos állapotát a (h<subscript>1</subscript>, h<subscript>2</subscript>, ... h<subscript>
+        <para>Egy <emphasis role="bold">játékos állapotát</emphasis> a (h<subscript>1</subscript>, h<subscript>2</subscript>, ... h<subscript>
             6</subscript>) értékekkel írjuk le.
         </para>
         <itemizedlist>
@@ -101,19 +125,24 @@
                 <para>h<subscript>2</subscript>... h<subscript>6</subscript> ∈ {I, H}, jelentésük a következő
                     <itemizedlist>
                         <listitem>
-                            <para>h<subscript>2</subscript>: mondott-e 20-at az adott körben</para>
+                            <para>h<subscript>2</subscript>: mondott-e 20-at az adott körben
+                            </para>
                         </listitem>
                         <listitem>
-                            <para>h<subscript>3</subscript>: mondott-e 40-et az adott körben</para>
+                            <para>h<subscript>3</subscript>: mondott-e 40-et az adott körben
+                            </para>
                         </listitem>
                         <listitem>
-                            <para>h<subscript>4</subscript>: takart-e</para>
+                            <para>h<subscript>4</subscript>: takart-e
+                            </para>
                         </listitem>
                         <listitem>
-                            <para>h<subscript>5</subscript>: mondott-e snapszert</para>
+                            <para>h<subscript>5</subscript>: mondott-e snapszert
+                            </para>
                         </listitem>
                         <listitem>
-                            <para>h<subscript>6</subscript>: mondta-e, hogy "elég"</para>
+                            <para>h<subscript>6</subscript>: mondta-e, hogy "elég"
+                            </para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -145,7 +174,30 @@
 
     <sect1>
         <title>Kezdőállapot</title>
-        <para>Kezdő játék állás: (0, 0, 0 ... 0) - 32 db 0, mivel kezdetben az összes lap a talonban található.</para>
+        <para>Kezdő játék állás: (s<subscript>11</subscript>, ..., s<subscript>15</subscript>,
+            s<subscript>21</subscript> ..., s<subscript>45</subscript>), ahol</para>
+        <itemizedlist>
+            <listitem>
+                <para>|{s<subscript>ij</subscript> ∈ s | s<subscript>ij</subscript> = 1}| = 5,
+                    az A játékos kezében 5 lap van
+                </para>
+            </listitem>
+            <listitem>
+                <para>|{s<subscript>ij</subscript> ∈ s | s<subscript>ij</subscript> = 2}| = 5,
+                    a B játékos kezében 5 lap van
+                </para>
+            </listitem>
+            <listitem>
+                <para>|{s<subscript>ij</subscript> ∈ s | s<subscript>ij</subscript> = 3}| = 1,
+                    felütötték az adu lapot
+                </para>
+            </listitem>
+            <listitem>
+                <para>|{s<subscript>ij</subscript> ∈ s | s<subscript>ij</subscript> = 0}| = 9,
+                    az adu lapon kívül még 9 lap található a talonban
+                </para>
+            </listitem>
+        </itemizedlist>
         <para>Kezdő játékos állapot: (0, h, h, h, h, h).</para>
         <para>Kezdőállapot: (s, a, c, x)</para>
         <para>Ahol:</para>
@@ -154,13 +206,15 @@
                 <para>s: a kezdő játék állás</para>
             </listitem>
             <listitem>
-                <para>a: az adu szín</para>
+                <para>a: az adu szín, ∀<subscript>i</subscript>∀<subscript>j</subscript>(
+                    s<subscript>ij</subscript> = 3 ⊃ a = i )
+                </para>
             </listitem>
             <listitem>
-                <para>c: a kezdő játékos</para>
+                <para>c: a kezdő játékos, mely véletlenszerű</para>
             </listitem>
             <listitem>
-                <para>x: a jelenlegi játékos, megegyezik a kezdő játékossal</para>
+                <para>x: a jelenlegi játékos, x = c</para>
             </listitem>
         </itemizedlist>
     </sect1>
@@ -294,7 +348,7 @@
                 </para>
             </listitem>
             <listitem>
-                <para>Érték : {i} -> {2, 3, 4, 10, 11} </para>
+                <para>Érték : {i} -> {2, 3, 4, 10, 11}</para>
                 <itemizedlist>
                     <listitem>
                         <para>
@@ -336,7 +390,8 @@
                     <orderedlist>
                         <listitem>
                             <para>A kijátszandó lap a jelenlegi játékos kezében található:
-                                ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript> = Játékos(x) )
+                                ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript>
+                                = Játékos(x) )
                             </para>
                         </listitem>
                         <listitem>
@@ -357,14 +412,16 @@
                             <para>Ha 20-t mondott, akkor a megfelelő lapot kötelező hívni:
                                 Mondott20(x) ⊃ ∀<subscript>k</subscript>∀<subscript>l</subscript>(s<subscript>k,l</subscript>
                                 = Játékos(x) ∧ ∀<subscript>m</subscript>∀<subscript>n</subscript>(s<subscript>m,n</subscript>
-                                = Játékos(x) ∧ k = m ∧ (( l = 2 ∧ n = 3 ) ∨ ( l = 3 ∧ n = 2 ) ⊃ i = k ∧ ( j = l ∨ j = n ))))
+                                = Játékos(x) ∧ k = m ∧ (( l = 2 ∧ n = 3 ) ∨ ( l = 3 ∧ n = 2 ) ⊃ i = k ∧ ( j = l ∨ j = n
+                                ))))
                             </para>
                         </listitem>
                         <listitem>
                             <para>Ha 40-t mondott, akkor a megfelelő lapot kötelező hívni:
                                 Mondott40(x) ⊃ ∀<subscript>k</subscript>∀<subscript>l</subscript>(s<subscript>k,l</subscript>
                                 = Játékos(x) ∧ ∀<subscript>m</subscript>∀<subscript>n</subscript>(s<subscript>m,n</subscript>
-                                = Játékos(x) ∧ k = m ∧ k = a ∧ (( l = 2 ∧ n = 3 ) ∨ ( l = 3 ∧ n = 2 ) ⊃ i = k ∧ ( j = l ∨ j = n ))))
+                                = Játékos(x) ∧ k = m ∧ k = a ∧ (( l = 2 ∧ n = 3 ) ∨ ( l = 3 ∧ n = 2 ) ⊃ i = k ∧ ( j = l
+                                ∨ j = n ))))
                             </para>
                         </listitem>
                     </orderedlist>
@@ -397,15 +454,18 @@
                             <para>s' =
                                 <itemizedlist>
                                     <listitem>
-                                        <para>s'<subscript>k,l</subscript> = 4, ha x = c ∧ i = k ∧ j = l
+                                        <para>s'<subscript>k,l</subscript>
+                                            = 4, ha x = c ∧ i = k ∧ j = l
                                         </para>
                                     </listitem>
                                     <listitem>
-                                        <para>s'<subscript>k,l</subscript> = 5, ha i = k ∧ j = l
+                                        <para>s'<subscript>k,l</subscript>
+                                            = 5, ha i = k ∧ j = l
                                         </para>
                                     </listitem>
                                     <listitem>
-                                        <para>s'<subscript>k,l</subscript> = s<subscript>k,l</subscript>, egyébként
+                                        <para>s'<subscript>k,l</subscript>
+                                            = s<subscript>k,l</subscript>, egyébként
                                         </para>
                                     </listitem>
                                 </itemizedlist>
@@ -420,8 +480,8 @@
                 <orderedlist>
                     <listitem>
                         <para>Nincs hívott lap az asztalon:
-                            ¬∃<subscript>k</subscript>¬∃<subscript>l</subscript>( s<subscript>k,l</subscript> = 4 ∨
-                            s<subscript>k,l</subscript> = 5 )
+                            ¬∃<subscript>k</subscript>¬∃<subscript>l</subscript>( s<subscript>k,l</subscript>
+                            = 4 ∨ s<subscript>k,l</subscript> = 5 )
                         </para>
                     </listitem>
                     <listitem>
@@ -461,7 +521,8 @@
                             <para>s' =
                                 <itemizedlist>
                                     <listitem>
-                                        <para>s'<subscript>k,l</subscript> = Játékos(x), ha s<subscript>k,l</subscript> a húzott lap
+                                        <para>s'<subscript>k,l</subscript> = Játékos(x), ha s<subscript>k,l</subscript>
+                                            a húzott lap
                                         </para>
                                     </listitem>
                                     <listitem>
@@ -475,7 +536,8 @@
                 </para>
             </listitem>
             <listitem>
-                <para>Takar: Mond<subscript>Takar</subscript>
+                <para>Takar: Mond
+                    <subscript>Takar</subscript>
                 </para>
                 <para>Alkalmazási előfeltétel: dom(Mond<subscript>Takar</subscript>) = { (s, a, c, x) ∈ All |
                     c = x ∧ ¬Snapszer ∧ ¬Takarás }
@@ -509,13 +571,15 @@
                 </para>
             </listitem>
             <listitem>
-                <para>Snapszert mond: Mond<subscript>Snapszer</subscript>
+                <para>Snapszert mond: Mond
+                    <subscript>Snapszer</subscript>
                 </para>
                 <para>Alkalmazási előfeltétel:
                     <orderedlist>
                         <listitem>
                             <para>Az első kör van:
-                                |{s<subscript>k,l</subscript> ∈ s | s<subscript>k,l</subscript> = 0)}| = 10</para>
+                                |{s<subscript>k,l</subscript> ∈ s | s<subscript>k,l</subscript> = 0)}| = 10
+                            </para>
                         </listitem>
                         <listitem>
                             <para>Nem takartak és nem mondtak snapszert:
@@ -525,7 +589,8 @@
                     </orderedlist>
                 </para>
                 <para>dom(Mond<subscript>Snapszer</subscript>) = { (s, a, c, x) ∈ All |
-                    (1) ∧ (2) }</para>
+                    (1) ∧ (2) }
+                </para>
                 <para>Hatása:
                     <itemizedlist>
                         <listitem>
@@ -555,7 +620,8 @@
                 </para>
             </listitem>
             <listitem>
-                <para>20-t mond: Mond<subscript>20</subscript>
+                <para>20-t mond: Mond
+                    <subscript>20</subscript>
                 </para>
                 <para>Alkalmazási előfeltétel:
                     <orderedlist>
@@ -564,7 +630,8 @@
                         </listitem>
                         <listitem>
                             <para>Nem mondott 20-t és nem mondott 40-t:
-                                ¬Mondott<subscript>20</subscript>(x) ∧ ¬Mondott<subscript>40</subscript>(x)</para>
+                                ¬Mondott<subscript>20</subscript>(x) ∧ ¬Mondott<subscript>40</subscript>(x)
+                            </para>
                         </listitem>
                         <listitem>
                             <para>A 20 bemondásához szükséges lapok a játékos kezében vannak:
@@ -576,7 +643,8 @@
                     </orderedlist>
                 </para>
                 <para>dom(Mond<subscript>20</subscript>) = { (s, a, c, x) ∈ All |
-                    (1) ∧ (2) ∧ (3) }</para>
+                    (1) ∧ (2) ∧ (3) }
+                </para>
                 <para>Hatása:
                     <itemizedlist>
                         <listitem>
@@ -606,7 +674,8 @@
                 </para>
             </listitem>
             <listitem>
-                <para>40-t mond: Mond<subscript>40</subscript>
+                <para>40-t mond: Mond
+                    <subscript>40</subscript>
                 </para>
                 <para>Alkalmazási előfeltétel:
                     <orderedlist>
@@ -615,19 +684,20 @@
                         </listitem>
                         <listitem>
                             <para>Nem mondott 20-t és nem mondott 40-t:
-                                ¬Mondott<subscript>20</subscript>(x) ∧ ¬Mondott<subscript>40</subscript>(x)</para>
+                                ¬Mondott<subscript>20</subscript>(x) ∧ ¬Mondott<subscript>40</subscript>(x)
+                            </para>
                         </listitem>
                         <listitem>
                             <para>A 40 bemondásához szükséges lapok a játékos kezében vannak:
-                                ∃<subscript>k</subscript>∃<subscript>l</subscript>( s<subscript>k,l</subscript> = Játékos(x) ∧
-                                l = 2 ∧ ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript>)
-                                = Játékos(x) ) ∧ j = 3 ∧ i = k ∧ i = a ))
+                                ∃<subscript>k</subscript>∃<subscript>l</subscript>( s<subscript>k,l</subscript>
+                                = Játékos(x) ∧ l = 2 ∧ ∃<subscript>i</subscript>∃<subscript>j</subscript>(
+                                s<subscript>i,j</subscript>) = Játékos(x) ) ∧ j = 3 ∧ i = k ∧ i = a ))
                             </para>
                         </listitem>
                     </orderedlist>
 
                 </para>
-                <para> dom(Mond<subscript>40</subscript>) = { (s, a, c, x) ∈ All |
+                <para>dom(Mond<subscript>40</subscript>) = { (s, a, c, x) ∈ All |
                     (1) ∧ (2) ∧ (3) }
                 </para>
                 <para>Hatása:
@@ -672,14 +742,15 @@
                         </listitem>
                         <listitem>
                             <para>Az adu színű ALSÓ a hívó játékos kezében van:
-                                ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript> = Játékos(x) ∧
-                                j = 1 ∧ i = a)
+                                ∃<subscript>i</subscript>∃<subscript>j</subscript>( s<subscript>i,j</subscript>
+                                = Játékos(x) ∧  j = 1 ∧ i = a)
                             </para>
                         </listitem>
                     </orderedlist>
                 </para>
                 <para>dom(Aducsere) = { (s, a, c, x) ∈ All |
-                    (1) ∧ (2) ∧ (3) }</para>
+                    (1) ∧ (2) ∧ (3) }
+                </para>
                 <para>Hatása:
                     <itemizedlist>
                         <listitem>
@@ -695,12 +766,13 @@
                             <para>s' =
                                 <itemizedlist>
                                     <listitem>
-                                        <para>s'<subscript>k,l</subscript> = Játékos(x), ha s<subscript>k,l</subscript> = 3
+                                        <para>s'<subscript>k,l</subscript> = Játékos(x),
+                                            ha s<subscript>k,l</subscript> = 3
                                         </para>
                                     </listitem>
                                     <listitem>
-                                        <para>s'<subscript>k,l</subscript> = 3, ha s<subscript>k,l</subscript> = Játékos(x) ∧
-                                            l = 1 ∧ k = a
+                                        <para>s'<subscript>k,l</subscript> = 3, ha
+                                            s<subscript>k,l</subscript> = Játékos(x) ∧ l = 1 ∧ k = a
                                         </para>
                                     </listitem>
                                     <listitem>
@@ -716,8 +788,8 @@
             <listitem>
                 <para>Lapot üt: Üt</para>
                 <para>Alkalmazási előfeltétel: dom(Üt) = { (s, a, c, x) ∈ All |
-                    |{s<subscript>i,j</subscript> ∈ S | s<subscript>i,j</subscript> = 4 ∨
-                    s<subscript>i,j</subscript> = 5}| = 2 }
+                    |{s<subscript>i,j</subscript> ∈ S | s<subscript>i,j</subscript> = 4 ∨ s<subscript>i,j</subscript>
+                    = 5}| = 2 }
                 </para>
                 <para>Hatása:
                     <itemizedlist>
@@ -731,10 +803,8 @@
                                         <para>
                                             c' ∈ {A, B} ∧ c' ≠ c, ha
                                             ∃<subscript>i</subscript>∃<subscript>j</subscript>(
-                                            s<subscript>i,j</subscript>
-                                            = 5 ∧ ∃<subscript>k</subscript>∃<subscript>l</subscript>(
-                                            s<subscript>k,l</subscript> = 4 ∧ (( i = k ⊃ j > l ) ∨ ( i = a ∧
-                                            k ≠ a ))
+                                            s<subscript>i,j</subscript> = 5 ∧ ∃<subscript>k</subscript>∃<subscript>l</subscript>(
+                                            s<subscript>k,l</subscript> = 4 ∧ (( i = k ⊃ j > l ) ∨ ( i = a ∧ k ≠ a ))
                                         </para>
                                     </listitem>
                                     <listitem>
@@ -744,8 +814,8 @@
                             </para>
                         </listitem>
                         <listitem>
-                            <para>x' = (x<subscript>1</subscript> + Értek({s<subscript>i,j</subscript>
-                                ∈ S | s<subscript>i,j</subscript> = 5}) +
+                            <para>x' = (x<subscript>1</subscript> +
+                                Értek({s<subscript>i,j</subscript> ∈ S | s<subscript>i,j</subscript> = 5}) +
                                 Értek({s<subscript>i,j</subscript> ∈ S | s<subscript>i,j</subscript> = 4}), h, h,
                                 x<subscript>4</subscript>, x<subscript>5</subscript>, x<subscript>6</subscript>)
                             </para>
@@ -754,8 +824,8 @@
                             <para>s' =
                                 <itemizedlist>
                                     <listitem>
-                                        <para>s'<subscript>k,l</subscript> = 6, ha s<subscript>k,l</subscript>
-                                            = 4 ∨ s<subscript>k,l</subscript> = 5
+                                        <para>s'<subscript>k,l</subscript> = 6, ha s<subscript>k,l</subscript> = 4 ∨
+                                            s<subscript>k,l</subscript> = 5
                                         </para>
                                     </listitem>
                                     <listitem>
@@ -769,7 +839,8 @@
                 </para>
             </listitem>
             <listitem>
-                <para>Elég bemondása: Mond<subscript>Elég</subscript>
+                <para>Elég bemondása: Mond
+                    <subscript>Elég</subscript>
                 </para>
                 <para>Alkalmazási előfeltétel: dom(Mond<subscript>Elég</subscript>) = { (s, a, c, x) ∈ All |
                     c = x ∧ x<subscript>1</subscript> ≥ 66}

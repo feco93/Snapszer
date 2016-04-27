@@ -4,6 +4,10 @@
         xmlns="http://docbook.org/ns/docbook" version="5.1" xml:lang="hu"
         xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Játékszabályok</title>
+    <para>A szabályok a következő forrásokból származnak: <citation>Játékszabály, Snapszer szövetség</citation>,
+    <citation>Játékszabály, Wikipédia</citation>. A két forrás alapján lettek összeállítva a szabályok, mivel egyik sem
+        volt teljes és voltak eltérések a két szabályrendszer között.
+    </para>
 
     <sect1>
         <title>Alapfogalmak</title>

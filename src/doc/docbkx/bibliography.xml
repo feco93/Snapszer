@@ -6,6 +6,30 @@
 >
     <title>Irodalomjegyzék</title>
 
+    <biblioentry xml:id="bib.snapszer_rule">
+        <abbrev xml:id="bib.snapszer_rule.abbrev">Játékszabály, Snapszer szövetség</abbrev>
+        <title>
+            <link xlink:href="http://www.snapszer.hu/jatekszabalyok/kettes-snapszer/">
+                Kettes snapszer játékszabályok
+            </link>
+        </title>
+        <author>
+            <orgname>Magyar Snapszer Szövetség</orgname>
+        </author>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.snapszer_rule_wiki">
+        <abbrev xml:id="bib.snapszer_rule_wiki.abbrev">Játékszabály, Wikipédia</abbrev>
+        <title>
+            <link xlink:href="http://www.snapszer.hu/jatekszabalyok/kettes-snapszer/">
+                Snapszer játékszabályok
+            </link>
+        </title>
+        <author>
+            <orgname>Wikipédia</orgname>
+        </author>
+    </biblioentry>
+
     <biblioentry xml:id="bib.javafx">
         <abbrev xml:id="bib.javafx.abbrev">JavaFX</abbrev>
         <editor>
@@ -18,28 +42,6 @@
         </title>
         <publishername>Oracle</publishername>
         <pubdate>March, 2014</pubdate>
-    </biblioentry>
-
-    <biblioentry xml:id="bib.docbook">
-        <abbrev xml:id="bib.docbook.abbrev">Docbook</abbrev>
-        <title>
-            <link xlink:href="http://www.sagehill.net/docbookxsl/">
-                DocBook XSL: The Complete Guide
-            </link>
-        </title>
-        <publishername>Sagehill Enterprises</publishername>
-        <pubdate>September, 2007</pubdate>
-    </biblioentry>
-
-    <biblioentry xml:id="bib.mockito">
-        <abbrev xml:id="bib.mockito.abbrev">Mockito</abbrev>
-        <title>
-            <link xlink:href="http://www.vogella.com/tutorials/Mockito/article.html">
-                Testing with Mockito
-            </link>
-        </title>
-        <publishername>Lars Vogel</publishername>
-        <pubdate>June, 2015</pubdate>
     </biblioentry>
 
     <biblioentry xml:id="bib.artificial_intelligence">
@@ -66,28 +68,91 @@
         </author>
     </biblioentry>
 
-    <biblioentry xml:id="bib.snapszer_rule">
-        <abbrev xml:id="bib.snapszer_rule.abbrev">MI</abbrev>
-        <title>
-            <link xlink:href="http://www.snapszer.hu/jatekszabalyok/kettes-snapszer/">
-                Kettes snapszer játékszabályok
-            </link>
-        </title>
-        <author>
-            <orgname>Magyar Snapszer Szövetség</orgname>
-        </author>
+
+
+    <biblioentry xml:id="bib.teszteles">
+        <abbrev xml:id="bib.teszteles.abbrev">Szoftvertesztelés</abbrev>
+        <authorgroup>
+            <author>
+                <personname>Ficsor Lajos</personname>
+            </author>
+            <author>
+                <personname>Kovács László</personname>
+            </author>
+            <author>
+                <personname>Krizsán Zoltán</personname>
+            </author>
+            <author>
+                <personname>Kusper Gábor</personname>
+            </author>
+        </authorgroup>
+        <title>Szoftvertesztelés</title>
+        <publishername>Kelet-Magyarországi Informatika Tananyag Tárház</publishername>
     </biblioentry>
 
-    <biblioentry xml:id="bib.snapszer_rule_wiki">
-        <abbrev xml:id="bib.snapszer_rule_wiki.abbrev">MI</abbrev>
+    <biblioentry xml:id="bib.teszteles_gyakorlatban">
+        <abbrev xml:id="bib.teszteles_gyakorlatban.abbrev">Szoftvertesztelés</abbrev>
+        <authorgroup>
+            <author>
+                <personname>Boda Béla</personname>
+            </author>
+            <author>
+                <personname>Bodrogközi László</personname>
+            </author>
+            <author>
+                <personname>Gál Zoltán</personname>
+            </author>
+            <author>
+                <personname>Illés Péter</personname>
+            </author>
+        </authorgroup>
+        <title>Szoftvertesztelés a gyakorlatban</title>
+        <pubdate>2014</pubdate>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.mockito">
+        <abbrev xml:id="bib.mockito.abbrev">Mockito</abbrev>
         <title>
-            <link xlink:href="http://www.snapszer.hu/jatekszabalyok/kettes-snapszer/">
-                Snapszer játékszabályok
+            <link xlink:href="http://www.vogella.com/tutorials/Mockito/article.html">
+                Testing with Mockito
             </link>
         </title>
+        <publishername>Lars Vogel</publishername>
+        <pubdate>June, 2015</pubdate>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.docbookxsl">
+        <abbrev xml:id="bib.docbookxsl.abbrev">Docbook XSL</abbrev>
         <author>
-            <orgname>Wikipédia</orgname>
+            <personname>Bob Stayton</personname>
         </author>
+        <title>DocBook Xsl: The Complete Guide</title>
+        <edition>4th edition</edition>
+        <citebiblioid class="isbn">978-0974152134</citebiblioid>
+        <publishername>Sagehill Enterprises</publishername>
+        <pubdate>September, 2007</pubdate>
+    </biblioentry>
+
+    <biblioentry xml:id="bib.docbook">
+        <abbrev xml:id="bib.docbook.abbrev">Docbook 5.1</abbrev>
+        <author>
+            <personname>Norman Walsh</personname>
+        </author>
+        <editor>
+            <personname>Richard L. Hamilton</personname>
+        </editor>
+        <copyright>
+            <year>2010</year>
+            <year>2011</year>
+            <year>2012</year>
+            <year>2013</year>
+            <year>2014</year>
+            <holder>Norman Walsh</holder>
+        </copyright>
+        <title>DocBook 5.1: The Definitive Guide</title>
+        <citebiblioid class="isbn">978-0596805029</citebiblioid>
+        <publishername>O'REILLY</publishername>
+        <pubdate>16 July, 2014</pubdate>
     </biblioentry>
 
 
