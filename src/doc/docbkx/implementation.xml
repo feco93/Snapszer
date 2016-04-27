@@ -221,7 +221,7 @@ protected List<HungarianCard> higherCards(HungarianCard card) {
     <sect1>
         <title>Stratégiák összehasonlítása</title>
         <para>
-            A játék biztosít egy olyan játékmódot, ahol egymás ellen játszhatnak a számítógép játékosok. Ebben a
+            A program biztosít egy olyan játékmódot, ahol egymás ellen játszhatnak a számítógép játékosok. Ebben a
             játékmódban grafikus megjelenítés nélkül zajlanak a játszmák. Az eredményről, illetve a játék folyamatáról
             egy log állomány keletkezik. Ezen állomány többek között az alábbi információkat tartalmazza:
         </para>
@@ -307,5 +307,11 @@ protected List<HungarianCard> higherCards(HungarianCard card) {
                 </tbody>
             </tgroup>
         </table>
+
+        <para>A statisztika egy kivételtől eltekintve a várakozásnak megfelelő eredményeket szolgáltatja. Az Advanced
+            computer stratégia, ha nem is sokkal, de sikeresebben játszott a Beginner computer ellen, mint az erősebb
+            stratégiának vélt Expert computer. Ebből a nem várt furcsa eredményből is az látszik, hogy milyen nagy
+            szerepe van a véletlennek a játék során.
+        </para>
     </sect1>
 </chapter>

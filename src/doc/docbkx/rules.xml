@@ -148,10 +148,10 @@
         </para>
         <para>
             Az ütést elérő játékosé a továbbiakban a hívás joga. Az ütés után lapot húz mindkét játékos,
-            először a hívó játékos, majd ellenfele. A játszma addig tart, míg az egyik játékos el nem éri a 66 pontot
-            és jogosult annak bemondására vagy elfogyott a talon. Ha a 66 pontot elérő játékos a hívó játékos, akkor az
-            "elég" bemondásával fejezheti be a játszmát, és ekkor ő nyeri a játszmát. Ha elfogyott a talon, akkor az
-            utolsó ütést megszerző játékos nyeri a játszmát.
+            először az ütést megszerző játékos, majd ellenfele. A játszma 66 pont megszerzéséig és annak bemondásáig
+            vagy az utolsó ütésig tart. Ha a 66 pontot elérő játékos a hívó játékos, akkor az "elég" bemondásával
+            fejezheti be a játszmát, és ekkor ő nyeri a játszmát. Ha egyik játékos sem mondta a játszma során, hogy
+            "elég", akkor az utolsó ütést megszerző játékos nyeri a játszmát.
         </para>
     </sect1>
 

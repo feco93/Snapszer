@@ -37,7 +37,7 @@
                 <para>Refactor: optimalizáld, szervezd át úgy a kódot, hogy a teszten továbbra is átmenjen.</para>
             </listitem>
         </itemizedlist>
-        <para>Ezeket a lépéseket ismételd addig, míg nem teljesül minden funkcionális is nem funkcionális követelmény.</para>
+        <para>Ezeket a lépéseket ismételd addig, míg nem teljesül minden funkcionális és nem funkcionális követelmény.</para>
         <para>
             <emphasis role="bold">Az egységtesztek legfőbb jellemzői:</emphasis>
         </para>

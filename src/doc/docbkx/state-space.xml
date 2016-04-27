@@ -207,7 +207,7 @@
             </listitem>
             <listitem>
                 <para>a: az adu szín, ∀<subscript>i</subscript>∀<subscript>j</subscript>(
-                    s<subscript>ij</subscript> = 3 ⊃ a = i )
+                    s<subscript>ij</subscript> = 3 ⊃ a = i ) - az adu szín megegyezik az adu lap színével
                 </para>
             </listitem>
             <listitem>
@@ -480,8 +480,8 @@
                 <orderedlist>
                     <listitem>
                         <para>Nincs hívott lap az asztalon:
-                            ¬∃<subscript>k</subscript>¬∃<subscript>l</subscript>( s<subscript>k,l</subscript>
-                            = 4 ∨ s<subscript>k,l</subscript> = 5 )
+                            ∀<subscript>k</subscript>∀<subscript>l</subscript>( s<subscript>k,l</subscript>
+                            ≠ 4 ∧ s<subscript>k,l</subscript> ≠ 5 )
                         </para>
                     </listitem>
                     <listitem>

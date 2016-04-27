@@ -233,9 +233,8 @@ cardMesh.getFaces().setAll(faces);]]></programlisting>
                 <para>
                     A tömbben elhelyezkedő adatok értelmezése a következő:
                     <literallayout>p<subscript>0</subscript>, t<subscript>0</subscript>, p<subscript>1</subscript>, t<subscript>1</subscript>, p<subscript>2</subscript>, t<subscript>2</subscript>, // a textúrával ellátott sokszög első háromszöge
-                        p<subscript>1</subscript>, t<subscript>1</subscript>, p<subscript>2</subscript>, t<subscript>2</subscript>, p<subscript>3</subscript>, t<subscript>3</subscript> // a textúrával ellátott sokszög második háromszöge
-                        ...
-                    </literallayout>
+p<subscript>1</subscript>, t<subscript>1</subscript>, p<subscript>2</subscript>, t<subscript>2</subscript>, p<subscript>3</subscript>, t<subscript>3</subscript> // a textúrával ellátott sokszög második háromszöge
+...</literallayout>
                     Ahol p<subscript>0</subscript> a háromszög egyik pontja, t<subscript>0</subscript>
                     a p<subscript>0</subscript> ponthoz tartozó textúra koordináta. p<subscript>0</subscript> a points
                     tömb egy indexének a segítségével címezi meg a reprezentált pontot, ugyanígy a
