@@ -111,18 +111,19 @@
         </para>
         <para>
             <emphasis role="bold">Snapszer:</emphasis><?linebreak?>
-            A játszma első körében mindkét játékosnak lehetősége van snapszert mondani. Ekkor a bemondó játékos
-            vállalja, hogy úgy éri el a 66 pontot, hogy az ellenfélnek nincs egy ütése sem.
+            A játszma első körében mindkét játékosnak lehetősége van snapszert mondani. Snapszert abban az esetben lehet
+            bemondani, ha még egyik játékos sem takart és mondott snapszert. Ekkor a bemondó játékos vállalja, hogy úgy
+            éri el a 66 pontot, hogy az ellenfélnek nincs egy ütése sem.
         </para>
         <para>
             <emphasis role="bold">Takarás:</emphasis><?linebreak?>
-            A hívó játékos hívás előtt takarhat, ha a talonban még legalább 4 lap található.
-            Ekkor az adu lapot a talonra helyezik és nincs lehetőség további húzásra és az adu lap cseréjére sem.
+            A hívó játékos hívás előtt takarhat, ha a talonban még legalább 4 lap található és nem takart egyik játékos
+            sem. Ekkor az adu lapot a talonra helyezik és nincs lehetőség további húzásra és az adu lap cseréjére sem.
         </para>
         <para>
             <emphasis role="bold">Adu cseréje:</emphasis><?linebreak?>
             A hívó játékosnak lehetősége van kicserélni az adu lapot, ha a kezében található az adu alsó kártya és még
-            legalább 4 lap található a talonban.
+            legalább 4 lap található a talonban és nem takart egyik játékos sem.
         </para>
     </sect1>
 

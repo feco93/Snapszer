@@ -6,7 +6,7 @@
 
     <xsl:template name="book.titlepage.recto">
         <fo:block-container>
-            <fo:block font-size="16pt" text-align="center">
+            <fo:block font-size="18pt" text-align="center">
                 <xsl:value-of select="d:title"/>
             </fo:block>
         </fo:block-container>

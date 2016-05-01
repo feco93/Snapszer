@@ -206,7 +206,7 @@ cardMesh.getTexCoords().setAll(texCoords);]]></programlisting>
                 </para>
                 <para>Ez a felosztás lehetővé teszi, hogy az elő és hátlap képet egymás mellé illesztve rá tudjuk
                     illeszteni a hasáb felületére. Természetesen a képek összeillesztése dinamikusan történik, a
-                    hátlap és az elő lapok egy-egy fájlban vannak eltárolva és csak futási időben alkotnak egy kép
+                    hátlap és az előlapok egy-egy fájlban vannak eltárolva és csak futási időben alkotnak egy kép
                     objektumot. A két kép összeillesztéséhez kiváló lehetőségeket nyújtanak a JavaFX osztályai,
                     ilyen osztály például a WritableImage, PixelWriter, PixelReader. A megvalósítás a
                     HungarianCardView osztály initMaterial metódusában található.
@@ -306,7 +306,7 @@ Node mainMenu = loader.getRoot();]]></programlisting>
 
     <sect1>
         <title>Játékmenet</title>
-        <para>A játékmenüben a Play game nyomógombra kattintva elindul egy játszma. A szabályoknak megfelelően 5-5 lap
+        <para>A játékmenüben a Play game nyomógombra kattintva elindul egy játék. A szabályoknak megfelelően 5-5 lap
             kerül kiosztásra a játékosoknak és egy lap a pakli aljára kerül felfordítva (adu lap). A játék automatikusan
             kezdetét veszi. A kártyalapra kattintva az adott lap kijátszásra kerül, ha a szabályok ezt megengedik. A
             képernyő jobb oldalán nyomógombok lettek elhelyezve, melyek segítségével a megfelelő játékállásban

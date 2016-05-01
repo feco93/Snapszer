@@ -57,7 +57,7 @@
     </biblioentry>
 
     <biblioentry xml:id="bib.mi">
-        <abbrev xml:id="bib.mi.abbrev">MI</abbrev>
+        <abbrev xml:id="bib.mi.abbrev">Mesterséges intelligencia</abbrev>
         <title>
             <link xlink:href="http://www.inf.unideb.hu/~varteres/mi/tartalom.htm">
                 Mesterséges intelligencia
@@ -66,6 +66,20 @@
         <author>
             <personname>Dr. Várterész Magdolna</personname>
         </author>
+    </biblioentry>
+
+    <biblioentry>
+        <abbrev xml:id="bib.mi2.abbrev">Mesterséges intelligencia</abbrev>
+        <title>Mesterséges intelligencia</title>
+        <authorgroup>
+            <author>
+                <personname>Dr. Kovásznai Gergely</personname>
+            </author>
+            <author>
+                <personname>Dr. Kusper Gábor</personname>
+            </author>
+        </authorgroup>
+        <pubdate>2011</pubdate>
     </biblioentry>
 
 

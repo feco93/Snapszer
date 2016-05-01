@@ -6,13 +6,13 @@
         version="5.1" xml:lang="hu"
 >
     <title>Összefoglalás</title>
-    <para>A játék teljes mértékben teljesíti a
+    <para>A program teljes mértékben teljesíti a
         <link xlink:href="#rules">Játékszabályok</link>
         fejezetben ismertetett játékszabályokat. A program lehetőséget ad,
         hogy grafikus felületen tudjunk játszani egy számítógép játékos ellen, ahol a valósághoz hasonló 3D-s látvány
         tárul elénk, melynek élményét az animációk tovább fokozzák. Ezen kívül a program segítségével össze tudunk vetni
         különböző stratégiával rendelkező mesterséges intelligenciákat. A szoftver tartalmaz néhány számítógép játékos
-        megvalósítást, melyek ellen mi magunk is játszhatunk. Ezen játékosok megvalósításánál nem a bonyolúltság volt a
+        megvalósítást, melyek ellen mi magunk is játszhatunk. Ezen játékosok megvalósításánál nem a bonyolultság volt a
         cél, hanem, hogy több megközelítést is össze tudjunk vetni, akár nagyszámú játszmák esetén is. A szoftver
         lehetőséget ad arra, hogy ezeket a megvalósításokat továbbfejlesszük, vagy akár egy teljesen új stratégiával
         rendelkező számítógép játékost hozzunk létre.
@@ -25,7 +25,7 @@
         <link xlink:href="#tests">Teszt</link>
         fejezetben.
     </para>
-    <para>Egy programot sosem lehet befejezettnek tekinteni. A játék program nagyon sok továbbfejlesztési lehetőséget
+    <para>Egy programot sosem lehet befejezettnek tekinteni. A játékprogram nagyon sok továbbfejlesztési lehetőséget
         rejt magában modularitásának köszönhetően.
     </para>
     <para>
@@ -33,19 +33,19 @@
     </para>
     <itemizedlist>
         <listitem>
-            <para>A játék könnyen továbbfejleszthető, hogy a Snapszer játékon felül Zsírozás játékot is tudjunk
+            <para>A program könnyen továbbfejleszthető, hogy a Snapszer játékon felül Zsírozás játékot is tudjunk
                 játszani. Ebben az esetben sok osztály újrafelhasználható, többek között a paklit, kártyalapokat
                 megvalósító, az absztrakt ős operátor osztály.
             </para>
         </listitem>
         <listitem>
-            <para>A játék tovább bővíthető, hogy ne csak kétszemélyes Snapszer játék legyen játszható, hanem a
+            <para>A játékprogram tovább bővíthető, hogy ne csak kétszemélyes Snapszer játék legyen játszható, hanem a
                 négyszemélyes verziója is.
             </para>
         </listitem>
         <listitem>
-            <para>Egy jó továbbfejlesztési irányvonal lehet, ha lehetőséget nyújtunk olyan játékmódra, ahol két játékos
-                játszhat egymás ellen, hálózaton keresztül.
+            <para>Egy jó továbbfejlesztési irányvonal lehet, ha lehetőséget nyújtunk olyan játékmódra is, ahol két
+                játékos játszhat egymás ellen, hálózaton keresztül.
             </para>
         </listitem>
         <listitem>
