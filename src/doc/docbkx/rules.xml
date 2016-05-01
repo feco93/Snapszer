@@ -117,8 +117,9 @@
         </para>
         <para>
             <emphasis role="bold">Takarás:</emphasis><?linebreak?>
-            A hívó játékos hívás előtt takarhat, ha a talonban még legalább 4 lap található és nem takart egyik játékos
-            sem. Ekkor az adu lapot a talonra helyezik és nincs lehetőség további húzásra és az adu lap cseréjére sem.
+            A hívó játékos hívás előtt takarhat, ha a talonban még legalább 4 lap található és egyik játékos sem takart
+            és mondott snapszert. Ekkor az adu lapot a talonra helyezik és nincs lehetőség további húzásra és az adu lap
+            cseréjére sem.
         </para>
         <para>
             <emphasis role="bold">Adu cseréje:</emphasis><?linebreak?>
